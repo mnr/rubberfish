@@ -27,7 +27,7 @@ class BmBB:
         # signal.signal(signal.SIGTSTP,self.killFish)
         os.system('amixer cset numid=3 90%')
 
-    def killFish(self,sigNum,stackFrame):
+    def kill_fish(self,sigNum,stackFrame):
         for limb in self.limbs:
             GPIO.output(self.limbs[limb],GPIO.LOW)
         GPIO.cleanup() #resets the GPIO state to neutral
@@ -46,22 +46,22 @@ class BmBB:
         else:
             print("unknown limb")
 
-    def mouthOpen(self):
+    def mouth_open(self):
         GPIO.output(self.limbs["mouth"],GPIO.HIGH)
 
-    def mouthClose(self):
+    def mouth_close(self):
         GPIO.output(self.limbs["mouth"],GPIO.LOW)
 
-    def headUp(self):
+    def head_up(self):
         GPIO.output(self.limbs["head"],GPIO.HIGH)
 
-    def headBack(self):
+    def head_back(self):
         GPIO.output(self.limbs["head"],GPIO.LOW)
 
-    def tailUp(self):
+    def tail_up(self):
         GPIO.output(self.limbs["tail"],GPIO.HIGH)
 
-    def tailBack(self):
+    def tail_back(self):
         GPIO.output(self.limbs["tail"],GPIO.LOW)
 
     def speak(self,sayThis):

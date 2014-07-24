@@ -2,6 +2,7 @@ import RPi.GPIO as GPIO
 import sys
 import signal
 import os
+import threading
 import urllib
 from urllib.parse import quote_plus
 from urllib.request import urlretrieve
@@ -30,6 +31,16 @@ class BmBB:
     def kill_fish(self):
         GPIO.cleanup() #resets the GPIO state to neutral
 
+    def pbutton(self,callback_function):
+        #threading
+        #callback_function()
+        pass
+    
+    def optical_sensor(self,callback_function):
+        #threading
+        #callback_function()
+        pass
+    
     def mouth_open(self):
         GPIO.output(MOUTH,GPIO.HIGH)
 

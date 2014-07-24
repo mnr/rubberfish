@@ -10,16 +10,16 @@ from urllib.request import urlretrieve
 class BmBB:
     """ interface with the controls and motors of the big mouth billy bass """
     limbs = {
-        'mouth':16,
-        'tail':18,
-        'head':22
+        'MOUTH':16,
+        'TAIL':18,
+        'HEAD':22
         }
     
     def __init__(self):
         GPIO.setmode(GPIO.BOARD) #use P1 header pin numbering convention
-        GPIO.setup(self.limbs['mouth'], GPIO.OUT) # fish mouth
-        GPIO.setup(self.limbs['tail'], GPIO.OUT) # fish tail
-        GPIO.setup(self.limbs['head'], GPIO.OUT) # fish head
+        GPIO.setup(self.limbs['MOUTH'], GPIO.OUT) # fish mouth
+        GPIO.setup(self.limbs['TAIL'], GPIO.OUT) # fish tail
+        GPIO.setup(self.limbs['HEAD'], GPIO.OUT) # fish head
         GPIO.setup(15, GPIO.IN)  # fish pushbutton
         GPIO.setup(11, GPIO.IN)  # fish optical sensor
         # signal.signal(signal.SIGTERM,self.killFish)
@@ -47,27 +47,27 @@ class BmBB:
             print("unknown limb")
 
     def mouth_open(self):
-        GPIO.output(self.limbs["mouth"],GPIO.HIGH)
+        GPIO.output(self.limbs["MOUTH"],GPIO.HIGH)
 
     def mouth_close(self):
-        GPIO.output(self.limbs["mouth"],GPIO.LOW)
+        GPIO.output(self.limbs["MOUTH"],GPIO.LOW)
 
     def head_up(self):
-        GPIO.output(self.limbs["head"],GPIO.HIGH)
+        GPIO.output(self.limbs["HEAD"],GPIO.HIGH)
 
     def head_back(self):
-        GPIO.output(self.limbs["head"],GPIO.LOW)
+        GPIO.output(self.limbs["HEAD"],GPIO.LOW)
 
     def tail_up(self):
-        GPIO.output(self.limbs["tail"],GPIO.HIGH)
+        GPIO.output(self.limbs["TAIL"],GPIO.HIGH)
 
     def tail_back(self):
-        GPIO.output(self.limbs["tail"],GPIO.LOW)
+        GPIO.output(self.limbs["TAIL"],GPIO.LOW)
 
-    def speak(self,sayThis):
-        safeSayThisURL = "http://translate.google.com/translate_tts?tl=en&q=" + quote_plus(sayThis)
-        print (safeSayThisURL)
-        a,b = urlretrieve(safeSayThisURL,'sayThis.wav')
+    def speak(self,say_this):
+        safe_say_this_URL = "http://translate.google.com/translate_tts?tl=en&q=" + quote_plus(say_this)
+        print (safe_say_this_URL)
+        a,b = urlretrieve(safe_say_this_URL,'sayThis.wav')
         os.system('aplay sayThis.wav')
         #os.system('aplay Front_Center.wav')
     

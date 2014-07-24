@@ -3,22 +3,22 @@ from time import sleep
 from bmbb_fish import BmBB
 
 
-myFish = BmBB()
+my_fish = BmBB()
 
 
 while True:
-    myFish.tailUp()
+    my_fish.tail_up()
     sleep(.5)
-    myFish.tailBack()
+    my_fish.tail_back()
     sleep(.5)
-    myFish.speak("hello, Dave")
+    my_fish.speak("hello, Dave")
     sleep(.5)
-    myFish.headUp()
+    my_fish.head_up()
     sleep(.5)
-    myFish.headBack()
+    my_fish.head_back()
     sleep(.5)
-    myFish.mouthOpen()
+    my_fish.mouth_open()
     sleep(.5)
-    myFish.mouthClose()
+    my_fish.mouth_close()
     sleep(.5)
 

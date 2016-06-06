@@ -1,7 +1,9 @@
+# rpi.gpio documentation at https://sourceforge.net/p/raspberry-gpio-python/wiki/
+
 import RPi.GPIO as GPIO
 import sys
-import signal
 import os
+import signal
 import threading
 import urllib
 from urllib.parse import quote_plus
@@ -10,56 +12,56 @@ from urllib.request import urlretrieve
 
 class BmBB:
     """ interface with the controls and motors of the big mouth billy bass """
-    MOUTH = 16
-    TAIL = 18
-    HEAD = 22
-    PUSH_BUTTON = 15
-    OPTICAL_SENSOR = 11
+
+    fishMOUTH = 13
+    fishTAIL = 11
+    fishHEAD = 7
+    fishHEAD_reverse = 15
+    fishMotorEnable = 18
 
     verbose = False #print debugging?
-    
+
     def __init__(self):
         GPIO.setmode(GPIO.BOARD) #use P1 header pin numbering convention
-        GPIO.setup(MOUTH, GPIO.OUT) # fish mouth
-        GPIO.setup(TAIL, GPIO.OUT) # fish tail
-        GPIO.setup(HEAD, GPIO.OUT) # fish head
-        GPIO.setup(PUSH_BUTTON, GPIO.IN)  # fish pushbutton
-        GPIO.setup(OPTICAL_SENSOR, GPIO.IN)  # fish optical sensor
+
+        GPIO.setup(self.fishMOUTH, GPIO.OUT, initial=GPIO.LOW) # fish mouth
+        GPIO.setup(self.fishTAIL, GPIO.OUT, initial=GPIO.LOW) # fish tail
+        GPIO.setup(self.fishHEAD, GPIO.OUT, initial=GPIO.LOW) # fish head
+
+        """
+        GPIO.setup(fishMotorEnable,GPIO.OUT) # Eventually set this to PWM, but this is easy for now
+        GPIO.output(fishMotorEnable,GPIO.HIGH)
+        """
+        enable_pwm_pin = GPIO.PWM(self.fishMotorEnable, frequency)
+
+        # do something to indicate life
+        self.mouth()
+
         # signal.signal(signal.SIGTERM,self.killFish)
         # signal.signal(signal.SIGINT,self.killFish)
         # signal.signal(signal.SIGTSTP,self.killFish)
-        os.system('amixer cset numid=3 90%')
 
-    def kill_fish(self):
-        GPIO.cleanup() #resets the GPIO state to neutral
+    def shut_down_fish(self):
+        GPIO.output(self.fishMOUTH,GPIO.LOW)
+        GPIO.output(self.fishTAIL,GPIO.LOW)
+        GPIO.output(self.fishHEAD,GPIO.LOW)
+        GPIO.output(self.fishMotorEnable,GPIO.LOW)
+        # GPIO.cleanup() #resets the GPIO state to neutral
 
-    def pbutton(self,callback_function):
-        #threading
-        #callback_function()
-        pass
-    
-    def optical_sensor(self,callback_function):
-        #threading
-        #callback_function()
-        pass
-    
-    def mouth_open(self):
-        GPIO.output(MOUTH,GPIO.HIGH)
+    def mouth(self,fishDuration=0):
+        GPIO.output(self.fishMOUTH,GPIO.HIGH)
+        sleep(fishDuration)
+        GPIO.output(self.fishMOUTH,GPIO.LOW)
 
-    def mouth_close(self):
-        GPIO.output(MOUTH,GPIO.LOW)
+    def head(self,duration=0):
+        GPIO.output(self.fishHEAD,GPIO.HIGH)
+        sleep(fishDuration)
+        GPIO.output(self.fishHEAD,GPIO.LOW)
 
-    def head_up(self):
-        GPIO.output(HEAD,GPIO.HIGH)
-
-    def head_back(self):
-        GPIO.output(HEAD,GPIO.LOW)
-
-    def tail_up(self):
-        GPIO.output(TAIL,GPIO.HIGH)
-
-    def tail_back(self):
-        GPIO.output(TAIL,GPIO.LOW)
+    def tail(self,duration=0):
+        GPIO.output(self.fishTAIL,GPIO.HIGH)
+        sleep(fishDuration)
+        GPIO.output(self.fishTAIL,GPIO.LOW)
 
     def speak(self,say_this):
         for word in say_this.split():

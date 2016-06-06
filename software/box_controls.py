@@ -25,4 +25,4 @@ class boxControls(object):
         return GPIO.input(self.boxVENT)
 
     def get_boxLIGHT_STATE(self):
-        return GPIO.input(self.boxLight)
+        return GPIO.input(self.boxLIGHT)

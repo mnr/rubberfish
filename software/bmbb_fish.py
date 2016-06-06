@@ -32,7 +32,8 @@ class BmBB:
         GPIO.setup(fishMotorEnable,GPIO.OUT) # Eventually set this to PWM, but this is easy for now
         GPIO.output(fishMotorEnable,GPIO.HIGH)
         """
-        enable_pwm_pin = GPIO.PWM(self.fishMotorEnable, frequency)
+        enable_pwm_pin = GPIO.PWM(self.fishMotorEnable, 50)
+        enable_pwm_pin.start(0)
 
         # do something to indicate life
         self.mouth()

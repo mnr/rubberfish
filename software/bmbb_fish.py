@@ -3,8 +3,6 @@
 import RPi.GPIO as GPIO
 import sys
 import os
-import signal
-import threading
 import urllib
 from urllib.parse import quote_plus
 from urllib.request import urlretrieve
@@ -13,6 +11,7 @@ from urllib.request import urlretrieve
 class BmBB:
     """ interface with the controls and motors of the big mouth billy bass """
 
+    # assign names to the GPIO pins. A complete list is in the documentation
     fishMOUTH = 13
     fishTAIL = 11
     fishHEAD = 7
@@ -24,30 +23,22 @@ class BmBB:
     def __init__(self):
         GPIO.setmode(GPIO.BOARD) #use P1 header pin numbering convention
 
-        GPIO.setup(self.fishMOUTH, GPIO.OUT, initial=GPIO.LOW) # fish mouth
-        GPIO.setup(self.fishTAIL, GPIO.OUT, initial=GPIO.LOW) # fish tail
-        GPIO.setup(self.fishHEAD, GPIO.OUT, initial=GPIO.LOW) # fish head
+        GPIO.cleanup() #make sure the fish is in a known state
 
-        """
-        GPIO.setup(fishMotorEnable,GPIO.OUT) # Eventually set this to PWM, but this is easy for now
-        GPIO.output(fishMotorEnable,GPIO.HIGH)
-        """
+        # set up gpio pins for fish
+        GPIO.setup(self.fishMOUTH, GPIO.OUT, initial=GPIO.LOW)
+        GPIO.setup(self.fishTAIL, GPIO.OUT, initial=GPIO.LOW)
+        GPIO.setup(self.fishHEAD, GPIO.OUT, initial=GPIO.LOW)
+
+        # set up PWM for the enable pin on the motor driver
         enable_pwm_pin = GPIO.PWM(self.fishMotorEnable, 50)
         enable_pwm_pin.start(0)
 
         # do something to indicate life
         self.mouth()
 
-        # signal.signal(signal.SIGTERM,self.killFish)
-        # signal.signal(signal.SIGINT,self.killFish)
-        # signal.signal(signal.SIGTSTP,self.killFish)
-
     def shut_down_fish(self):
-        GPIO.output(self.fishMOUTH,GPIO.LOW)
-        GPIO.output(self.fishTAIL,GPIO.LOW)
-        GPIO.output(self.fishHEAD,GPIO.LOW)
-        GPIO.output(self.fishMotorEnable,GPIO.LOW)
-        # GPIO.cleanup() #resets the GPIO state to neutral
+        GPIO.cleanup() #resets the GPIO state to neutral
 
     def mouth(self,fishDuration=0):
         GPIO.output(self.fishMOUTH,GPIO.HIGH)
@@ -64,31 +55,14 @@ class BmBB:
         sleep(fishDuration)
         GPIO.output(self.fishTAIL,GPIO.LOW)
 
+    def adjustPWM(self,PWMpercent):
+        PWMpercent = 100 if PWMpercent > 100 else PWMpercent
+
     def speak(self,say_this):
         for word in say_this.split():
             min_syllables, max_syllables = count_syllables(word)
             # text-to-speech
             # open and close fishmouth
-
-
-        """ using google translate
-        safe_say_this_URL = "http://translate.google.com/translate_tts?tl=en&q=" + quote_plus(say_this)
-        print (safe_say_this_URL)
-        a,b = urlretrieve(safe_say_this_URL,'sayThis.wav')
-        os.system('aplay sayThis.wav')
-        #os.system('aplay Front_Center.wav')
-        """
-
-        """ using pyttsx
-        #install: http://electronut.in/making-the-raspberry-pi-speak/
-        #https://pypi.python.org/pypi/pyttsx
-        #http://pyttsx.readthedocs.org/en/latest/changelog.html
-        #http://93.93.128.176/forums/viewtopic.php?f=32&t=58136
-        #import pyttsx
-        engine = pyttsx.init()
-        engine.say("Hello World!")
-        engine.runAndWait()
-        """
 
     def count_syllables(word):
         # thanks to https://github.com/akkana

@@ -17,6 +17,7 @@ class BmBB:
     fishHEAD = 7
     fishHEAD_reverse = 15
     fishMotorEnable = 18
+    PWMstatus = None #declaring PWMstatus here for later assignment
 
     verbose = False #print debugging?
 
@@ -31,13 +32,14 @@ class BmBB:
         GPIO.setup(self.fishHEAD, GPIO.OUT, initial=GPIO.LOW)
 
         # set up PWM for the enable pin on the motor driver
-        enable_pwm_pin = GPIO.PWM(self.fishMotorEnable, 50)
-        enable_pwm_pin.start(0)
+        self.PWMstatus = GPIO.PWM(self.fishMotorEnable, 50) #frequency 50 hz
+        self.PWMstatus.start(0) #duty cycle of zero. Enabled but silent
 
         # do something to indicate life
         self.mouth()
 
     def shut_down_fish(self):
+        self.PWMstatus.stop() # turn off PWM
         GPIO.cleanup() #resets the GPIO state to neutral
 
     def mouth(self,fishDuration=0):
@@ -55,8 +57,11 @@ class BmBB:
         sleep(fishDuration)
         GPIO.output(self.fishTAIL,GPIO.LOW)
 
-    def adjustPWM(self,PWMpercent):
-        PWMpercent = 100 if PWMpercent > 100 else PWMpercent
+    def adjustPWM(self,PWMDutyCycle):
+        # where 0.0 <= PWMDutyCycle <= 100.0
+        PWMDutyCycle = 100 if PWMDutyCycle > 100 else PWMDutyCycle
+        PWMDutyCycle = 0 if PWMDutyCycle < 0 else PWMDutyCycle
+        PWMstatus.ChangeDutyCycle(PWMDutyCycle)
 
     def speak(self,say_this):
         for word in say_this.split():

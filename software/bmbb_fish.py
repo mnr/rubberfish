@@ -1,12 +1,9 @@
 # rpi.gpio documentation at https://sourceforge.net/p/raspberry-gpio-python/wiki/
 
 import RPi.GPIO as GPIO
-import sys
-import os
 import urllib
 from urllib.parse import quote_plus
 from urllib.request import urlretrieve
-
 
 class BmBB:
     """ interface with the controls and motors of the big mouth billy bass """
@@ -19,12 +16,10 @@ class BmBB:
     fishMotorEnable = 18
     PWMstatus = None #declaring PWMstatus here for later assignment
 
-    verbose = False #print debugging?
-
     def __init__(self):
-        GPIO.setmode(GPIO.BOARD) #use P1 header pin numbering convention
+        self.shut_down_fish() #make sure we are in a known state
 
-        GPIO.cleanup() #make sure the fish is in a known state
+        GPIO.setmode(GPIO.BOARD) #use P1 header pin numbering convention
 
         # set up gpio pins for fish
         GPIO.setup(self.fishMOUTH, GPIO.OUT, initial=GPIO.LOW)
@@ -32,6 +27,7 @@ class BmBB:
         GPIO.setup(self.fishHEAD, GPIO.OUT, initial=GPIO.LOW)
 
         # set up PWM for the enable pin on the motor driver
+        GPIO.setup(self.fishMotorEnable, GPIO.OUT)
         self.PWMstatus = GPIO.PWM(self.fishMotorEnable, 50) #frequency 50 hz
         self.PWMstatus.start(0) #duty cycle of zero. Enabled but silent
 
@@ -42,26 +38,29 @@ class BmBB:
         self.PWMstatus.stop() # turn off PWM
         GPIO.cleanup() #resets the GPIO state to neutral
 
-    def mouth(self,fishDuration=0):
+    def mouth(self,fishDuration=0,enthusiasm=50):
+        self.adjustPWM(enthusiasm)
         GPIO.output(self.fishMOUTH,GPIO.HIGH)
         sleep(fishDuration)
         GPIO.output(self.fishMOUTH,GPIO.LOW)
 
-    def head(self,duration=0):
+    def head(self,duration=0,enthusiasm=50):
+        self.adjustPWM(enthusiasm)
         GPIO.output(self.fishHEAD,GPIO.HIGH)
         sleep(fishDuration)
         GPIO.output(self.fishHEAD,GPIO.LOW)
 
-    def tail(self,duration=0):
+    def tail(self,duration=0,enthusiasm=50):
+        self.adjustPWM(enthusiasm)
         GPIO.output(self.fishTAIL,GPIO.HIGH)
         sleep(fishDuration)
         GPIO.output(self.fishTAIL,GPIO.LOW)
 
-    def adjustPWM(self,PWMDutyCycle):
+    def adjustPWM(self,PWMDutyCycle=50):
         # where 0.0 <= PWMDutyCycle <= 100.0
         PWMDutyCycle = 100 if PWMDutyCycle > 100 else PWMDutyCycle
         PWMDutyCycle = 0 if PWMDutyCycle < 0 else PWMDutyCycle
-        PWMstatus.ChangeDutyCycle(PWMDutyCycle)
+        self.PWMstatus.ChangeDutyCycle(PWMDutyCycle)
 
     def speak(self,say_this):
         for word in say_this.split():
@@ -71,6 +70,8 @@ class BmBB:
 
     def count_syllables(word):
         # thanks to https://github.com/akkana
+        verbose = False #print debugging?
+
         vowels = ['a', 'e', 'i', 'o', 'u']
 
         on_vowel = False

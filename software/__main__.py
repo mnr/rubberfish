@@ -14,7 +14,7 @@ def main(args=None):
 
     try:
         while 1:
-            randomEnthusiasm = (randint(0,9))
+            randomEnthusiasm = (randint(0,100))
             my_fish.tail(enthusiasm=randomEnthusiasm,fishDuration=1)
             sleep(1)
             #my_fish.speak("hello, Dave")

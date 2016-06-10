@@ -7,7 +7,7 @@
 
 import RPi.GPIO as GPIO
 
-class boxControls(object):
+class boxControls:
     """ provides access to controls mounted on the pedestal """
 
     # GPIO pins assigned to the two front-panel switches

@@ -14,15 +14,15 @@ def main(args=None):
         while 1:
             print ("tail")
             my_fish.tail()
-            sleep(.5)
+            sleep(1)
             #my_fish.speak("hello, Dave")
             #sleep(.5)
             print ("head")
             my_fish.head()
-            sleep(.5)
+            sleep(1)
             print ("mouth")
             my_fish.mouth()
-            sleep(.5)
+            sleep(1)
             if GPIO.event_detected(my_box.boxVENT):
                 if my_box.get_boxVent_STATE():
                     print ("VENT has been thrown to the left")

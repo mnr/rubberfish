@@ -69,13 +69,13 @@ class BmBB:
     def head(self,duration=0,enthusiasm=50):
         self.adjustPWM(enthusiasm)
         GPIO.output(self.fishHEAD,GPIO.HIGH)
-        time.sleep(fishDuration)
+        sleep(fishDuration)
         GPIO.output(self.fishHEAD,GPIO.LOW)
 
     def tail(self,duration=0,enthusiasm=50):
         self.adjustPWM(enthusiasm)
         GPIO.output(self.fishTAIL,GPIO.HIGH)
-        time.sleep(fishDuration)
+        sleep(fishDuration)
         GPIO.output(self.fishTAIL,GPIO.LOW)
 
     def adjustPWM(self,PWMDutyCycle=50):

@@ -11,7 +11,7 @@ from urllib.request import urlretrieve
 class BmBB:
     """ interface with the controls and motors of the big mouth billy bass """
 
-    debugMode = True #debug flag
+    debugMode = False #debug flag
 
     # assign names to the GPIO pins. A complete list is in the documentation
     fishMOUTH = 13

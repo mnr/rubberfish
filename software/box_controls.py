@@ -5,6 +5,8 @@
 | 16 | 4 | 23 | in | light (switch) |
 """
 
+import RPi.GPIO as GPIO
+
 class boxControls(object):
     """ provides access to controls mounted on the pedestal """
 

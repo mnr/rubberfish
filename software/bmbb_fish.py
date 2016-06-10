@@ -58,7 +58,7 @@ class BmBB:
     def shut_down_fish(self):
         self.PWMstatus.stop() # turn off PWM
         GPIO.cleanup() #resets the GPIO state to neutral
-        self.SpeechEngine.disconnect(self.EngineDict) #disconnects the speech engine
+        # self.SpeechEngine.disconnect(self.EngineDict) #disconnects the speech engine
 
     def mouth(self,fishDuration=0,enthusiasm=50):
         self.adjustPWM(enthusiasm)

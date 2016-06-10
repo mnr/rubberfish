@@ -12,12 +12,15 @@ def main(args=None):
 
     try:
         while 1:
+            print ("tail")
             my_fish.tail()
             sleep(.5)
             #my_fish.speak("hello, Dave")
             #sleep(.5)
+            print ("head")
             my_fish.head()
             sleep(.5)
+            print ("mouth")
             my_fish.mouth()
             sleep(.5)
             if GPIO.event_detected(my_box.boxVENT):

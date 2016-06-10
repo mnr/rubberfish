@@ -1,18 +1,17 @@
 # rpi.gpio documentation at https://sourceforge.net/p/raspberry-gpio-python/wiki/
 
-import RPi.GPIO as GPIO
-from time import sleep
-import sys
-import urllib
-from urllib.parse import quote_plus
-from urllib.request import urlretrieve
-#import pyttsx
-#import wordToSay
-
-debug = False #debug flag
-
 class BmBB:
     """ interface with the controls and motors of the big mouth billy bass """
+    import RPi.GPIO as GPIO
+    from time import sleep
+    import sys
+    import urllib
+    from urllib.parse import quote_plus
+    from urllib.request import urlretrieve
+    #import pyttsx
+    #import wordToSay
+
+    debug = False #debug flag
 
     # assign names to the GPIO pins. A complete list is in the documentation
     fishMOUTH = 13

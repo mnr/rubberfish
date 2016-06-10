@@ -3,6 +3,8 @@ from time import sleep as sleep
 from bmbb_fish import BmBB
 from box_controls import boxControls
 import RPi.GPIO as GPIO
+from random import randint
+
 
 def main(args=None):
     """The main routine."""
@@ -12,13 +14,14 @@ def main(args=None):
 
     try:
         while 1:
-            my_fish.tail(enthusiasm=100,fishDuration=1)
+            randomEnthusiasm = (randint(0,9))
+            my_fish.tail(enthusiasm=randomEnthusiasm,fishDuration=1)
             sleep(1)
             #my_fish.speak("hello, Dave")
             #sleep(.5)
-            my_fish.head(enthusiasm=50,fishDuration=1)
+            my_fish.head(enthusiasm=randomEnthusiasm,fishDuration=1)
             sleep(1)
-            my_fish.mouth(enthusiasm=75,fishDuration=1)
+            my_fish.mouth(enthusiasm=randomEnthusiasm,fishDuration=1)
             sleep(1)
             #if GPIO.event_detected(my_box.boxVENT):
             if my_box.get_boxVent_STATE():

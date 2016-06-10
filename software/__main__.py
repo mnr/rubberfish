@@ -13,7 +13,7 @@ def main(args=None):
     try:
         while 1:
             print ("tail")
-            my_fish.tail()
+            my_fish.tail(enthusiasm=100)
             sleep(1)
             #my_fish.speak("hello, Dave")
             #sleep(.5)

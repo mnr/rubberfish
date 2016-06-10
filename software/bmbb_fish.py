@@ -72,9 +72,8 @@ class BmBB:
         sleep(fishDuration)
         GPIO.output(self.fishHEAD,GPIO.LOW)
 
-    def tail(self,fishDuration=0,enthusiasm=50):
-        #self.adjustPWM(enthusiasm)
-        self.adjustPWM(100)
+    def tail(self,fishDuration=.5,enthusiasm=50):
+        self.adjustPWM(enthusiasm)
         GPIO.output(self.fishTAIL,GPIO.HIGH)
         sleep(fishDuration)
         GPIO.output(self.fishTAIL,GPIO.LOW)

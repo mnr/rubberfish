@@ -30,8 +30,8 @@ def main(args=None):
             #if GPIO.event_detected(my_box.boxLIGHT):
             print (my_box.get_boxLIGHT_STATE())
 
-        except KeyboardInterrupt:
-            my_fish.shut_down_fish()
+    except KeyboardInterrupt:
+        my_fish.shut_down_fish()
 
 
 if __name__ == "__main__":

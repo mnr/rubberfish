@@ -57,21 +57,21 @@ class BmBB:
         GPIO.cleanup() #resets the GPIO state to neutral
         # self.SpeechEngine.disconnect(self.EngineDict) #disconnects the speech engine
 
-    def mouth(self,fishDuration=0,enthusiasm=50):
+    def mouth(self,fishDuration=.5,enthusiasm=75):
         if self.debugMode: print('mouth: duration={durate}, enthusiasm={enth}.'.format(durate=fishDuration, enth=enthusiasm))
         self.adjustPWM(enthusiasm)
         GPIO.output(self.fishMOUTH,GPIO.HIGH)
         sleep(fishDuration)
         GPIO.output(self.fishMOUTH,GPIO.LOW)
 
-    def head(self,fishDuration=0,enthusiasm=50):
+    def head(self,fishDuration=.4,enthusiasm=75):
         if self.debugMode: print('head: duration={durate}, enthusiasm={enth}.'.format(durate=fishDuration, enth=enthusiasm))
         self.adjustPWM(enthusiasm)
         GPIO.output(self.fishHEAD,GPIO.HIGH)
         sleep(fishDuration)
         GPIO.output(self.fishHEAD,GPIO.LOW)
 
-    def tail(self,fishDuration=0,enthusiasm=50):
+    def tail(self,fishDuration=.4,enthusiasm=75):
         if self.debugMode: print('tail: duration={durate}, enthusiasm={enth}.'.format(durate=fishDuration, enth=enthusiasm))
         self.adjustPWM(enthusiasm)
         GPIO.output(self.fishTAIL,GPIO.HIGH)

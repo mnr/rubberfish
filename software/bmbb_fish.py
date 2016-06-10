@@ -11,7 +11,7 @@ from urllib.request import urlretrieve
 class BmBB:
     """ interface with the controls and motors of the big mouth billy bass """
 
-    debug = False #debug flag
+    debugMode = True #debug flag
 
     # assign names to the GPIO pins. A complete list is in the documentation
     fishMOUTH = 13
@@ -61,6 +61,7 @@ class BmBB:
         # self.SpeechEngine.disconnect(self.EngineDict) #disconnects the speech engine
 
     def mouth(self,fishDuration=0,enthusiasm=50):
+        if debugMode: print("mouth: duration=" . fishDuration . ", enthusiasm=" . enthusiasm) 
         self.adjustPWM(enthusiasm)
         GPIO.output(self.fishMOUTH,GPIO.HIGH)
         sleep(fishDuration)

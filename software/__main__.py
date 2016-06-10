@@ -27,7 +27,7 @@ def main(args=None):
             # sleep(1)
             # my_fish.mouth(enthusiasm=randomEnthusiasm,fishDuration=randomDuration)
             # sleep(1)
-            print('vent:{ventValue}, light:{lightValue}.'.format(ventValue=my_box.get_boxVent_STATE(), lightValue=my_box.get_boxLIGHT_STATE()))
+            #print('vent:{ventValue}, light:{lightValue}.'.format(ventValue=my_box.get_boxVent_STATE(), lightValue=my_box.get_boxLIGHT_STATE()))
             if GPIO.event_detected(my_box.boxVENT):
                 if my_box.get_boxVent_STATE():
                     print ("VENT has been thrown to the left")

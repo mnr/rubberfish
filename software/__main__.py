@@ -16,10 +16,8 @@ def main(args=None):
             sleep(1)
             #my_fish.speak("hello, Dave")
             #sleep(.5)
-            print ("head")
             my_fish.head(enthusiasm=50,fishDuration=1)
             sleep(1)
-            print ("mouth")
             my_fish.mouth(enthusiasm=75,fishDuration=1)
             sleep(1)
             if GPIO.event_detected(my_box.boxVENT):

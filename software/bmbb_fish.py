@@ -61,7 +61,7 @@ class BmBB:
         # self.SpeechEngine.disconnect(self.EngineDict) #disconnects the speech engine
 
     def mouth(self,fishDuration=0,enthusiasm=50):
-        if debugMode: print('mouth duration={durate}, enthusiasm={enth}.'.format(durate=fishDuration, enth=enthusiasm))
+        if self.debugMode: print('mouth duration={durate}, enthusiasm={enth}.'.format(durate=fishDuration, enth=enthusiasm))
         self.adjustPWM(enthusiasm)
         GPIO.output(self.fishMOUTH,GPIO.HIGH)
         sleep(fishDuration)

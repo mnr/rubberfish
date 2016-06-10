@@ -19,7 +19,7 @@ class boxControls:
         GPIO.setmode(GPIO.BOARD)
         #GPIO.setup(self.boxVENT, GPIO.IN, pull_up_down=GPIO.PUD_UP)
         GPIO.setup(self.boxVENT, GPIO.IN)
-        GPIO.setup(self.boxLIGHT, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+        GPIO.setup(self.boxLIGHT, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
         #GPIO.add_event_detect(self.boxVENT, GPIO.BOTH, bouncetime=200)
         #GPIO.add_event_detect(self.boxLIGHT, GPIO.BOTH, bouncetime=200)

@@ -63,7 +63,7 @@ class BmBB:
     def mouth(self,fishDuration=0,enthusiasm=50):
         self.adjustPWM(enthusiasm)
         GPIO.output(self.fishMOUTH,GPIO.HIGH)
-        time.sleep(fishDuration)
+        self.time.sleep(fishDuration)
         GPIO.output(self.fishMOUTH,GPIO.LOW)
 
     def head(self,duration=0,enthusiasm=50):

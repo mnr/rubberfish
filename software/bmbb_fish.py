@@ -4,6 +4,9 @@ import RPi.GPIO as GPIO
 import urllib
 from urllib.parse import quote_plus
 from urllib.request import urlretrieve
+import pyttsx
+
+debug = False #debug flag
 
 class BmBB:
     """ interface with the controls and motors of the big mouth billy bass """
@@ -14,7 +17,11 @@ class BmBB:
     fishHEAD = 7
     fishHEAD_reverse = 15
     fishMotorEnable = 18
+
+    # other variables
     PWMstatus = None #declaring PWMstatus here for later assignment
+    SpeechEngine = None
+
 
     def __init__(self):
         self.shut_down_fish() #make sure we are in a known state
@@ -30,6 +37,12 @@ class BmBB:
         GPIO.setup(self.fishMotorEnable, GPIO.OUT)
         self.PWMstatus = GPIO.PWM(self.fishMotorEnable, 50) #frequency 50 hz
         self.PWMstatus.start(0) #duty cycle of zero. Enabled but silent
+
+        # set up text-to-speech engine
+        # pyttsx documentation at http://pyttsx.readthedocs.io/en/latest/
+        self.SpeechEngine = pyttsx.init()
+        self.SpeechEngine.setProperty('rate', 70)
+        engine.connect('started-utterance', self.flapMouth )
 
         # do something to indicate life
         self.mouth()
@@ -62,60 +75,14 @@ class BmBB:
         PWMDutyCycle = 0 if PWMDutyCycle < 0 else PWMDutyCycle
         self.PWMstatus.ChangeDutyCycle(PWMDutyCycle)
 
-    def speak(self,say_this):
-        for word in say_this.split():
-            min_syllables, max_syllables = count_syllables(word)
-            # text-to-speech
-            # open and close fishmouth
+    def flapMouth(self,name):
+        # flaps the mouth once per utterance
+        # called by pyttsx as a call back routine
+        # required because the callback wants to pass the word, which mouth() doesn't need
+        self.mouth()
 
-    def count_syllables(word):
-        # thanks to https://github.com/akkana
-        verbose = False #print debugging?
-
-        vowels = ['a', 'e', 'i', 'o', 'u']
-
-        on_vowel = False
-        in_diphthong = False
-        minsyl = 0
-        maxsyl = 0
-        lastchar = None
-
-        word = word.lower()
-        for c in word:
-            is_vowel = c in vowels
-
-            if on_vowel == None:
-                on_vowel = is_vowel
-
-            # y is a special case
-            if c == 'y':
-                is_vowel = not on_vowel
-
-            if is_vowel:
-                if verbose: print c, "is a vowel"
-                if not on_vowel:
-                    # We weren't on a vowel before.
-                    # Seeing a new vowel bumps the syllable count.
-                    if verbose: print "new syllable"
-                    minsyl += 1
-                    maxsyl += 1
-                elif on_vowel and not in_diphthong and c != lastchar:
-                    # We were already in a vowel.
-                    # Don't increment anything except the max count,
-                    # and only do that once per diphthong.
-                    if verbose: print c, "is a diphthong"
-                    in_diphthong = True
-                    maxsyl += 1
-            elif verbose: print "[consonant]"
-
-            on_vowel = is_vowel
-            lastchar = c
-
-        # Some special cases:
-        if word[-1] == 'e':
-            minsyl -= 1
-        # if it ended with a consonant followed by y, count that as a syllable.
-        if word[-1] == 'y' and not on_vowel:
-            maxsyl += 1
-
-        return minsyl, maxsyl
+    def speak(self,say_this_phrase):
+        for aSingleWord in say_this_phrase.split():
+            # flapMouth() is set up as an utterannce callback in the init
+            self.SpeechEngine.say(aSingleWord)
+            self.SpeechEngine.runAndWait()

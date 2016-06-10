@@ -8,6 +8,7 @@
 class boxControls(object):
     """ provides access to controls mounted on the pedestal """
 
+    # GPIO pins assigned to the two front-panel switches
     boxVENT = 12
     boxLIGHT = 16
 

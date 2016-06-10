@@ -20,10 +20,6 @@ class boxControls:
         GPIO.setup(self.boxVENT, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
         GPIO.setup(self.boxLIGHT, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
-        #GPIO.add_event_detect(self.boxVENT, GPIO.BOTH, bouncetime=200)
-        #GPIO.add_event_detect(self.boxLIGHT, GPIO.BOTH, bouncetime=200)
-
-
     def get_boxVent_STATE(self):
         return GPIO.input(self.boxVENT)
 

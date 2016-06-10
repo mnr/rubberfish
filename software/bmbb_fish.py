@@ -1,6 +1,7 @@
 # rpi.gpio documentation at https://sourceforge.net/p/raspberry-gpio-python/wiki/
 
 import RPi.GPIO as GPIO
+import sys
 import urllib
 from urllib.parse import quote_plus
 from urllib.request import urlretrieve

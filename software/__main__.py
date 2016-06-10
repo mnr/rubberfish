@@ -1,6 +1,7 @@
 import sys
 from time import sleep
 from bmbb_fish import BmBB
+from box_controls import boxControls
 
 def main(args=None):
     """The main routine."""

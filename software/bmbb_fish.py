@@ -4,8 +4,8 @@ import RPi.GPIO as GPIO
 import urllib
 from urllib.parse import quote_plus
 from urllib.request import urlretrieve
-import pyttsx
-import wordToSay
+#import pyttsx
+#import wordToSay
 
 debug = False #debug flag
 
@@ -21,8 +21,8 @@ class BmBB:
 
     # other variables
     PWMstatus = None #declaring PWMstatus here for later assignment
-    SpeechEngine = None
-    EngineDict = None # used to disconnect a callback
+    #SpeechEngine = None
+    #EngineDict = None # used to disconnect a callback
 
 
     def __init__(self):
@@ -42,9 +42,10 @@ class BmBB:
 
         # set up text-to-speech engine
         # pyttsx documentation at http://pyttsx.readthedocs.io/en/latest/
-        self.SpeechEngine = pyttsx.init()
-        self.SpeechEngine.setProperty('rate', 70)
-        self.EngineDict = self.SpeechEngine.connect('started-word', self.flapMouth )
+        # python 3 requires this https://github.com/Julian-O/pyttsx
+        #self.SpeechEngine = pyttsx.init()
+        #self.SpeechEngine.setProperty('rate', 70)
+        #self.EngineDict = self.SpeechEngine.connect('started-word', self.flapMouth )
 
         # do something to indicate life
         self.mouth()

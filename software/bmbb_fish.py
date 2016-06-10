@@ -1,7 +1,7 @@
 # rpi.gpio documentation at https://sourceforge.net/p/raspberry-gpio-python/wiki/
 import sys
 import RPi.GPIO as GPIO
-from time import sleep
+from time import sleep as sleep
 import urllib
 from urllib.parse import quote_plus
 from urllib.request import urlretrieve
@@ -63,7 +63,7 @@ class BmBB:
     def mouth(self,fishDuration=0,enthusiasm=50):
         self.adjustPWM(enthusiasm)
         GPIO.output(self.fishMOUTH,GPIO.HIGH)
-        self.time.sleep(fishDuration)
+        sleep(fishDuration)
         GPIO.output(self.fishMOUTH,GPIO.LOW)
 
     def head(self,duration=0,enthusiasm=50):

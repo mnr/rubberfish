@@ -2,6 +2,7 @@ import sys
 from time import sleep as sleep
 from bmbb_fish import BmBB
 from box_controls import boxControls
+import RPi.GPIO as GPIO
 
 def main(args=None):
     """The main routine."""

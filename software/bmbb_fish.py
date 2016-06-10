@@ -27,11 +27,7 @@ class BmBB:
 
 
     def __init__(self):
-        try:
-            self.shut_down_fish() #make sure we are in a known state
-        except:
-            e = sys.exc_info()[0]
-            print( "<p>Error: %s</p>" % e )
+        GPIO.cleanup()
 
         GPIO.setmode(GPIO.BOARD) #use P1 header pin numbering convention
 

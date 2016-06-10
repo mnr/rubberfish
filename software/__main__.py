@@ -12,6 +12,9 @@ def main(args=None):
     my_fish = BmBB()
     my_box = boxControls()
 
+    GPIO.add_event_detect(my_box.boxVENT, GPIO.BOTH)
+    GPIO.add_event_detect(my_box.boxLIGHT, GPIO.BOTH)
+
     try:
         while 1:
             # randomEnthusiasm = (randint(0,100))

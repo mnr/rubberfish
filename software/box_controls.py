@@ -17,7 +17,8 @@ class boxControls:
     def __init__(self):
 
         GPIO.setmode(GPIO.BOARD)
-        GPIO.setup(self.boxVENT, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+        #GPIO.setup(self.boxVENT, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+        GPIO.setup(self.boxVENT, GPIO.IN)
         GPIO.setup(self.boxLIGHT, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
         #GPIO.add_event_detect(self.boxVENT, GPIO.BOTH, bouncetime=200)

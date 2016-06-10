@@ -4,7 +4,7 @@ class wordToSay:
     wordString = ""
     wordSyllablesMax = 0
     wordSyllablesMin = 0
-    wordUID = 0
+    wordUID = None # will contain a unique string id
 
     def __init__(self, aWord):
         self.wordString = aWord
@@ -62,4 +62,3 @@ class wordToSay:
             maxsyl += 1
 
         return minsyl, maxsyl
-    

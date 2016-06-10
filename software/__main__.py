@@ -1,5 +1,5 @@
 import sys
-from time import sleep
+from time import sleep as sleep
 from bmbb_fish import BmBB
 from box_controls import boxControls
 
@@ -12,13 +12,13 @@ def main(args=None):
     try:
         while 1:
             my_fish.tail()
-            time.sleep(.5)
+            sleep(.5)
             #my_fish.speak("hello, Dave")
             #sleep(.5)
             my_fish.head()
-            time.sleep(.5)
+            sleep(.5)
             my_fish.mouth()
-            time.sleep(.5)
+            sleep(.5)
             if GPIO.event_detected(my_box.boxVENT):
                 if my_box.get_boxVent_STATE():
                     print ("VENT has been thrown to the left")

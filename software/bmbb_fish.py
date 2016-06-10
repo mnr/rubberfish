@@ -5,6 +5,7 @@ import urllib
 from urllib.parse import quote_plus
 from urllib.request import urlretrieve
 import pyttsx
+import wordToSay
 
 debug = False #debug flag
 
@@ -21,6 +22,7 @@ class BmBB:
     # other variables
     PWMstatus = None #declaring PWMstatus here for later assignment
     SpeechEngine = None
+    EngineDict = None # used to disconnect a callback
 
 
     def __init__(self):
@@ -42,7 +44,7 @@ class BmBB:
         # pyttsx documentation at http://pyttsx.readthedocs.io/en/latest/
         self.SpeechEngine = pyttsx.init()
         self.SpeechEngine.setProperty('rate', 70)
-        engine.connect('started-utterance', self.flapMouth )
+        self.EngineDict = self.SpeechEngine.connect('started-word', self.flapMouth )
 
         # do something to indicate life
         self.mouth()
@@ -50,6 +52,7 @@ class BmBB:
     def shut_down_fish(self):
         self.PWMstatus.stop() # turn off PWM
         GPIO.cleanup() #resets the GPIO state to neutral
+        self.SpeechEngine.disconnect(self.EngineDict) #disconnects the speech engine
 
     def mouth(self,fishDuration=0,enthusiasm=50):
         self.adjustPWM(enthusiasm)
@@ -75,14 +78,13 @@ class BmBB:
         PWMDutyCycle = 0 if PWMDutyCycle < 0 else PWMDutyCycle
         self.PWMstatus.ChangeDutyCycle(PWMDutyCycle)
 
-    def flapMouth(self,name):
-        # flaps the mouth once per utterance
+    def flapMouth(self,nameOfPhrase,locationNumber,lengthOfWord):
+        # flaps the mouth for each word * syllables in word
         # called by pyttsx as a call back routine
-        # required because the callback wants to pass the word, which mouth() doesn't need
         self.mouth()
 
     def speak(self,say_this_phrase):
-        for aSingleWord in say_this_phrase.split():
-            # flapMouth() is set up as an utterannce callback in the init
-            self.SpeechEngine.say(aSingleWord)
-            self.SpeechEngine.runAndWait()
+        # flapMouth() is set up as a word callback in the init
+        uniqueNameOfPhrase = "something" #create some unique name to id this phrase
+        self.SpeechEngine.say(say_this_phrase, uniqueNameOfPhrase)
+        self.SpeechEngine.runAndWait()

@@ -24,11 +24,17 @@ def main(args=None):
             sleep(1)
             my_fish.mouth(enthusiasm=randomEnthusiasm,fishDuration=randomDuration)
             sleep(1)
-            #if GPIO.event_detected(my_box.boxVENT):
-            print( my_box.get_boxVent_STATE())
+            if GPIO.event_detected(my_box.boxVENT):
+                if my_box.get_boxVent_STATE():
+                    print ("VENT has been thrown to the left")
+                else:
+                    print("VENT has been thrown to the right")
 
-            #if GPIO.event_detected(my_box.boxLIGHT):
-            print (my_box.get_boxLIGHT_STATE())
+            if GPIO.event_detected(my_box.boxLIGHT):
+                if my_box.get_boxLIGHT_STATE():
+                    print("LIGHT has been thrown to the left")
+                else:
+                    print ("LIGHT has been thrown to the right")
 
     except KeyboardInterrupt:
         my_fish.shut_down_fish()

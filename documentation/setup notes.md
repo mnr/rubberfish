@@ -2,7 +2,7 @@ Set Up pyttsx
 ======
 pyttsx is the text-to-speech tool.
 
-Download the github library at https://github.com/Julian-O/pyttsx
+Download the github library at https://github.com/Julian-O/pyttsx or/and https://github.com/jpercent/pyttsx
 
 then install by cd to that directory and use
 

@@ -1,15 +1,26 @@
+import uuid
+
 class wordToSay:
     """wordToSay - stash everything needed to know to speak a word"""
+
+    wordsPerMinute = 200 #default words per minute
 
     wordString = ""
     wordSyllablesMax = 0
     wordSyllablesMin = 0
+    wordLength = 0
+    secondsPerSyllable = 0
     wordUID = None # will contain a unique string id
 
     def __init__(self, aWord):
         self.wordString = aWord
         self.wordSyllablesMin,self.wordSyllablesMax = count_syllables(aWord)
-        self.wordUID = aWord #need to generate a unique ID
+        self.wordUID = uuid.uuid4() #generate a unique ID for each word
+
+    def setlengthOfWord(self,seconds):
+        """ I'm guessing that the "length" in onStartWord(name : string, location : integer, length : integer) is a measurement of time? maybe Seconds? """
+        self.wordLength = seconds
+        self.secondsPerSyllable = self.wordSyllablesMax/self.wordLength
 
     def count_syllables(word):
         # thanks to https://github.com/akkana

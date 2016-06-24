@@ -48,8 +48,6 @@ class BmBB:
         if self.debugMode: print("killing the fish")
         self.PWMstatus.stop() # turn off PWM
         GPIO.cleanup() #resets the GPIO state to neutral
-        self.SpeechEngine.disconnect(self.SpeechCallBack_startword) #disconnects a callback
-        self.SpeechEngine.disconnect(self.SpeechCallBack_finishutter) #disconnects a callback
 
     def mouth(self,fishDuration=.5,enthusiasm=75):
         if self.debugMode: print('mouth: duration={durate}, enthusiasm={enth}.'.format(durate=fishDuration, enth=enthusiasm))
@@ -83,7 +81,7 @@ class BmBB:
 
         # convert text to speech
         audio_file_path = TextToFishSpeak.doTextToSpeech(say_this_phrase)
-        aplayCommand = "aplay pause.wav " + audio_file_path
+        aplayCommand = "aplay ~/pause.wav " + audio_file_path
         os.system(aplayCommand)
 
         # animate the fish

@@ -11,7 +11,7 @@ import json
 from os.path import join, dirname, expanduser
 from watson_developer_cloud import TextToSpeechV1
 
-def doTextToSpeech (self,stringObjectToSay="You forgot to tell me what to say"):
+def doTextToSpeech (stringObjectToSay="You forgot to tell me what to say"):
     # stringObjectToSay is an object as created by wordToSay
     text_to_speech = TextToSpeechV1(
         username='2cf75972-4837-475a-a0ff-a646dfb94883',

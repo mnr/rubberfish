@@ -23,7 +23,7 @@ def main(args=None):
             # my_fish.tail(enthusiasm=randomEnthusiasm,fishDuration=randomDuration)
             # sleep(1)
             localtime = time.asctime( time.localtime(time.time()) )
-            my_fish.speak("hello, Dave, " + localtime)
+            my_fish.speak("hello, Dave, the time is " + localtime)
             sleep(.5)
             # my_fish.head(enthusiasm=randomEnthusiasm,fishDuration=randomDuration)
             # sleep(1)

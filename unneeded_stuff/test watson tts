@@ -1,0 +1,9 @@
+{
+  "credentials": {
+    "url": "https://stream.watsonplatform.net/text-to-speech/api",
+    "password": "1nIH5xBrttWl",
+    "username": "2cf75972-4837-475a-a0ff-a646dfb94883"
+  }
+}
+
+curl -X POST -u 2cf75972-4837-475a-a0ff-a646dfb94883:1nIH5xBrttWl --header "Content-Type: application/json" --header "Accept: audio/wav" --data "{\"text\":\"hello mark\"}" --output hello_world.wav "https://stream.watsonplatform.net/text-to-speech/api/v1/synthesize"

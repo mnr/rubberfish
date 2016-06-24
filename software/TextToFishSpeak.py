@@ -8,7 +8,6 @@ This version implements watson
 """
 
 import json
-import wordToSay
 from os.path import join, dirname, expanduser
 from watson_developer_cloud import TextToSpeechV1
 

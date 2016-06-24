@@ -82,7 +82,7 @@ class BmBB:
         # says the phrase, plus animates the fish mouth, head and tail in sync to speech
 
         # convert text to speech
-        audio_file_path = doTextToSpeech(say_this_phrase)
+        audio_file_path = TextToFishSpeak.doTextToSpeech(say_this_phrase)
         aplayCommand = "aplay pause.wav " + audio_file_path
         os.system(aplayCommand)
 

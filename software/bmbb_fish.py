@@ -55,6 +55,7 @@ class BmBB:
         GPIO.output(self.fishMOUTH,GPIO.HIGH)
         sleep(fishDuration)
         GPIO.output(self.fishMOUTH,GPIO.LOW)
+        sleep(fishDuration)
 
     def head(self,fishDuration=.4,enthusiasm=75):
         if self.debugMode: print('head: duration={durate}, enthusiasm={enth}.'.format(durate=fishDuration, enth=enthusiasm))
@@ -88,6 +89,6 @@ class BmBB:
         # animate the fish
         for aword in say_this_phrase.split():
             minsyl, maxsyl = countSyllables.count_syllables(aword)
-            print (minsyl,maxsyl)
+            print (minsyl,maxsyl,aword)
             for theIndex in range(minsyl):
                 self.mouth()

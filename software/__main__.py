@@ -17,17 +17,17 @@ def main(args=None):
 
     try:
         while 1:
-            # randomEnthusiasm = (randint(0,100))
-            # randomDuration = (randint(0,10))/10
-            # my_fish.tail(enthusiasm=randomEnthusiasm,fishDuration=randomDuration)
-            # sleep(1)
-            # #my_fish.speak("hello, Dave")
-            # #sleep(.5)
-            # my_fish.head(enthusiasm=randomEnthusiasm,fishDuration=randomDuration)
-            # sleep(1)
-            # my_fish.mouth(enthusiasm=randomEnthusiasm,fishDuration=randomDuration)
-            # sleep(1)
-            #print('vent:{ventValue}, light:{lightValue}.'.format(ventValue=my_box.get_boxVent_STATE(), lightValue=my_box.get_boxLIGHT_STATE()))
+            randomEnthusiasm = (randint(0,100))
+            randomDuration = (randint(0,10))/10
+            my_fish.tail(enthusiasm=randomEnthusiasm,fishDuration=randomDuration)
+            sleep(1)
+            my_fish.speak("hello, Dave")
+            sleep(.5)
+            my_fish.head(enthusiasm=randomEnthusiasm,fishDuration=randomDuration)
+            sleep(1)
+            my_fish.mouth(enthusiasm=randomEnthusiasm,fishDuration=randomDuration)
+            sleep(1)
+            print('vent:{ventValue}, light:{lightValue}.'.format(ventValue=my_box.get_boxVent_STATE(), lightValue=my_box.get_boxLIGHT_STATE()))
             if GPIO.event_detected(my_box.boxVENT):
                 if my_box.get_boxVent_STATE():
                     print ("VENT has been thrown to the left")

@@ -22,7 +22,7 @@ def count_syllables(word):
             is_vowel = not on_vowel
 
         if is_vowel:
-            if verbose: print c, "is a vowel"
+            if verbose: print (c, "is a vowel")
             if not on_vowel:
                 # We weren't on a vowel before.
                 # Seeing a new vowel bumps the syllable count.
@@ -36,7 +36,7 @@ def count_syllables(word):
                 if verbose: print c, "is a diphthong"
                 in_diphthong = True
                 maxsyl += 1
-        elif verbose: print "[consonant]"
+        elif verbose: print ("[consonant]")
 
         on_vowel = is_vowel
         lastchar = c

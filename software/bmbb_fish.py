@@ -1,6 +1,6 @@
 # rpi.gpio documentation at https://sourceforge.net/p/raspberry-gpio-python/wiki/
 import sys
-import os
+import subprocess
 import RPi.GPIO as GPIO
 from time import sleep as sleep
 import urllib
@@ -81,8 +81,8 @@ class BmBB:
 
         # convert text to speech
         audio_file_path = TextToFishSpeak.doTextToSpeech(say_this_phrase)
-        aplayCommand = "aplay ~/pause.wav " + audio_file_path
-        os.system(aplayCommand)
+        # aplayCommand = "aplay ~/pause.wav " + audio_file_path
+        subprocess.call(['aplay', '~/pause.wav', audio_file_path])
 
         # animate the fish
         for aword in say_this_phrase.split():

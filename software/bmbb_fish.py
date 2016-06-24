@@ -82,10 +82,12 @@ class BmBB:
         # convert text to speech
         audio_file_path = TextToFishSpeak.doTextToSpeech(say_this_phrase)
         # aplayCommand = "aplay ~/pause.wav " + audio_file_path
-        subprocess.Popen(['aplay', '/home/pi/pause.wav', audio_file_path])
+        # subprocess.Popen(['aplay', '/home/pi/pause.wav', audio_file_path])
+        subprocess.Popen(['aplay', audio_file_path])
 
         # animate the fish
         for aword in say_this_phrase.split():
             minsyl, maxsyl = countSyllables.count_syllables(aword)
+            print (minsyl,maxsyl)
             for theIndex in range(minsyl):
                 self.mouth()

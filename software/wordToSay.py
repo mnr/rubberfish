@@ -8,7 +8,7 @@ class wordToSay:
     wordString = ""
     wordSyllablesMax = 0
     wordSyllablesMin = 0
-    wordLength = 0
+    wordLength = 0 #length of word in seconds
     secondsPerSyllable = 0
     wordUID = None # will contain a unique string id
 

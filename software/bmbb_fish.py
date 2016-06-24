@@ -1,12 +1,13 @@
 # rpi.gpio documentation at https://sourceforge.net/p/raspberry-gpio-python/wiki/
 import sys
+import os
 import RPi.GPIO as GPIO
 from time import sleep as sleep
 import urllib
 from urllib.parse import quote_plus
 from urllib.request import urlretrieve
-import wordToSay
 import TextToFishSpeak
+import countSyllables
 import uuid
 
 class BmBB:
@@ -79,5 +80,14 @@ class BmBB:
 
     def speak(self,say_this_phrase):
         # says the phrase, plus animates the fish mouth, head and tail in sync to speech
+
+        # convert text to speech
+        audio_file_path = doTextToSpeech(say_this_phrase)
+        aplayCommand = "aplay pause.wav " + audio_file_path
+        os.system(aplayCommand)
+
+        # animate the fish
         for aword in say_this_phrase.split():
-            doTextToSpeech(new wordToSay(aword))
+            minsyl, maxsyl = count_syllables(aword)
+            for theIndex in range(minsyl):
+                self.mouth()

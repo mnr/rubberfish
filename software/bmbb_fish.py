@@ -88,6 +88,6 @@ class BmBB:
 
         # animate the fish
         for aword in say_this_phrase.split():
-            minsyl, maxsyl = count_syllables(aword)
+            minsyl, maxsyl = countSyllables.count_syllables(aword)
             for theIndex in range(minsyl):
                 self.mouth()

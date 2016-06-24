@@ -1,6 +1,6 @@
 def count_syllables(word):
     # thanks to https://github.com/akkana
-    verbose = self.debug #print debugging?
+    verbose = False #print debugging?
 
     vowels = ['a', 'e', 'i', 'o', 'u']
 

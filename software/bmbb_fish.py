@@ -13,7 +13,7 @@ import uuid
 class BmBB:
     """ interface with the controls and motors of the big mouth billy bass """
 
-    debugMode = False #debug flag
+    debugMode = True #debug flag
 
     # assign names to the GPIO pins. A complete list is in the documentation
     fishMOUTH = 13
@@ -87,7 +87,7 @@ class BmBB:
         # animate the fish
         for aword in say_this_phrase.split():
             minsyl, maxsyl = countSyllables.count_syllables(aword)
-            print (minsyl,maxsyl,aword)
-            mouthPause = len(aword)/(1 if maxsyl == 0 else maxsyl)
+            if debug: print (minsyl,maxsyl,aword)
+            mouthPause = (len(aword)/(1 if maxsyl == 0 else maxsyl))*.1
             for theIndex in range(1 if minsyl==0 else minsyl):
                 self.mouth(fishDuration=mouthPause)

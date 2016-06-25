@@ -87,7 +87,7 @@ class BmBB:
         # animate the fish
         for aword in say_this_phrase.split():
             minsyl, maxsyl = countSyllables.count_syllables(aword)
-            if debug: print (minsyl,maxsyl,aword)
+            if self.debugMode: print (minsyl,maxsyl,aword)
             mouthPause = (len(aword)/(1 if maxsyl == 0 else maxsyl))*.1
             for theIndex in range(1 if minsyl==0 else minsyl):
                 self.mouth(fishDuration=mouthPause)

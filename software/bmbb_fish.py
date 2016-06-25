@@ -3,12 +3,10 @@ import sys
 import subprocess
 import RPi.GPIO as GPIO
 from time import sleep as sleep
-import urllib
-from urllib.parse import quote_plus
-from urllib.request import urlretrieve
 import TextToFishSpeak
 import countSyllables
-import uuid
+import random
+
 
 class BmBB:
     """ interface with the controls and motors of the big mouth billy bass """
@@ -89,5 +87,8 @@ class BmBB:
             minsyl, maxsyl = countSyllables.count_syllables(aword)
             if self.debugMode: print (minsyl,maxsyl,aword)
             mouthPause = (len(aword)/(1 if maxsyl == 0 else maxsyl))*.1
+            headAndTailRandomizer = random.randint(1,10)
+            if (headAndTailRandomizer > 5): self.head()
+            if (headAndTailRandomizer > 7): self.tail()
             for theIndex in range(1 if minsyl==0 else minsyl):
                 self.mouth(fishDuration=mouthPause)

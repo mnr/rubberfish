@@ -88,5 +88,6 @@ class BmBB:
         for aword in say_this_phrase.split():
             minsyl, maxsyl = countSyllables.count_syllables(aword)
             print (minsyl,maxsyl,aword)
+            mouthPause = len(aword)/(1 if maxsyl == 0 else maxsyl)
             for theIndex in range(1 if minsyl==0 else minsyl):
-                self.mouth(fishDuration=.1)
+                self.mouth(fishDuration=mouthPause)

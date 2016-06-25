@@ -49,7 +49,7 @@ class BmBB:
         self.PWMstatus.stop() # turn off PWM
         GPIO.cleanup() #resets the GPIO state to neutral
 
-    def mouth(self,fishDuration=.5,enthusiasm=75):
+    def mouth(self,fishDuration=.5,enthusiasm=50):
         if self.debugMode: print('mouth: duration={durate}, enthusiasm={enth}.'.format(durate=fishDuration, enth=enthusiasm))
         self.adjustPWM(enthusiasm)
         GPIO.output(self.fishMOUTH,GPIO.HIGH)

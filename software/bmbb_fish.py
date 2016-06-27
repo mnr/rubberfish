@@ -58,8 +58,17 @@ class BmBB:
     def head(self,fishDuration=.4,enthusiasm=75):
         if self.debugMode: print('head: duration={durate}, enthusiasm={enth}.'.format(durate=fishDuration, enth=enthusiasm))
         self.adjustPWM(enthusiasm)
-        GPIO.output(self.fishHEAD,GPIO.HIGH)
+        self.headOut(enthusiasm)
         sleep(fishDuration)
+        self.headBack()
+
+    def headOut(self,enthusiasm=75):
+        if self.debugMode: print('headOut: enthusiasm={enth}.'.format(enth=enthusiasm))
+        self.adjustPWM(enthusiasm)
+        GPIO.output(self.fishHEAD,GPIO.HIGH)
+
+    def headBack(self):
+        if self.debugMode: print('headBack: No Parameters')
         GPIO.output(self.fishHEAD,GPIO.LOW)
 
     def tail(self,fishDuration=.4,enthusiasm=75):

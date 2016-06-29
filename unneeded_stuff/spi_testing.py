@@ -42,6 +42,6 @@ try:
             to_send = [spiStart,spiControl,spiPlaceholder]
             for counter in range(1,100):
                 resp = spi.xfer(to_send)
-                print bin(spiControl)," - ",bin(resp)
+                print (bin(spiControl) + " - " + bin(resp))
 except KeyboardInterrupt: #control-c
     spi.close()         # close the spi device

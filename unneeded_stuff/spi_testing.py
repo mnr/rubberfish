@@ -40,7 +40,7 @@ try:
         # print (resp)
         for spiControl in spiControlList:
             to_send = [spiStart,spiControl,spiPlaceholder]
-            for counter in range(1:100):
+            for counter in range(1,100):
                 resp = spi.xfer(to_send)
                 print bin(ord(spiControl))," - ",bin(ord(resp))
 except KeyboardInterrupt: #control-c

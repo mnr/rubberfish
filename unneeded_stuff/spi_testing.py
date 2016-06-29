@@ -1,6 +1,9 @@
 """
 sudo raspi-config
 enable spi
+
+spi documentation
+http://tightdev.net/SpiDev_Doc.pdf
 """
 
 # works with MCP3008, ch0
@@ -37,7 +40,8 @@ try:
         # print (resp)
         for spiControl in spiControlList:
             to_send = [spiStart,spiControl,spiPlaceholder]
-            resp = spi.xfer(to_send)
-            print spiControl," - ",resp
+            for counter in range(1:100):
+                resp = spi.xfer(to_send)
+                print bin(ord(spiControl))," - ",bin(ord(resp))
 except KeyboardInterrupt: #control-c
     spi.close()         # close the spi device

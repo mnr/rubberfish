@@ -17,7 +17,7 @@ spiBus = 0          # spi port 0
 spiSpeed = 20000
 spiDeviceCh = 0       # GPIO CE0
 spiDevice = spi.open(spiBus,spiDeviceCh)
-spiDevice.max_speed_hz=spiSpeed # mcp3008 requires >10khz
+spi.max_speed_hz=spiSpeed # mcp3008 requires >10khz
 
 
 # instructions for this value are found in the MCP3008 datasheet

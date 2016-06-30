@@ -30,7 +30,8 @@ spiControl = 0b00001000 # single end mcp3008 ch0
 0b0000 0000 # differential ch0 = in+
 0b0001 0000 # differential ch1 = in+
 """
-spiControlList = [0b10000000,0b10010000,0b00000000,0b00010000]
+# spiControlList = [0b10000000,0b10010000,0b00000000,0b00010000]
+spiControlList = [0b10000000]
 spiPlaceholder = 0b00000000
 
 # to_send = [spiControl,0x02]
@@ -45,6 +46,6 @@ try:
             to_send = [spiStart,spiControl,spiPlaceholder]
             resp = spi.xfer(to_send)
             print (bin(spiControl) + " - " + str(resp))
-            time.sleep(1)
+            time.sleep(.25)
 except KeyboardInterrupt: #control-c
     spi.close()         # close the spi device

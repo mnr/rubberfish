@@ -30,7 +30,7 @@ spiControl = 0b00001000 # single end mcp3008 ch0
 0b0000 # differential ch0
 0b0001 # differential ch1
 """
-spiControlList = [0b1000,0b1001,0b0000,0b0001]
+spiControlList = [0b10000000,0b10010000,0b00000000,0b00010000]
 spiPlaceholder = 0b00000000
 
 # to_send = [spiControl,0x02]

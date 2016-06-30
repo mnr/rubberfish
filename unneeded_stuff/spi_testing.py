@@ -14,8 +14,11 @@ import time
 spi=spidev.SpiDev() # create a spi object
 
 spiBus = 0          # spi port 0
+spiSpeed = 20000
 spiDeviceCh = 0       # GPIO CE0
 spiDevice = spi.open(spiBus,spiDeviceCh)
+self.spi.max_speed_hz=spiSpeed # mcp3008 requires >10khz
+
 
 # instructions for this value are found in the MCP3008 datasheet
 # Table 5-2: Configure bits for the MCP3008

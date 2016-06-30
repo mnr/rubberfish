@@ -1,6 +1,8 @@
 # this version of TextToFishSpeak uses Watson
 # see github.com/watson-developer-cloud/python-sdk
 # http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/text-to-speech.html
+# sudo pip install --upgrade watson-developer-cloud
+# sudo pip3 install --upgrade watson-developer-cloud
 
 """
 TextToFishSpeak provides a generic entry to a text to speech routine.

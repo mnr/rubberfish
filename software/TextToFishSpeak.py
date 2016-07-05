@@ -21,7 +21,7 @@ def doTextToSpeech (stringObjectToSay="You forgot to tell me what to say"):
 
     separator = "/"
     itzawav = stringObjectToSay+'.wav'
-    audio_file_path = separator.join(expanduser('~/rubberfish/words'),stringObjectToSay+'.wav')
+    audio_file_path = separator.join(expanduser('~/rubberfish/words'),itzawav)
     audio_file = open(audio_file_path,'wb')
     audio_file.write(text_to_speech.synthesize(stringObjectToSay,accept='audio/wav',voice="en-US_AllisonVoice"))
     return audio_file_path

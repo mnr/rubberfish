@@ -88,16 +88,18 @@ class BmBB:
         # says the phrase, plus animates the fish mouth, head and tail in sync to speech
 
         # convert text to speech
-        audio_file_path = TextToFishSpeak.doTextToSpeech(say_this_phrase)
-        subprocess.Popen(['aplay', audio_file_path])
+        allwords = say_this_phrase.split().
+        for aword in allwords:
+            audio_file_path = TextToFishSpeak.doTextToSpeech(aword)
+            subprocess.Popen(['aplay', audio_file_path])
 
-        # animate the fish
-        for aword in say_this_phrase.split():
+            # animate the fish
+            # for aword in say_this_phrase.split():
             minsyl, maxsyl = countSyllables.count_syllables(aword)
             if self.debugMode: print (minsyl,maxsyl,aword)
             mouthPause = (len(aword)/(1 if maxsyl == 0 else maxsyl))*.1
-            headAndTailRandomizer = random.randint(1,10)
-            if (headAndTailRandomizer > 5): self.head()
-            if (headAndTailRandomizer > 7): self.tail()
+            # headAndTailRandomizer = random.randint(1,10)
+            # if (headAndTailRandomizer > 5): self.head()
+            # if (headAndTailRandomizer > 7): self.tail()
             for theIndex in range(1 if minsyl==0 else minsyl):
                 self.mouth(fishDuration=mouthPause)

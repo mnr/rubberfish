@@ -19,7 +19,8 @@ def doTextToSpeech (stringObjectToSay="You forgot to tell me what to say"):
         username='2cf75972-4837-475a-a0ff-a646dfb94883',
         password='1nIH5xBrttWl')
 
-    audio_file_path = join(expanduser('~/rubberfish/words'),stringObjectToSay,'.wav')
+    separator = "/"
+    audio_file_path = separator.join(expanduser('~/rubberfish/words'),stringObjectToSay+'.wav')
     audio_file = open(audio_file_path,'wb')
     audio_file.write(text_to_speech.synthesize(stringObjectToSay,accept='audio/wav',voice="en-US_AllisonVoice"))
     return audio_file_path

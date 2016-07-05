@@ -10,6 +10,7 @@ http://tightdev.net/SpiDev_Doc.pdf
 # returns x/10ths of a volt
 import spidev
 import time
+import csv
 
 spi=spidev.SpiDev() # create a spi object
 
@@ -37,6 +38,9 @@ spiPlaceholder = 0b00000000
 # to_send = [spiControl,0x02]
 # to_send = [spiStart,spiControl,spiPlaceholder]
 
+with open('spiCapture.csv', 'wb') as f:
+    writer = csv.writer(f)
+
 try:
     while True:
         # time.sleep(1)
@@ -45,7 +49,8 @@ try:
         for spiControl in spiControlList:
             to_send = [spiStart,spiControl,spiPlaceholder]
             resp = spi.xfer(to_send)
-            print (bin(spiControl) + " - " + str(resp))
+            # print (bin(spiControl) + " - " + str(resp))
+            writer.writerows(someiterable)
             time.sleep(.25)
 except KeyboardInterrupt: #control-c
     spi.close()         # close the spi device

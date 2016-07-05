@@ -50,7 +50,7 @@ try:
             to_send = [spiStart,spiControl,spiPlaceholder]
             resp = spi.xfer(to_send)
             # print (bin(spiControl) + " - " + str(resp))
-            writer.writerows(someiterable)
+            writer.writerows(spiControl,str(resp))
             time.sleep(.25)
 except KeyboardInterrupt: #control-c
     spi.close()         # close the spi device

@@ -38,10 +38,11 @@ spiPlaceholder = 0b00000000
 # to_send = [spiControl,0x02]
 # to_send = [spiStart,spiControl,spiPlaceholder]
 
-with open('spiCSVCapture.csv', 'w') as csvfile:
-    fieldnames = ['SpiControl', 'Resp Byte One','Resp Byte Two','Resp Byte Three']
-    CSVwriter = csv.DictWriter(csvfile, fieldnames=fieldnames)
-    CSVwriter.writeheader()
+#with open('spiCSVCapture.csv', 'w') as csvfile:
+csvfile = open('spiCSVCapture.csv', 'w')
+fieldnames = ['SpiControl', 'Resp Byte One','Resp Byte Two','Resp Byte Three']
+CSVwriter = csv.DictWriter(csvfile, fieldnames=fieldnames)
+CSVwriter.writeheader()
 
 try:
     while True:

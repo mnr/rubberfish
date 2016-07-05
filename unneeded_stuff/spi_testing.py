@@ -38,8 +38,10 @@ spiPlaceholder = 0b00000000
 # to_send = [spiControl,0x02]
 # to_send = [spiStart,spiControl,spiPlaceholder]
 
-with open('spiCapture.csv', 'wb') as f:
-    writer = csv.writer(f)
+with open('spiCSVCapture.csv', 'w') as csvfile:
+    fieldnames = ['SpiControl', 'Resp Byte One','Resp Byte Two','Resp Byte Three']
+    CSVwriter = csv.DictWriter(csvfile, fieldnames=fieldnames)
+    CSVwriter.writeheader()
 
 try:
     while True:
@@ -50,7 +52,8 @@ try:
             to_send = [spiStart,spiControl,spiPlaceholder]
             resp = spi.xfer(to_send)
             # print (bin(spiControl) + " - " + str(resp))
-            writer.writerows(spiControl,str(resp))
+            CSVwriter.writerow({'SpiControl': str(spiControl), 'Resp Byte One' : str(resp[0]),'Resp Byte Two' : str(resp[1]),'Resp Byte Three' : str(resp[2])})
+
             time.sleep(.25)
 except KeyboardInterrupt: #control-c
     spi.close()         # close the spi device

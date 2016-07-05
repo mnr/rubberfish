@@ -88,7 +88,7 @@ class BmBB:
         # says the phrase, plus animates the fish mouth, head and tail in sync to speech
 
         # convert text to speech
-        allwords = say_this_phrase.split().
+        allwords = say_this_phrase.split()
         for aword in allwords:
             audio_file_path = TextToFishSpeak.doTextToSpeech(aword)
             subprocess.Popen(['aplay', audio_file_path])

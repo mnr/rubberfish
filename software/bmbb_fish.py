@@ -89,9 +89,16 @@ class BmBB:
 
         # convert text to speech
         allwords = say_this_phrase.split()
+        wordDictionary = {}
+
+        # record all words, stashing the pathnames in a dictionary
         for aword in allwords:
             audio_file_path = TextToFishSpeak.doTextToSpeech(aword)
-            subprocess.Popen(['aplay', audio_file_path])
+            wordDictionary[aword] = audio_file_path
+
+        # play each word and animate
+        for aword in allwords:
+            subprocess.Popen(['aplay', wordDictionary[aword]])
 
             # animate the fish
             # for aword in say_this_phrase.split():

@@ -4,6 +4,9 @@ enable spi
 
 spi documentation
 http://tightdev.net/SpiDev_Doc.pdf
+
+using an opamp to amplify audio line
+http://www.instructables.com/id/Arduino-Audio-Input/step3/Non-Inverting-Amplifier/
 """
 
 # works with MCP3008, ch0

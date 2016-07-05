@@ -53,7 +53,7 @@ try:
             to_send = [spiStart,spiControl,spiPlaceholder]
             resp = spi.xfer(to_send)
             # print (bin(spiControl) + " - " + str(resp))
-            CSVwriter.writerow({'SpiControl': str(spiControl), 'Resp Byte One' : str(resp[0]),'Resp Byte Two' : str(resp[1]),'Resp Byte Three' : str(resp[2])})
+            CSVwriter.writerow({'SpiControl': bin(spiControl), 'Resp Byte One' : str(resp[0]),'Resp Byte Two' : str(resp[1]),'Resp Byte Three' : str(resp[2])})
 
             time.sleep(.25)
 except KeyboardInterrupt: #control-c

@@ -93,8 +93,9 @@ class BmBB:
 
         # record all words, stashing the pathnames in a dictionary
         for aword in allwords:
-            audio_file_path = TextToFishSpeak.doTextToSpeech(aword)
-            wordDictionary[aword] = audio_file_path
+            if aword not in wordDictionary:
+                audio_file_path = TextToFishSpeak.doTextToSpeech(aword)
+                wordDictionary[aword] = audio_file_path
 
         # play each word and animate
         for aword in allwords:
@@ -104,7 +105,7 @@ class BmBB:
             # for aword in say_this_phrase.split():
             minsyl, maxsyl = countSyllables.count_syllables(aword)
             if self.debugMode: print (minsyl,maxsyl,aword)
-            mouthPause = (len(aword)/(1 if maxsyl == 0 else maxsyl))*.1
+            mouthPause = (len(aword)/(1 if minsyl == 0 else minsyl))*.1
             # headAndTailRandomizer = random.randint(1,10)
             # if (headAndTailRandomizer > 5): self.head()
             # if (headAndTailRandomizer > 7): self.tail()

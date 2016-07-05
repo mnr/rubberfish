@@ -105,7 +105,7 @@ class BmBB:
             # for aword in say_this_phrase.split():
             minsyl, maxsyl = countSyllables.count_syllables(aword)
             if self.debugMode: print (minsyl,maxsyl,aword)
-            mouthPause = (len(aword)/(1 if minsyl == 0 else minsyl))*.1
+            mouthPause = (len(aword)/(1 if minsyl == 0 else minsyl))*.05
             # headAndTailRandomizer = random.randint(1,10)
             # if (headAndTailRandomizer > 5): self.head()
             # if (headAndTailRandomizer > 7): self.tail()

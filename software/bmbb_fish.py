@@ -40,7 +40,7 @@ class BmBB:
         self.PWMstatus.start(0) #duty cycle of zero. Enabled but silent
 
         # do something to indicate life
-        self.mouth()
+        self.speak("Hello. I had a good rest, but it's nice to be back at work.")
 
     def shut_down_fish(self):
         if self.debugMode: print("killing the fish")

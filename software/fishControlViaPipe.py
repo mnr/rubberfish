@@ -3,7 +3,7 @@
 # creates a pipe-driven method for telling the fish what to say
 # run this as python3 fishControlViaPipe.py &
 
-import bmbb_fish
+from bmbb_fish import BmBB
 import os
 
 my_fish = BmBB()

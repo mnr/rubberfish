@@ -7,7 +7,7 @@ echo "Initializing Fish"
 ##############
 # set up control processes for the fish
 ###
-python3 fishControlViaPipe.py & # tells the fish what to say
+python3 ~/rubberfish/software/fishControlViaPipe.py & # tells the fish what to say
 
 ##############
 # set up for visual processing

@@ -14,6 +14,7 @@ python3 ~/rubberfish/software/fishControlViaPipe.py & # tells the fish what to s
 ###
 
 # test for directory. If not available, mkdir ~/rubberfish/visuals
+echo "checking for existence of rubberfish/visuals"
 [ ! -d ~/rubberfish/visuals  ] && mkdir ~/rubberfish/visuals
 
 # https://www.raspberrypi.org/documentation/usage/webcams/
@@ -24,6 +25,6 @@ fswebcam --loop 10 --background --no-banner --resolution 640x480 --save ~/rubber
 
 ##############
 # set up for audio processing
-arecord -D plughw:1,0 test.wav
+# arecord -D plughw:1,0 test.wav
 
 echo "Finished with Initial Fish"

@@ -20,7 +20,7 @@ echo "checking for existence of rubberfish/visuals"
 # https://www.raspberrypi.org/documentation/usage/webcams/
 # test for fswebcam. If not installed, sudo apt-get install fswebcam
 
-# start the webcam. Save a jpeg every ten seconds labeled as pic20.jpg
+echo "start the webcam. Save a jpeg every ten seconds labeled as pic20.jpg"
 fswebcam --loop 10 --background --no-banner --resolution 640x480 --save ~/rubberfish/visuals/pic%S.jpg
 
 ##############

@@ -30,17 +30,30 @@ echo "checking for existence of rubberfish/sounds"
 
 # relies on the sox package. sudo apt-get install sox
 # http://sox.sourceforge.net/
+# set up the audiodev so sox know where to look
+export AUDIODEV=hw:1,0
 # rec
 #    This will make a collection of files starting with “snd001.wav”.
-#    -r is bit rate
 # silence
 #    After the word “silence” are two sets of three numbers.
 #    These sets determine the “squelch” behavior.
 #    The first set of three “turn on” recording, and the second three “turn off”.
 #    First three: First # is control. Second # is delay. Third # is threshold.
 #    Second three: First # is control. Second # is length of silence to trigger end.
-# rec -r 8000 -t plughw:1,0 snd.wav silence 1 1.0 5% 1 3.0 5%  : newfile : restart
+#    Reference: http://digitalcardboard.com/blog/2009/08/25/the-sox-of-silence/
+# gain -n normalizes to 0db
+# vad trims silence up to the appearance of human voices
+# rec ~/rubberfish/sounds/snd.wav silence 1 1.0 3.0% -1 0.5 3.0%  : newfile : restart
+# rec ~/rubberfish/sounds/snd.wav silence 1 .3 3% 1 1.0 3.0%  : newfile : restart # starts late. Stops on silence
+# rec ~/rubberfish/sounds/snd.wav silence 1 2.0 2.95% 1 1.0 3.0%  : newfile : restart
+# rec ~/rubberfish/sounds/snd.wav silence 1 .5 2.5% 1 1.0 3.0%  : newfile : restart
+# # sample 2 rec ~/rubberfish/sounds/snd.wav silence 1 .5 2.85% 1 1.0 3.0% gain -n  : newfile : restart #works, but sensitive
+# rec ~/rubberfish/sounds/snd.wav silence 1 .5 -31.0d 1 1.0 3.0% gain -n  : newfile : restart
+# #sample 1 rec ~/rubberfish/sounds/snd.wav silence 1 .5 -31.0d 1 1.0 -31.0d gain -n  : newfile : restart
+# rec ~/rubberfish/sounds/snd.wav silence 1 .5 2.85% 1 1.0 3.0% vad
+rec ~/rubberfish/sounds/snd.wav silence 1 .5 2.85% 1 1.0 3.0% vad gain -n  : newfile : restart & #best so far
 
+# arecord didn't do vox
 # echo "record for 10 seconds, save snd20.wav"
 # arecord -d 10 -D plughw:1,0 ~/rubberfish/sounds/snd%S.wav
 

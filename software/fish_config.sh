@@ -1,4 +1,15 @@
-#!/bin/bash
+#!/bin/sh
+
+### BEGIN INIT INFO
+# Provides:          initialization of fish hardware and software
+# Required-Start:
+# Required-Stop:
+# Default-Start:
+# Default-Stop:      0
+# Short-Description: Init the fish
+# Description:
+### END INIT INFO
+
 # https://debian-administration.org/article/28/Making_scripts_run_at_boot_time_with_Debian
 # /etc/init.d/blah
 
@@ -40,7 +51,7 @@ case "$1" in
 
     ;;
   *)
-    echo "Usage: /etc/init.d/blah {start|stop}"
+    echo "Usage: /etc/init.d/fish_config.sh {start|stop}"
     exit 1
     ;;
 esac

@@ -24,26 +24,26 @@ case "$1" in
 
     echo "##########"
     echo "set up control processes for the fish"
-    python3 ~/rubberfish/software/fishControlViaPipe.py & # tells the fish what to say
+    python3 /home/pi/rubberfish/software/fishControlViaPipe.py & # tells the fish what to say
 
     echo "##########"
     echo "set up for visual processing"
     echo "checking for existence of rubberfish/visuals"
-    [ ! -d ~/rubberfish/visuals  ] && mkdir ~/rubberfish/visuals
+    [ ! -d /home/pi/rubberfish/visuals  ] && mkdir /home/pi/rubberfish/visuals
 
     echo "start the webcam. Save a jpeg every ten seconds labeled as pic20.jpg"ls -al
-    fswebcam --loop 10 --background --no-banner --resolution 640x480 --save ~/rubberfish/visuals/pic%S.jpg
+    fswebcam --loop 10 --background --no-banner --resolution 640x480 --save /home/pi/rubberfish/visuals/pic%S.jpg
 
     echo "##########"
     echo "set up for audio processing"
     echo "checking for existence of rubberfish/sounds"
-    [ ! -d ~/rubberfish/sounds  ] && mkdir ~/rubberfish/sounds
+    [ ! -d /home/pi/rubberfish/sounds  ] && mkdir /home/pi/rubberfish/sounds
 
     # relies on the sox package. sudo apt-get install sox
     # http://sox.sourceforge.net/
     # set up the audiodev so sox know where to look
     export AUDIODEV=hw:1,0
-    rec ~/rubberfish/sounds/snd.wav silence 1 .5 2.85% 1 1.0 3.0% vad gain -n −−no−show−progress : newfile : restart & #best so far
+    rec /home/pi/rubberfish/sounds/snd.wav silence 1 .5 2.85% 1 1.0 3.0% vad gain -n −−no−show−progress : newfile : restart & #best so far
 
     echo "##########"
     echo "Finished with Initial Fish"
@@ -51,7 +51,7 @@ case "$1" in
     ;;
   stop)
     echo "shutting down the fish"
-    python3 ~/rubberfish/software/fishShutdown.py
+    python3 /home/pi/rubberfish/software/fishShutdown.py
 
     ;;
   *)

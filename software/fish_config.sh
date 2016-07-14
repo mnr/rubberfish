@@ -43,7 +43,7 @@ case "$1" in
     # http://sox.sourceforge.net/
     # set up the audiodev so sox know where to look
     export AUDIODEV=hw:1,0
-    rec /home/pi/rubberfish/sounds/snd.wav silence 1 .5 2.85% 1 1.0 3.0% vad gain -n −−no−show−progress : newfile : restart & #best so far
+    rec /home/pi/rubberfish/sounds/snd.wav silence 1 .5 2.85% 1 1.0 3.0% vad gain -l 9 −−no−show−progress : newfile : restart & #best so far
 
     echo "##########"
     echo "Finished with Initial Fish"

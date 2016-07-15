@@ -3,7 +3,7 @@
 |---|---|---|---|---|
 | 12 | 1 | 18 | in | vent (switch) |
 | 16 | 4 | 23 | in | light (switch) |
-| 10 | ? | ?? | in | heat (switch) |
+| 10 | ? | 15 | in | heat (switch) |
 """
 
 import RPi.GPIO as GPIO

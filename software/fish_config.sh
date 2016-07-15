@@ -39,6 +39,7 @@ case "$1" in
     echo "checking for existence of rubberfish/sounds"
     [ ! -d /home/pi/rubberfish/sounds  ] && mkdir /home/pi/rubberfish/sounds
 
+    echo "working on rec - 7/15/2016:2:45"
     # relies on the sox package. sudo apt-get install sox
     # http://sox.sourceforge.net/
     # set up the audiodev so sox know where to look
@@ -47,7 +48,8 @@ case "$1" in
     AUDIODEV=hw:1,0
     export AUDIODEV
     # the following produces "rec FAIL gain: usage: [-e|-b|-B|-r] [-n] [-l|-h] [gain-dB]"
-    rec /home/pi/rubberfish/sounds/snd.wav silence 1 .5 2.85% 1 1.0 3.0% vad gain -n --no-show-progress : newfile : restart & #best so far
+    # rec /home/pi/rubberfish/sounds/snd.wav silence 1 .5 2.85% 1 1.0 3.0% vad gain -n --no-show-progress : newfile : restart & #best so far
+    rec /home/pi/rubberfish/sounds/snd.wav silence 1 .5 2.85% 1 1.0 3.0%  --no-show-progress : newfile : restart &
 
     echo "##########"
     echo "Finished with Initial Fish"

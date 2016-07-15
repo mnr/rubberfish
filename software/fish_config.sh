@@ -44,7 +44,7 @@ case "$1" in
     # set up the audiodev so sox know where to look
     export AUDIODEV=hw:1,0
     # the following produces "rec FAIL gain: usage: [-e|-b|-B|-r] [-n] [-l|-h] [gain-dB]"
-    rec /home/pi/rubberfish/sounds/snd.wav silence 1 .5 2.85% 1 1.0 3.0% vad gain -n −−no−show−progress --temp /tmp : newfile : restart & #best so far
+    rec /home/pi/rubberfish/sounds/snd.wav silence 1 .5 2.85% 1 1.0 3.0% vad gain -n −−no−show−progress -v5 : newfile : restart & #best so far
 
     echo "##########"
     echo "Finished with Initial Fish"

@@ -37,23 +37,23 @@ def main(args=None):
             # my_fish.mouth(enthusiasm=randomEnthusiasm,fishDuration=randomDuration)
             # sleep(1)
             print('vent:{ventValue}, light:{lightValue}, heat:{heatValue}.'.format(ventValue=my_box.get_boxVENT_STATE(), lightValue=my_box.get_boxLIGHT_STATE(), heatValue=my_box.get_boxHEAT_STATE()))
-            if GPIO.event_detected(my_box.boxVENT):
-                if my_box.get_boxVENT_STATE():
-                    print ("VENT has been thrown to the left")
-                else:
-                    print("VENT has been thrown to the right")
-
-            if GPIO.event_detected(my_box.boxLIGHT):
-                if my_box.get_boxLIGHT_STATE():
-                    print("LIGHT has been thrown to the left")
-                else:
-                    print ("LIGHT has been thrown to the right")
-
-            if GPIO.event_detected(my_box.boxHEAT):
-                if my_box.get_boxHEAT_STATE():
-                    print("HEAT has been thrown to the left")
-                else:
-                    print ("HEAT has been thrown to the right")
+            # if GPIO.event_detected(my_box.boxVENT):
+            #     if my_box.get_boxVENT_STATE():
+            #         print ("VENT has been thrown to the left")
+            #     else:
+            #         print("VENT has been thrown to the right")
+            #
+            # if GPIO.event_detected(my_box.boxLIGHT):
+            #     if my_box.get_boxLIGHT_STATE():
+            #         print("LIGHT has been thrown to the left")
+            #     else:
+            #         print ("LIGHT has been thrown to the right")
+            #
+            # if GPIO.event_detected(my_box.boxHEAT):
+            #     if my_box.get_boxHEAT_STATE():
+            #         print("HEAT has been thrown to the left")
+            #     else:
+            #         print ("HEAT has been thrown to the right")
 
     except KeyboardInterrupt:
         my_fish.shut_down_fish()

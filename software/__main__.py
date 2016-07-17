@@ -21,6 +21,7 @@ def main(args=None):
 
     try:
         while 1:
+            sleep 10
             # randomEnthusiasm = (randint(0,100))
             # randomDuration = (randint(0,10))/10
             # my_fish.tail(enthusiasm=randomEnthusiasm,fishDuration=randomDuration)
@@ -54,6 +55,8 @@ def main(args=None):
             #         print("HEAT has been thrown to the left")
             #     else:
             #         print ("HEAT has been thrown to the right")
+            print (get_visual()) # trigger the webcam
+
 
     except KeyboardInterrupt:
         my_fish.shut_down_fish()

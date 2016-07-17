@@ -54,7 +54,7 @@ def main(args=None):
             #         print("HEAT has been thrown to the left")
             #     else:
             #         print ("HEAT has been thrown to the right")
-            print (get_visual()) # trigger the webcam
+            print (my_box.get_visual()) # trigger the webcam
 
 
     except KeyboardInterrupt:

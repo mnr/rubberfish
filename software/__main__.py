@@ -1,6 +1,5 @@
 import sys
 from time import sleep as sleep
-from datetime import datetime as datetime
 from bmbb_fish import BmBB
 from box_controls import boxControls
 import RPi.GPIO as GPIO
@@ -16,8 +15,6 @@ def main(args=None):
     GPIO.add_event_detect(my_box.boxVENT, GPIO.BOTH)
     GPIO.add_event_detect(my_box.boxLIGHT, GPIO.BOTH)
     GPIO.add_event_detect(my_box.boxHEAT, GPIO.BOTH)
-
-
 
     try:
         while 1:

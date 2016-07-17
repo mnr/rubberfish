@@ -40,7 +40,7 @@ class boxControls:
         pygame.init()
         pygame.camera.init()
         #setup window
-        self.windowSurfaceObj = pygame.display.set_mode((width,height),1,16)
+        self.windowSurfaceObj = pygame.display.set_mode((self.width,self.height),1,16)
         #pygame.display.set_caption('Camera')
 
     def get_boxVENT_STATE(self):

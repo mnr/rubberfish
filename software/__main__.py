@@ -1,6 +1,6 @@
 import sys
 from time import sleep as sleep
-import time
+from time import datetime as datetime
 from bmbb_fish import BmBB
 from box_controls import boxControls
 import RPi.GPIO as GPIO

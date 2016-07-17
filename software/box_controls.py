@@ -55,7 +55,7 @@ class boxControls:
     def get_visual(self):
         # where_to_save_image = "/home/pi/rubberfish/visuals.saveithere","{:%M%S}".format(datetime.now()),".jpg"
         where_to_save_image = "{}{}{}".format("/home/pi/rubberfish/visuals/pic_","{:%H%M%S}".format(datetime.now()),".jpg")
-        cam = pygame.camera.Camera("/dev/video0",(width,height))
+        cam = pygame.camera.Camera("/dev/video0",(self.width,self.height))
         cam.start()
         #take a picture
         image = cam.get_image()

@@ -31,20 +31,21 @@ case "$1" in
     echo "checking for existence of rubberfish/visuals"
     [ ! -d /home/pi/rubberfish/visuals  ] && mkdir /home/pi/rubberfish/visuals
 
-    echo "start the webcam. Save a jpeg every ten seconds labeled as pic20.jpg"ls -al
-    fswebcam --loop 10 --background --no-banner --resolution 640x480 --save /home/pi/rubberfish/visuals/pic%S.jpg
+    # echo "start the webcam. Save a jpeg every ten seconds labeled as pic20.jpg"ls -al
+    # fswebcam --loop 10 --background --no-banner --resolution 640x480 --save /home/pi/rubberfish/visuals/pic%S.jpg
+    # temporarily turning this off so I can experiment with python pygame pycam
 
     echo "##########"
     echo "set up for audio processing"
     echo "checking for existence of rubberfish/sounds"
     [ ! -d /home/pi/rubberfish/sounds  ] && mkdir /home/pi/rubberfish/sounds
 
-    echo "working on rec - 7/15/2016:2:45"
+    echo "sox rec works without gain controls"
     # relies on the sox package. sudo apt-get install sox
     # http://sox.sourceforge.net/
     # set up the audiodev so sox know where to look
     # export AUDIODEV=hw:1,0 #how it's done in bash
-    # how it's done in sh
+    # here's how it's done in sh
     AUDIODEV=hw:1,0
     export AUDIODEV
     # the following produces "rec FAIL gain: usage: [-e|-b|-B|-r] [-n] [-l|-h] [gain-dB]"

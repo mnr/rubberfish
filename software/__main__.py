@@ -21,11 +21,10 @@ def main(args=None):
 
     try:
         while 1:
-            sleep 10
             # randomEnthusiasm = (randint(0,100))
             # randomDuration = (randint(0,10))/10
             # my_fish.tail(enthusiasm=randomEnthusiasm,fishDuration=randomDuration)
-            # sleep(1)
+            sleep(10)
             # localtime = time.asctime( time.localtime(time.time()) )
             # my_fish.speak("hello, Dave, the time is " + localtime)
 

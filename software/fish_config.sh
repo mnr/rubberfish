@@ -32,7 +32,7 @@ case "$1" in
     [ ! -d /home/pi/rubberfish/visuals  ] && mkdir /home/pi/rubberfish/visuals
 
     # echo "start the webcam. Save a jpeg every ten seconds labeled as pic20.jpg"ls -al
-    fswebcam --loop 10 --background --no-banner --resolution 640x480 --save /home/pi/rubberfish/visuals/%M%S.jpg
+    fswebcam --loop 10 --background --no-banner --resolution 640x480 --log /var/log/fswebcam.log --save /home/pi/rubberfish/visuals/pic_%M%S.jpg
 
     echo "##########"
     echo "set up for audio processing"

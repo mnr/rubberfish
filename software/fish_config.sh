@@ -32,8 +32,7 @@ case "$1" in
     [ ! -d /home/pi/rubberfish/visuals  ] && mkdir /home/pi/rubberfish/visuals
 
     # echo "start the webcam. Save a jpeg every ten seconds labeled as pic20.jpg"ls -al
-    # fswebcam --loop 10 --background --no-banner --resolution 640x480 --save /home/pi/rubberfish/visuals/pic%S.jpg
-    # temporarily turning this off so I can experiment with python pygame pycam
+    fswebcam --loop 10 --background --no-banner --resolution 640x480 --save /home/pi/rubberfish/visuals/%M%S.jpg
 
     echo "##########"
     echo "set up for audio processing"

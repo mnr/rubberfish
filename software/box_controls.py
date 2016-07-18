@@ -21,6 +21,7 @@ from datetime import datetime
 class boxControls:
     """ provides access to controls mounted on the pedestal """
 
+    print("boxControls variables")
     # GPIO pins assigned to the two front-panel switches
     boxVENT = 12
     boxLIGHT = 16
@@ -32,6 +33,7 @@ class boxControls:
     windowSurfaceObj = None
 
     def __init__(self):
+        print("__init__")
         GPIO.setmode(GPIO.BOARD)
         GPIO.setup(self.boxVENT, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
         GPIO.setup(self.boxLIGHT, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
@@ -55,12 +57,6 @@ class boxControls:
 
     def get_visual(self):
         # where_to_save_image = "/home/pi/rubberfish/visuals.saveithere","{:%M%S}".format(datetime.now()),".jpg"
-        where_to_save_image = "{}{}{}".format("/home/pi/rubberfish/visuals/pic_","{:%H%M%S}".format(datetime.now()),".jpg")
-        cam = pygame.camera.Camera("/dev/video0",(self.width,self.height))
-        cam.start()
-        #take a picture
-        image = cam.get_image()
-        cam.stop()
-        #save picture
-        pygame.image.save(self.windowSurfaceObj,where_to_save_image)
-        return where_to_save_image
+        # where_to_save_image = "{}{}{}".format("/home/pi/rubberfish/visuals/pic_","{:%H%M%S}".format(datetime.now()),".jpg")
+        # return where_to_save_image
+        pass

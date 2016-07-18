@@ -9,6 +9,7 @@ from random import randint
 def main(args=None):
     """The main routine."""
 
+    print("def main variables")
     my_fish = BmBB()
     my_box = boxControls()
 
@@ -18,6 +19,7 @@ def main(args=None):
 
     try:
         while 1:
+            print("try while 1")
             # randomEnthusiasm = (randint(0,100))
             # randomDuration = (randint(0,10))/10
             # my_fish.tail(enthusiasm=randomEnthusiasm,fishDuration=randomDuration)
@@ -51,7 +53,7 @@ def main(args=None):
             #         print("HEAT has been thrown to the left")
             #     else:
             #         print ("HEAT has been thrown to the right")
-            print (my_box.get_visual()) # trigger the webcam
+            # print (my_box.get_visual()) # trigger the webcam
 
 
     except KeyboardInterrupt:

@@ -52,7 +52,8 @@ case "$1" in
     rec /home/pi/rubberfish/sounds/snd.wav silence 1 .5 2.85% 1 1.0 3.0%  --no-show-progress : newfile : restart &
 
     echo "clearing sound directory every hour"
-    cron 3 */1 * * * /home/pi/rubberfish/software/cleanSoundDir.sh
+    # cron 3 */1 * * * /home/pi/rubberfish/software/cleanSoundDir.sh
+    cp /home/pi/rubberfish/software/cleanSoundDir.sh /etc/cron.hourly/
 
     echo "##########"
     echo "Finished with Initial Fish"

@@ -54,6 +54,15 @@ class PCF8591:
         # Jumper P6 to AIN3: The single turn 10K ohm trimpot voltage (resistance drop – brighter light, lower resistance).
         pass
 
+    def read_ain0(self):
+        pass
+    def read_ain1(self):
+        pass
+    def read_ain2(self):
+        pass
+    def read_ain3(self):
+        pass
+
 # overview from http://www.icstation.com/pcf8591-adda-converter-module-light-temperature-intensity-p-2494.html
 # PCF8591 AD / DA chip introduced:
 # The PCF8591 Is a monolithically integrated, and a separate power supply, low-power, 8-bit CMOS data acquisition devices. The PCF8591 has the four analog inputs, one analog output and a serial I2C bus interface. PCF8591 three address pins A0, A1 and A2 can be used in hardware address programmed 8 PCF8591 device allows access to the same I2C bus, without the need for additional hardware. On the PCF8591 device input and output of the address, control and data signals are transmitted in serial fashion via the two-wire bidirectional I2C bus.

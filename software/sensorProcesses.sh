@@ -4,7 +4,7 @@
 # I've set up this file so we only do one at a time
 # started in the background by fish_config.sh
 
-echo "background webcam and sound while loop started"
+echo "starting the background loop that calls webcam and sound"
 
 while 1
 do

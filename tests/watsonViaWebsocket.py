@@ -1,19 +1,25 @@
+#!/usr/bin/python3
+
 # I'm learning how to communicate with watson text-to-speech via websockets
-# ### Watson
-# watson tts: https://www.ibm.com/watson/developercloud/text-to-speech.html
-# using tts: https://www.ibm.com/watson/developercloud/doc/text-to-speech/index.shtml
-# using websockets: https://www.ibm.com/watson/developercloud/doc/text-to-speech/websockets.shtml#using
-
-# ### Python
-# pypi: https://pypi.python.org/pypi/websockets/3.2
-# python tutorial: https://www.fullstackpython.com/websockets.html
-
-
 # imports for watson
+# from watson_developer_cloud import TextToSpeechV1
 from watson_developer_cloud import TextToSpeechV1
 # imports for websockets
 import asyncio
 import websockets
+
+import private_WatsonStuff #assumes this file is in the same directory
+
+
+# everything above this line works
+
+"""
+{
+  "url": "https://stream.watsonplatform.net/text-to-speech/api",
+  "password": private_WatsonStuff.WatsonPassword,
+  "username": private_WatsonStuff.WatsonUsername
+}
+"""
 
 @asyncio.coroutine
 def hello():

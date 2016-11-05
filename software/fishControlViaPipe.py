@@ -16,28 +16,7 @@ from watson_developer_cloud import TextToSpeechV1
 import asyncio
 import websockets
 
-""" working on this
-@asyncio.coroutine
-def hello():
-    websocketURI = "wss://stream.watsonplatform.net/text-to-speech/api/v1/synthesize?"
-    websocketURI += "voice=en-US_AllisonVoice"
-    websocketURI += "&watson-token=" + token;
-    websocket = yield from websockets.connect(websocketURI)
 
-    try:
-        name = input("What's your name? ")
-        yield from websocket.send(name)
-        print("> {}".format(name))
-
-        greeting = yield from websocket.recv()
-        print("< {}".format(greeting))
-
-    finally:
-        yield from websocket.close()
-
-asyncio.get_event_loop().run_until_complete(hello())
-
- /working on this """
 
 my_fish = BmBB()
 
@@ -69,13 +48,7 @@ while True:
                     break
             wordDictionary[keyword] = wordToSay(aword)
 
-        # send the complete string to watson for interpretation
-        # documentation at https://www.ibm.com/watson/developercloud/doc/text-to-speech/websockets.shtml#using
 
-        # Watson: open a connection
-        # Watson: send text
-        # Watson: receive response
-        #wss://stream.watsonplatform.net/text-to-speech/api/v1/synthesize
 
 
 

@@ -3,11 +3,12 @@
 import json
 from os.path import join, dirname
 from watson_developer_cloud import TextToSpeechV1
+import private_WatsonStuff
 
 
 text_to_speech = TextToSpeechV1(
-    username='68a411a4-e8f4-4562-9f9a-5c6f7e702838',
-    password='mDcxNBtfzQJH',
+    username=private_WatsonStuff.WatsonUsername,
+    password=private_WatsonStuff.WatsonPassword,
     x_watson_learning_opt_out=True)  # Optional flag
 
 # do this mkdir ~/Desktop/watsonspeaks

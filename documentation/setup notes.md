@@ -1,6 +1,7 @@
 General Notes
 ======
 The fish wifi shows up at 10.0.0.31
+
 I have not installed vnc. Instead, use "ssh pi@10.0.0.31"
 
 

@@ -2,17 +2,26 @@
 
 # I'm learning how to communicate with watson text-to-speech via websockets
 # imports for watson
+from watson_developer_cloud.watson_developer_cloud_service import WatsonDeveloperCloudService #copied from authorization_v1.py
+import urllib.parse as urlparse  #copied from authorization_v1.py
+from watson_developer_cloud import AuthorizationV1
 from watson_developer_cloud import TextToSpeechV1
 # imports for websockets
-import asyncio
+# import asyncio # asyncio is included as part of python 3.4 standard library
 import websockets
 import private_WatsonStuff #assumes this file is in the same directory
+import json
 
-async def hello():
+authorization = AuthorizationV1(
+    username='private_WatsonStuff.username',
+    password='private_WatsonStuff.password')
+
+tokenURL = authorization.get_token(url=SpeechToTextV1.default_url)
+
+async def dialogWithWatson():
     websocketURI = "wss://stream.watsonplatform.net/text-to-speech/api/v1/synthesize?"
     websocketURI += "voice=en-US_AllisonVoice"
-    websocketURI += "&watson-token=" + token;
-# getting a token is covered at http://www.ibm.com/watson/developercloud/text-to-speech/api/v1/#authentication
+    websocketURI += "&watson-token=" + tokenURL;
     async with websockets.connect('ws://localhost:8765') as websocket:
 
         name = input("What's your name? ")
@@ -22,7 +31,7 @@ async def hello():
         greeting = await websocket.recv()
         print("< {}".format(greeting))
 
-asyncio.get_event_loop().run_until_complete(hello())
+asyncio.get_event_loop().run_until_complete(dialogWithWatson())
 
 
 

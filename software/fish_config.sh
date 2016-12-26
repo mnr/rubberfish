@@ -60,7 +60,9 @@ case "$1" in
 
     echo "##########"
     echo "starting background webcam and sound"
-    /home/pi/rubberfish/software/sensorProcesses.sh &
+    # /home/pi/rubberfish/software/sensorProcesses.sh &
+    # the pi keeps going off line. While I'm setting up the comparator, I'm going to shut off
+    # the sensor processes
 
     echo "##########"
     echo "Finished with Initial Fish"

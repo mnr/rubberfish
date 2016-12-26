@@ -4,6 +4,11 @@ The fish wifi shows up at 10.0.0.31
 
 I have not installed vnc. Instead, use "ssh pi@10.0.0.31"
 
+Startup
+======
+/etc/init.d/fish_config.sh is started as part of the init process
+
+
 
 Set Up pyttsx
 ======

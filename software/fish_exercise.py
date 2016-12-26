@@ -21,9 +21,11 @@ time.sleep(2)
 
 # mouth
 print("mouth start")
-my_fish.mouth(fishDuration=1,enthusiasm=25)
-my_fish.mouth(fishDuration=1,enthusiasm=50)
-my_fish.mouth(fishDuration=1,enthusiasm=100)
+my_fish.mouth(fishDuration=.25,enthusiasm=25)
+my_fish.mouth(fishDuration=.25,enthusiasm=10)
+my_fish.mouth(fishDuration=.25,enthusiasm=50)
+my_fish.mouth(fishDuration=.25,enthusiasm=10)
+my_fish.mouth(fishDuration=.25,enthusiasm=100)
 print("mouth end")
 
 print("end of exercise")

@@ -1,17 +1,13 @@
+#!/usr/bin/python3
+
 # rpi.gpio documentation at https://sourceforge.net/p/raspberry-gpio-python/wiki/
-import sys
-import subprocess
 import RPi.GPIO as GPIO
 from time import sleep as sleep
-import TextToFishSpeak
-import countSyllables
-import random
+import logging
 
 
 class BmBB:
     """ interface with the controls and motors of the big mouth billy bass """
-
-    debugMode = True #debug flag
 
     # assign names to the GPIO pins. A complete list is in the documentation
     fishMOUTH = 13
@@ -39,41 +35,49 @@ class BmBB:
         self.PWMstatus = GPIO.PWM(self.fishMotorEnable, 50) #frequency 50 hz
         self.PWMstatus.start(0) #duty cycle of zero. Enabled but silent
 
+        # set up error logging
+        logger = logging.getLogger('FishControl')
+        hdlr = logging.FileHandler('/var/tmp/fish.log')
+        formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
+        hdlr.setFormatter(formatter)
+        logger.addHandler(hdlr)
+        logger.setLevel(logging.DEBUG)
+
         # do something to indicate life
         self.mouth()
         # self.speak("Hello. I had a good rest, but it's nice to be back at work.")
 
     def shut_down_fish(self):
-        if self.debugMode: print("killing the fish")
+        self.logger.info('killing the fish')
         self.PWMstatus.stop() # turn off PWM
         GPIO.cleanup() #resets the GPIO state to neutral
 
     def mouth(self,fishDuration=.5,enthusiasm=50):
-        if self.debugMode: print('mouth: duration={durate}, enthusiasm={enth}.'.format(durate=fishDuration, enth=enthusiasm))
+        # opens the mouth, pauses for fishDuration, then closes the mouth
+        self.logger.info('mouth: duration={durate}, enthusiasm={enth}.'.format(durate=fishDuration, enth=enthusiasm))
         self.adjustPWM(enthusiasm)
         GPIO.output(self.fishMOUTH,GPIO.HIGH)
         sleep(fishDuration)
         GPIO.output(self.fishMOUTH,GPIO.LOW)
-        sleep(fishDuration)
 
     def head(self,fishDuration=.4,enthusiasm=75):
-        if self.debugMode: print('head: duration={durate}, enthusiasm={enth}.'.format(durate=fishDuration, enth=enthusiasm))
+        self.logger.info('head: duration={durate}, enthusiasm={enth}.'.format(durate=fishDuration, enth=enthusiasm))
         self.adjustPWM(enthusiasm)
         self.headOut(enthusiasm)
         sleep(fishDuration)
         self.headBack()
 
     def headOut(self,enthusiasm=75):
-        if self.debugMode: print('headOut: enthusiasm={enth}.'.format(enth=enthusiasm))
+        self.logger.info('headOut: enthusiasm={enth}.'.format(enth=enthusiasm))
         self.adjustPWM(enthusiasm)
         GPIO.output(self.fishHEAD,GPIO.HIGH)
 
     def headBack(self):
-        if self.debugMode: print('headBack: No Parameters')
+        self.logger.info('headBack: No Parameters')
         GPIO.output(self.fishHEAD,GPIO.LOW)
 
     def tail(self,fishDuration=.4,enthusiasm=75):
-        if self.debugMode: print('tail: duration={durate}, enthusiasm={enth}.'.format(durate=fishDuration, enth=enthusiasm))
+        self.logger.info('tail: duration={durate}, enthusiasm={enth}.'.format(durate=fishDuration, enth=enthusiasm))
         self.adjustPWM(enthusiasm)
         GPIO.output(self.fishTAIL,GPIO.HIGH)
         sleep(fishDuration)
@@ -85,30 +89,5 @@ class BmBB:
         PWMDutyCycle = 0 if PWMDutyCycle < 0 else PWMDutyCycle
         self.PWMstatus.ChangeDutyCycle(PWMDutyCycle)
 
-    def speak(self,say_this_phrase):
-        # says the phrase, plus animates the fish mouth, head and tail in sync to speech
-
-        # convert text to speech
-        allwords = say_this_phrase.split()
-        wordDictionary = {}
-
-        # record all words, stashing the pathnames in a dictionary
-        for aword in allwords:
-            if aword not in wordDictionary:
-                audio_file_path = TextToFishSpeak.doTextToSpeech(aword)
-                wordDictionary[aword] = audio_file_path
-
-        # play each word and animate
-        for aword in allwords:
-            subprocess.Popen(['aplay', wordDictionary[aword]])
-
-            # animate the fish
-            # for aword in say_this_phrase.split():
-            minsyl, maxsyl = countSyllables.count_syllables(aword)
-            if self.debugMode: print (minsyl,maxsyl,aword)
-            mouthPause = (len(aword)/(1 if minsyl == 0 else minsyl))*.05
-            # headAndTailRandomizer = random.randint(1,10)
-            # if (headAndTailRandomizer > 5): self.head()
-            # if (headAndTailRandomizer > 7): self.tail()
-            for theIndex in range(1 if minsyl==0 else minsyl):
-                self.mouth(fishDuration=mouthPause)
+# I pulled "speak" out of this file. I'd like to keep bmbb_fish a pure interface to the hardware and put complex logic somewhere else.
+# in this case, speak() is moved to fishControlViaPipe.py

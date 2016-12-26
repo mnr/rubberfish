@@ -23,7 +23,7 @@ case "$1" in
   start)
 
     echo "##########"
-    echo "set up control processes for the fish"
+    echo "Start a pipe to handle text-to-speech, watson and robotics for the fish"
     python3 /home/pi/rubberfish/software/fishControlViaPipe.py & # tells the fish what to say
 
     echo "##########"
@@ -31,8 +31,10 @@ case "$1" in
     echo "checking for existence of rubberfish/visuals"
     [ ! -d /home/pi/rubberfish/visuals  ] && mkdir /home/pi/rubberfish/visuals
 
+    # webcam moved to sensorProcesses.sh
     # echo "start the webcam. Save a jpeg every ten seconds labeled as pic20.jpg"ls -al
-    fswebcam --loop 10 --background --no-banner --resolution 640x480 -s 20 --log /var/log/fswebcam.log --save /home/pi/rubberfish/visuals/pic_%M%S.jpg
+    # fswebcam --loop 10 --background --no-banner --resolution 640x480 -s 20 --log /var/log/fswebcam.log --save /home/pi/rubberfish/visuals/pic_%M%S.jpg
+
 
     echo "##########"
     echo "set up for audio processing"
@@ -49,10 +51,16 @@ case "$1" in
     export AUDIODEV
     # the following produces "rec FAIL gain: usage: [-e|-b|-B|-r] [-n] [-l|-h] [gain-dB]"
     # rec /home/pi/rubberfish/sounds/snd.wav silence 1 .5 2.85% 1 1.0 3.0% vad gain -n --no-show-progress : newfile : restart & #best so far
-    rec /home/pi/rubberfish/sounds/snd.wav silence 1 .5 2.85% 1 1.0 3.0%  --no-show-progress : newfile : restart &
+    # rec /home/pi/rubberfish/sounds/snd.wav silence 1 .5 2.85% 1 1.0 3.0%  --no-show-progress : newfile : restart &
+    # rec is moved to sensorProcesses.sh
 
-    echo "clearing sound directory every hour"
-    cron 3 */1 * * * /home/pi/rubberfish/software/cleanSoundDir.sh
+    echo "set a cron job to clear the sound directory every hour"
+    # cron 3 */1 * * * /home/pi/rubberfish/software/cleanSoundDir.sh
+    cp /home/pi/rubberfish/software/cleanSoundDir.sh /etc/cron.hourly/
+
+    echo "##########"
+    echo "starting background webcam and sound"
+    /home/pi/rubberfish/software/sensorProcesses.sh &
 
     echo "##########"
     echo "Finished with Initial Fish"
@@ -61,6 +69,8 @@ case "$1" in
   stop)
     echo "shutting down the fish"
     python3 /home/pi/rubberfish/software/fishShutdown.py
+
+    # perhaps this should also remove a cron job and kill background processes
 
     ;;
   *)

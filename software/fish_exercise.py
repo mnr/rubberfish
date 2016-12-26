@@ -1,20 +1,29 @@
 """ simple program to make sure fish is physically connected """
 
-from ../software/bmbb_fish import BmBB
+from bmbb_fish import BmBB
+import time
 
 my_fish = BmBB()
 
-# mouth
-print("mouth start")
-my_fish.mouth(fishDuration=.5,enthusiasm=50)
-print('mouth end')
+# BmBB init opens the mouth
 
 # head
 print('head start')
 my_fish.head(fishDuration=.4,enthusiasm=75)
 print('head end')
+time.sleep(2)
 
 # tail
 print('tail start')
-my_fish.tail(fishDuration=.4,enthusiasm=75):
+my_fish.tail(fishDuration=.4,enthusiasm=75)
 print('tail end')
+time.sleep(2)
+
+# mouth
+print("mouth start")
+my_fish.mouth(fishDuration=1,enthusiasm=25)
+my_fish.mouth(fishDuration=1,enthusiasm=50)
+my_fish.mouth(fishDuration=1,enthusiasm=100)
+print("mouth end")
+
+print("end of exercise")

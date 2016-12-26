@@ -8,6 +8,9 @@ Startup
 ======
 /etc/init.d/fish_config.sh is started as part of the init process
 
+bmbb_fish.py is initiated by fish_config.sh - as part of bmbb_fish.py
+
+
 
 
 Set Up pyttsx

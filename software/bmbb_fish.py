@@ -19,6 +19,7 @@ class BmBB:
     # other variables
     PWMstatus = None #declaring PWMstatus here for later assignment
     SpeechWordObjects = []
+    logger = None #declaring logger here for later use
 
     def __init__(self):
         GPIO.cleanup()
@@ -36,12 +37,12 @@ class BmBB:
         self.PWMstatus.start(0) #duty cycle of zero. Enabled but silent
 
         # set up error logging
-        logger = logging.getLogger('FishControl')
+        self.logger = logging.getLogger('FishControl')
         hdlr = logging.FileHandler('/var/tmp/fish.log')
         formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
         hdlr.setFormatter(formatter)
-        logger.addHandler(hdlr)
-        logger.setLevel(logging.DEBUG)
+        self.logger.addHandler(hdlr)
+        self.logger.setLevel(logging.DEBUG)
 
         # do something to indicate life
         self.mouth()

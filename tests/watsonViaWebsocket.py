@@ -3,20 +3,20 @@
 # I'm learning how to communicate with watson text-to-speech via websockets
 # imports for watson
 from watson_developer_cloud.watson_developer_cloud_service import WatsonDeveloperCloudService #copied from authorization_v1.py
-import urllib.parse as urlparse  #copied from authorization_v1.py
+#import urllib.parse as urlparse  #copied from authorization_v1.py
 from watson_developer_cloud import AuthorizationV1
 from watson_developer_cloud import TextToSpeechV1
 # imports for websockets
 # import asyncio # asyncio is included as part of python 3.4 standard library
-import websockets
+#import websockets
 import private_WatsonStuff #assumes this file is in the same directory
-import json
+#import json
 
 authorization = AuthorizationV1(
-    username='private_WatsonStuff.username',
-    password='private_WatsonStuff.password')
+    username='private_WatsonStuff.WatsonUsername',
+    password='private_WatsonStuff.WatsonPassword')
 
-tokenURL = authorization.get_token(url=SpeechToTextV1.default_url)
+tokenURL = authorization.get_token(url=TextToSpeechV1.default_url)
 
 async def dialogWithWatson():
     websocketURI = "wss://stream.watsonplatform.net/text-to-speech/api/v1/synthesize?"

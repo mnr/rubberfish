@@ -13,7 +13,7 @@ class BmBB:
     fishMOUTH = 13
     fishTAIL = 11
     fishHEAD = 7
-    fishHEAD_reverse = 15
+    # fishHEAD_reverse = 15
     fishMotorEnable = 18
 
     # other variables

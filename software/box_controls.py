@@ -3,9 +3,9 @@
 """
 | Board | Wi Pi | BCM | in/out | function |
 |---|---|---|---|---|
+| 10 | ? | 15 | in | heat (switch) |
 | 12 | 1 | 18 | in | vent (switch) |
 | 16 | 4 | 23 | in | light (switch) |
-| 10 | ? | 15 | in | heat (switch) |
 
 camera support from https://www.raspberrypi.org/forums/viewtopic.php?f=63&t=84388
 """

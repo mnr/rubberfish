@@ -9,8 +9,8 @@ import logging
 class BmBB:
     """ interface with the controls and motors of the big mouth billy bass """
 
-    # assign names to the GPIO pins. A complete list is in the documentation
-    fishMOUTH = 13
+    # assign names to the GPIO pins.
+    # fishMOUTH = 13 # The mouth is now controlled by hardware
     fishTAIL = 11
     fishHEAD = 7
     # fishHEAD_reverse = 15
@@ -27,7 +27,7 @@ class BmBB:
         GPIO.setmode(GPIO.BOARD) #use P1 header pin numbering convention
 
         # set up gpio pins for fish
-        GPIO.setup(self.fishMOUTH, GPIO.OUT, initial=GPIO.LOW)
+        # GPIO.setup(self.fishMOUTH, GPIO.OUT, initial=GPIO.LOW)
         GPIO.setup(self.fishTAIL, GPIO.OUT, initial=GPIO.LOW)
         GPIO.setup(self.fishHEAD, GPIO.OUT, initial=GPIO.LOW)
 
@@ -45,7 +45,7 @@ class BmBB:
         self.logger.setLevel(logging.DEBUG)
 
         # do something to indicate life
-        self.mouth()
+        self.head()
         # self.speak("Hello. I had a good rest, but it's nice to be back at work.")
 
     def shut_down_fish(self):
@@ -55,21 +55,26 @@ class BmBB:
 
     def mouth(self,fishDuration=.5,enthusiasm=50):
         # opens the mouth, pauses for fishDuration, then closes the mouth
+        # mouth is controlled via software - mnr: 12/26/2016
+        """
         self.logger.info('mouth: duration={durate}, enthusiasm={enth}.'.format(durate=fishDuration, enth=enthusiasm))
         self.adjustPWM(enthusiasm)
         GPIO.output(self.fishMOUTH,GPIO.HIGH)
         sleep(fishDuration)
         GPIO.output(self.fishMOUTH,GPIO.LOW)
+        """
 
-    def head(self,fishDuration=.4,enthusiasm=75):
+    def head(self,fishDuration=.4,enthusiasm=60):
         self.logger.info('head: duration={durate}, enthusiasm={enth}.'.format(durate=fishDuration, enth=enthusiasm))
         self.adjustPWM(enthusiasm)
         self.headOut(enthusiasm)
         sleep(fishDuration)
         self.headBack()
 
-    def headOut(self,enthusiasm=75):
+    def headOut(self,enthusiasm=60):
         self.logger.info('headOut: enthusiasm={enth}.'.format(enth=enthusiasm))
+        if self.enthusiasm > 60:
+            self.enthusiasm = 60 # more than 60 will throw the head past it's limit
         self.adjustPWM(enthusiasm)
         GPIO.output(self.fishHEAD,GPIO.HIGH)
 
@@ -90,5 +95,3 @@ class BmBB:
         PWMDutyCycle = 0 if PWMDutyCycle < 0 else PWMDutyCycle
         self.PWMstatus.ChangeDutyCycle(PWMDutyCycle)
 
-# I pulled "speak" out of this file. I'd like to keep bmbb_fish a pure interface to the hardware and put complex logic somewhere else.
-# in this case, speak() is moved to fishControlViaPipe.py

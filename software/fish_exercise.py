@@ -9,7 +9,7 @@ my_fish = BmBB()
 
 # head
 print('head start')
-my_fish.head(fishDuration=.4,enthusiasm=75)
+my_fish.head(fishDuration=.4,enthusiasm=60)
 print('head end')
 time.sleep(2)
 
@@ -19,13 +19,6 @@ my_fish.tail(fishDuration=.4,enthusiasm=75)
 print('tail end')
 time.sleep(2)
 
-# mouth
-print("mouth start")
-my_fish.mouth(fishDuration=.25,enthusiasm=25)
-my_fish.mouth(fishDuration=.25,enthusiasm=10)
-my_fish.mouth(fishDuration=.25,enthusiasm=50)
-my_fish.mouth(fishDuration=.25,enthusiasm=10)
-my_fish.mouth(fishDuration=.25,enthusiasm=100)
-print("mouth end")
+
 
 print("end of exercise")

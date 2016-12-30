@@ -73,8 +73,8 @@ class BmBB:
 
     def headOut(self,enthusiasm=60):
         self.logger.info('headOut: enthusiasm={enth}.'.format(enth=enthusiasm))
-        if self.enthusiasm > 60:
-            self.enthusiasm = 60 # more than 60 will throw the head past it's limit
+        if enthusiasm > 60:
+            enthusiasm = 60 # more than 60 will throw the head past it's limit
         self.adjustPWM(enthusiasm)
         GPIO.output(self.fishHEAD,GPIO.HIGH)
 

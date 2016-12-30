@@ -1,11 +1,7 @@
 #!/usr/bin/python
 
 """
-| Board | Wi Pi | BCM | in/out | function |
-|---|---|---|---|---|
-| 10 | ? | 15 | in | heat (switch) |
-| 12 | 1 | 18 | in | vent (switch) |
-| 16 | 4 | 23 | in | light (switch) |
+see gpio_pinout.md for pinouts
 
 camera support from https://www.raspberrypi.org/forums/viewtopic.php?f=63&t=84388
 """
@@ -26,6 +22,7 @@ class boxControls:
     boxVENT = 12
     boxLIGHT = 16
     boxHEAT = 10
+    fishIsSpeaking = 13
 
     # web cam controls
     width = 640
@@ -37,7 +34,7 @@ class boxControls:
         GPIO.setmode(GPIO.BOARD)
         GPIO.setup(self.boxVENT, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
         GPIO.setup(self.boxLIGHT, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-        GPIO.setup(self.boxHEAT, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+        GPIO.setup(self.fishIsSpeaking, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
         #initialise pygame
         pygame.init()
@@ -54,6 +51,9 @@ class boxControls:
 
     def get_boxHEAT_STATE(self):
         return GPIO.input(self.boxHEAT)
+
+    def get_fishIsSpeaking(self):
+        return GPIO.input(self.fishIsSpeaking)
 
     def get_visual(self):
         # where_to_save_image = "/home/pi/rubberfish/visuals.saveithere","{:%M%S}".format(datetime.now()),".jpg"

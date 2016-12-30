@@ -6,6 +6,6 @@ Assuming that box_controls.py has been run
 | 10 | 16 | 15 | in | heat (switch) |
 | 11 | 0 | 17 | out | Tail |
 | 12 | 1 | 18 | in | vent (switch) |
-| 13 | 2 | 27 | out | Mouth |
+| 13 | 2 | 27 | in | speaking? |
 | 16 | 4 | 23 | in | light (switch) |
 | 18 | 5 | 24 | pwm | motor driver enable |

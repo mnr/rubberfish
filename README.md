@@ -13,6 +13,9 @@ This github project documents my progress on connecting a raspberry pi to a [Big
 * In 2009, [Steve Ravet](http://mbed.org/cookbook/Big-Mouth-Billy-Bass) connected an ARM mbed to Billy.
 * In 2016, [Brian Kane connected a fish to Amazon Alexa](https://www.facebook.com/hdadd/videos/10157576067105265/).
 
+## Narrative
+I've updated [the wiki](https://github.com/mnr/rubberfish/wiki) with progress on the fish.
+
 ## Problems I've solved
 
 ### How to access and drive the fish motors

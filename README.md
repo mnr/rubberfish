@@ -1,6 +1,3 @@
-rubberfish
-==========
-
 ## Embedding a Raspberry Pi into a Big Mouth Billy Bass
 
 Before you read any further, it's important to review this excellent write-up titled [Installing Linux on a Dead Badger: User's Notes](http://strangehorizons.com/non-fiction/articles/installing-linux-on-a-dead-badger-users-notes/) by Lucy A. Snyder. If I am asked, I will name this as the source of my inspiration.

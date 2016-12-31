@@ -24,13 +24,13 @@ A fresh-off-the-shelf fish uses four D-cells and seems to be happiest if supplie
 I've tried a lot of options, finally settling on using a full-blown ATX power supply. [Here are full details](https://github.com/mnr/rubberfish/wiki/Power-Supplies.md).
 
 ### How to sync mouth movements to audio
-working on this...
+Whoo-boy. This was a tough nut to crack. I've tried timing text to speech and I've tried [Watson](https://www.ibm.com/watson/developercloud/text-to-speech.html). I'm currently using a hardware solution. [Here's a bunch of details](https://github.com/mnr/rubberfish/wiki/textToSpeech.md).
 
 ### How to convert text to speech
-working on this...
+This is an ongoing problem. I started with software solutions, flipped to the Watson web service and may switch back to running something locally. I don't have this solved yet.
 
 ### How to control the front panel meter
-working on this...
+working on this...[link to here](https://github.com/mnr/rubberfish/wiki/front_panel.md)
 
 ### How to read the front panel switches
 working on this...

@@ -24,19 +24,31 @@ A fresh-off-the-shelf fish uses four D-cells and seems to be happiest if supplie
 I've tried a lot of options, finally settling on using a full-blown ATX power supply. [Here are full details](https://github.com/mnr/rubberfish/wiki/Power-Supplies.md).
 
 ### How to sync mouth movements to audio
-Whoo-boy. This was a tough nut to crack. I've tried timing text to speech and I've tried [Watson](https://www.ibm.com/watson/developercloud/text-to-speech.html). I'm currently using a hardware solution. [Here's a bunch of details](https://github.com/mnr/rubberfish/wiki/textToSpeech.md).
+Whoo-boy. This was a tough nut to crack. I've tried timing text to speech and I've tried [Watson](https://www.ibm.com/watson/developercloud/text-to-speech.html). I'm currently using a hardware solution. [Here's a bunch of details](https://github.com/mnr/rubberfish/wiki/syncMouthToAudio.md).
 
 ### How to convert text to speech
 This is an ongoing problem. I started with software solutions, flipped to the Watson web service and may switch back to running something locally. I don't have this solved yet.
 
 ### How to control the front panel meter
-working on this...[link to here](https://github.com/mnr/rubberfish/wiki/front_panel.md)
+The front panel includes an analog voltage meter. It's an unreliable narrator controlled by the AtoD module which is controlled by software. It means what I want it to mean. [Here's how it works](https://github.com/mnr/rubberfish/wiki/front_panel.md)
 
 ### How to read the front panel switches
-working on this...
+This is easy. I'm just feeding 3.5 volts through the switches into the GPIO. [Here's how it works](https://github.com/mnr/rubberfish/wiki/front_panel.md)
+
 
 ### How to reduce audio noise
-working on this...
+The Raspberry Pi is electronically noisy. I've improved things by installing a separate audio amplifier and isolating the power to that amplifier. I still hear chatter every time the Raspberry Pi accesses the internet. It's kind of cute. [Here's how it works](https://github.com/mnr/rubberfish/wiki/Audio.md)
+
+### Using the web camera
+I'm currently using an old web cam, connected via USB. Lots of work to be done. [Here's what I have so far](https://github.com/mnr/rubberfish/wiki/cameraAndVision.md)
 
 ### Electrical connections between the fish and the RPi
-working on this...
+I've built a box that contains the Raspberry Pi, electronics, fish and webcam. The fish and webcam are attached to the lid, which slides out of the base. It's not ideal, but in order to take the lid off to access the electronics, the fish and webcam need to be disconnected from the guts. [I've used connectors to do this](https://github.com/mnr/rubberfish/wiki/FishtoDB9pinout.md).
+
+## Other stuff
+
+### Documenting the Raspberry Pi GPIO
+[look here](https://github.com/mnr/rubberfish/wiki/gpio_pinout.md)
+
+### Other setup Notes
+[Stuff to keep track of](https://github.com/mnr/rubberfish/wiki/setupNotes.md)

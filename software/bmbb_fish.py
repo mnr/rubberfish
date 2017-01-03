@@ -4,6 +4,7 @@
 import RPi.GPIO as GPIO
 from time import sleep as sleep
 import logging
+import threading
 
 
 class BmBB:
@@ -56,6 +57,7 @@ class BmBB:
     def mouth(self,fishDuration=.5,enthusiasm=50):
         # opens the mouth, pauses for fishDuration, then closes the mouth
         # mouth is controlled via software - mnr: 12/26/2016
+        self.logger.info('mouth:called, but replaced with hardware')
         """
         self.logger.info('mouth: duration={durate}, enthusiasm={enth}.'.format(durate=fishDuration, enth=enthusiasm))
         self.adjustPWM(enthusiasm)
@@ -66,10 +68,13 @@ class BmBB:
 
     def head(self,fishDuration=.4,enthusiasm=60):
         self.logger.info('head: duration={durate}, enthusiasm={enth}.'.format(durate=fishDuration, enth=enthusiasm))
-        self.adjustPWM(enthusiasm)
         self.headOut(enthusiasm)
+        t = threading.Timer(fishDuration,self.headBack)
+        t.start() # after 'fishDuration' seconds, the head will return
+        """
         sleep(fishDuration)
         self.headBack()
+        """
 
     def headOut(self,enthusiasm=60):
         self.logger.info('headOut: enthusiasm={enth}.'.format(enth=enthusiasm))
@@ -84,14 +89,26 @@ class BmBB:
 
     def tail(self,fishDuration=.4,enthusiasm=75):
         self.logger.info('tail: duration={durate}, enthusiasm={enth}.'.format(durate=fishDuration, enth=enthusiasm))
-        self.adjustPWM(enthusiasm)
-        GPIO.output(self.fishTAIL,GPIO.HIGH)
+        self.tailOut(self,enthusiasm)
+        t = threading.Timer(fishDuration,self.tailBack)
+        t.start() # after 'fishDuration' seconds, the tail will return
+        """
         sleep(fishDuration)
         GPIO.output(self.fishTAIL,GPIO.LOW)
+        """
+
+    def tailOut(self,enthusiasm=75):
+        self.logger.info('tailOut: enthusiasm={enth}.'.format(enth=enthusiasm))
+        self.adjustPWM(enthusiasm)
+        GPIO.output(self.fishTail,GPIO.HIGH)
+
+    def tailBack(self):
+        self.logger.info('tailBack: No Parameters')
+        GPIO.output(self.fishTAIL,GPIO.LOW)
+
 
     def adjustPWM(self,PWMDutyCycle=50):
         # where 0.0 <= PWMDutyCycle <= 100.0
         PWMDutyCycle = 100 if PWMDutyCycle > 100 else PWMDutyCycle
         PWMDutyCycle = 0 if PWMDutyCycle < 0 else PWMDutyCycle
         self.PWMstatus.ChangeDutyCycle(PWMDutyCycle)
-

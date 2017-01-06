@@ -12,11 +12,3 @@ This github project documents my progress on connecting a raspberry pi to a [Big
 
 ## Narrative
 I've updated [the wiki](https://github.com/mnr/rubberfish/wiki) with progress on the fish.
-
-## Other stuff
-
-### Documenting the Raspberry Pi GPIO
-[look here](https://github.com/mnr/rubberfish/wiki/gpio_pinout)
-
-### Other setup Notes
-[Stuff to keep track of](https://github.com/mnr/rubberfish/wiki/setupNotes)

@@ -62,3 +62,10 @@ print("The synthesized wave length: %d" %(len(data)))
 outfile = open('spokenFile.wav','wb')
 outfile.write(data)
 outfile.close()
+
+import pygame
+pygame.mixer.init()
+pygame.mixer.music.load("spokenFile.wav")
+pygame.mixer.music.play()
+while pygame.mixer.music.get_busy() == True:
+    continue

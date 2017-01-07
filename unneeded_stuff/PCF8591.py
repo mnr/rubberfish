@@ -19,7 +19,10 @@ import smbus
 from time import sleep
 
 class PCF8591:
-    """ python interface to uxcell PCF8591 AD/DA Converter Module Analog to Digital to Conversion. As purchased from amazon, ASIN B00BXX4UWC """
+    """
+    python interface to uxcell PCF8591 AD/DA Converter Module Analog to Digital to Conversion. 
+    As purchased from amazon, ASIN B00BXX4UWC
+    """
 
     # i2c bus (0 -- original Pi, 1 -- Rev 2 Pi)
     I2CBUS = 1

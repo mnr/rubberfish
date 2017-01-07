@@ -1,5 +1,9 @@
 #!/bin/sh
 
+# how to
+# https://debian-administration.org/article/28/Making_scripts_run_at_boot_time_with_Debian
+# copy this file into /etc/init.d
+
 ### BEGIN INIT INFO
 # Provides:          fish_config
 # Required-Start:    $remote_fs $syslog $time
@@ -14,8 +18,6 @@
 
 DESC="Fish Initialization & Shutdown"
 # DAEMON=/usr/sbin/daemonexecutablename
-
-# https://debian-administration.org/article/28/Making_scripts_run_at_boot_time_with_Debian
 
 ############
 # Carry out specific functions when asked to by the system

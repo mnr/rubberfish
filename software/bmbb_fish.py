@@ -69,6 +69,7 @@ class BmBB:
     def head(self,fishDuration=.4,enthusiasm=60):
         self.logger.info('head: duration={durate}, enthusiasm={enth}.'.format(durate=fishDuration, enth=enthusiasm))
         self.headOut(enthusiasm)
+        fishDuration = fishDuration if fishDuration < 1 else 1
         t = threading.Timer(fishDuration,self.headBack)
         t.start() # after 'fishDuration' seconds, the head will return
         """
@@ -90,6 +91,7 @@ class BmBB:
     def tail(self,fishDuration=.4,enthusiasm=75):
         self.logger.info('tail: duration={durate}, enthusiasm={enth}.'.format(durate=fishDuration, enth=enthusiasm))
         self.tailOut(enthusiasm)
+        fishDuration = fishDuration if fishDuration < 1 else 1
         t = threading.Timer(fishDuration,self.tailBack)
         t.start() # after 'fishDuration' seconds, the tail will return
         """

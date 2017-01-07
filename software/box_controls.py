@@ -41,7 +41,7 @@ class boxControls:
         deviceOffset = 0x41
         # to do: check input range of setToThis
         data = [0x41,setToThis]
-        bus.write_i2c_block_data(i2cBusLocation, writeOffset, data)
+        bus.write_i2c_block_data(i2cBusLocation, deviceOffset, data)
 
 
     def get_visual(self):

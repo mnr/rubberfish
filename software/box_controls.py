@@ -1,18 +1,9 @@
 #!/usr/bin/python
-
-"""
-see gpio_pinout.md for pinouts
-
-camera support from https://www.raspberrypi.org/forums/viewtopic.php?f=63&t=84388
-"""
+# see https://github.com/mnr/rubberfish/wiki/Raspberry-Pi-GPIO-Pinout for pinouts
 
 import RPi.GPIO as GPIO
-import os
-import pygame, sys
-from pygame.locals import *
-import pygame.camera
 from datetime import datetime
-
+from smbus2 import SMBusWrapper
 
 class boxControls:
     """ provides access to controls mounted on the pedestal """
@@ -24,24 +15,12 @@ class boxControls:
     boxHEAT = 10
     fishIsSpeaking = 13
 
-    # web cam controls
-    width = 640
-    height = 480
-    windowSurfaceObj = None
-
     def __init__(self):
         print("__init__")
         GPIO.setmode(GPIO.BOARD)
         GPIO.setup(self.boxVENT, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
         GPIO.setup(self.boxLIGHT, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
         GPIO.setup(self.fishIsSpeaking, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-
-        #initialise pygame
-        pygame.init()
-        pygame.camera.init()
-        #setup window
-        self.windowSurfaceObj = pygame.display.set_mode((self.width,self.height),1,16)
-        #pygame.display.set_caption('Camera')
 
     def get_boxVENT_STATE(self):
         return GPIO.input(self.boxVENT)
@@ -55,7 +34,37 @@ class boxControls:
     def get_fishIsSpeaking(self):
         return GPIO.input(self.fishIsSpeaking)
 
+    def set_voltage(self,setToThis=8):
+        # sets the voltage meter to setToThis
+        i2cBusLocation = 0x48
+        writeOffset = 0
+        # to do: check input range of setToThis
+        with SMBusWrapper(1) as bus:
+            data = [0x41,setToThis]
+            bus.write_i2c_block_data(i2cBusLocation, writeOffset, data)
+
+
     def get_visual(self):
+        """
+        camera support from https://www.raspberrypi.org/forums/viewtopic.php?f=63&t=84388
+
+        import pygame, sys
+        from pygame.locals import *
+        import pygame.camera
+
+        # this came out of __init__
+        #initialise pygame
+        pygame.init()
+        pygame.camera.init()
+        #setup window
+        self.windowSurfaceObj = pygame.display.set_mode((self.width,self.height),1,16)
+        #pygame.display.set_caption('Camera')
+
+        # web cam controls
+        width = 640
+        height = 480
+        windowSurfaceObj = None
+        """
         # where_to_save_image = "/home/pi/rubberfish/visuals.saveithere","{:%M%S}".format(datetime.now()),".jpg"
         # where_to_save_image = "{}{}{}".format("/home/pi/rubberfish/visuals/pic_","{:%H%M%S}".format(datetime.now()),".jpg")
         # return where_to_save_image

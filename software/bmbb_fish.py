@@ -112,3 +112,6 @@ class BmBB:
         PWMDutyCycle = 100 if PWMDutyCycle > 100 else PWMDutyCycle
         PWMDutyCycle = 0 if PWMDutyCycle < 0 else PWMDutyCycle
         self.PWMstatus.ChangeDutyCycle(PWMDutyCycle)
+
+    def fishSays(self,phraseToSay="Hello World"):
+        pass

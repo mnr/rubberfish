@@ -100,7 +100,7 @@ class BmBB:
     def tailOut(self,enthusiasm=75):
         self.logger.info('tailOut: enthusiasm={enth}.'.format(enth=enthusiasm))
         self.adjustPWM(enthusiasm)
-        GPIO.output(self.fishTail,GPIO.HIGH)
+        GPIO.output(self.fishTAIL,GPIO.HIGH)
 
     def tailBack(self):
         self.logger.info('tailBack: No Parameters')

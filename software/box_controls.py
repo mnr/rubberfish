@@ -3,7 +3,7 @@
 
 import RPi.GPIO as GPIO
 from datetime import datetime
-from smbus2 import SMBusWrapper
+import smbus
 
 class boxControls:
     """ provides access to controls mounted on the pedestal """
@@ -36,12 +36,12 @@ class boxControls:
 
     def set_voltage(self,setToThis=8):
         # sets the voltage meter to setToThis
+        bus = smbus.SMBus(1)
         i2cBusLocation = 0x48
         writeOffset = 0
         # to do: check input range of setToThis
-        with SMBusWrapper(1) as bus:
-            data = [0x41,setToThis]
-            bus.write_i2c_block_data(i2cBusLocation, writeOffset, data)
+        data = [0x41,setToThis]
+        bus.write_i2c_block_data(i2cBusLocation, writeOffset, data)
 
 
     def get_visual(self):

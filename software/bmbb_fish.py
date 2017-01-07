@@ -89,7 +89,7 @@ class BmBB:
 
     def tail(self,fishDuration=.4,enthusiasm=75):
         self.logger.info('tail: duration={durate}, enthusiasm={enth}.'.format(durate=fishDuration, enth=enthusiasm))
-        self.tailOut(self,enthusiasm)
+        self.tailOut(enthusiasm)
         t = threading.Timer(fishDuration,self.tailBack)
         t.start() # after 'fishDuration' seconds, the tail will return
         """

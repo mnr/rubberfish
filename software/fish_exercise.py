@@ -1,9 +1,11 @@
-""" simple program to make sure fish is physically connected """
+""" simple program to make sure fish and box controls are physically connected """
 
 from bmbb_fish import BmBB
+from box_controls import boxControls
 import time
 
 my_fish = BmBB()
+my_box = boxControls()
 
 # BmBB init opens the mouth
 
@@ -19,6 +21,13 @@ my_fish.tail(fishDuration=.4,enthusiasm=75)
 print('tail end')
 time.sleep(2)
 
-
+# voltage meter
+print('voltage max')
+for setVoltage in range(255):
+    my_box.set_voltage(setVoltage)
+    time.sleep(.1)
+for setVoltage in range(255,-1,-1):
+    my_box.set_Voltage(setVoltage)
+    time.sleep(.1)
 
 print("end of exercise")

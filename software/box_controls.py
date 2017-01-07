@@ -34,12 +34,19 @@ class boxControls:
     def get_fishIsSpeaking(self):
         return GPIO.input(self.fishIsSpeaking)
 
-    def set_voltage(self,setToThis=8):
+    def set_voltage(self,setToThis=0):
         # sets the voltage meter to setToThis
+        # This was helpful: http://www.raspberry-projects.com/pi/programming-in-python/i2c-programming-in-python/using-the-i2c-interface-2
         bus = smbus.SMBus(1)
         i2cBusLocation = 0x48
         deviceOffset = 0x41
-        # to do: check input range of setToThis
+        # because of the circuit path, there is an inverse relationship between setToThis and the voltage shown
+        # for example, setToThis=0 will push the needle to the right
+        # Therefore, I'm inverting this value (and range checking)
+        setToThis = setToThis if setToThis < 256 else 255
+        setToThis = setToThis if setToThis > -1 else 0
+        setToThis = 255-setToThis
+
         data = [0x41,setToThis]
         bus.write_i2c_block_data(i2cBusLocation, deviceOffset, data)
 

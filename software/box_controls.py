@@ -49,7 +49,7 @@ class boxControls:
         # Therefore, I'm inverting this value (and range checking)
         setToThis = setToThis if setToThis < 256 else 255
         setToThis = setToThis if setToThis > -1 else 0
-        setToThis = 255-setToThis
+        setToThis = 255-setToThis #inverting
 
         data = [0x41,setToThis]
         bus.write_i2c_block_data(i2cBusLocation, deviceOffset, data)

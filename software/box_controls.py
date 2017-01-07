@@ -38,7 +38,7 @@ class boxControls:
         # sets the voltage meter to setToThis
         bus = smbus.SMBus(1)
         i2cBusLocation = 0x48
-        writeOffset = 0
+        deviceOffset = 0x41
         # to do: check input range of setToThis
         data = [0x41,setToThis]
         bus.write_i2c_block_data(i2cBusLocation, writeOffset, data)

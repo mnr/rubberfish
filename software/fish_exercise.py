@@ -22,12 +22,12 @@ print('tail end')
 time.sleep(2)
 
 # voltage meter
-print('voltage max')
+print('swing voltage needle')
 for setVoltage in range(255):
     my_box.set_voltage(setVoltage)
     time.sleep(.1)
 for setVoltage in range(255,-1,-1):
-    my_box.set_Voltage(setVoltage)
+    my_box.set_voltage(setVoltage)
     time.sleep(.1)
 
 print("end of exercise")

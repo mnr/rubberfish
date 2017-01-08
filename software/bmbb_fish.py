@@ -96,8 +96,7 @@ class BmBB:
         pygame.mixer.init()
 
         # do something to indicate life
-        self.head()
-        # self.speak("Hello. I had a good rest, but it's nice to be back at work.")
+        self.fishSays("Hello. I had a good rest, but it's nice to be back at work.")
 
     def shut_down_fish(self):
         self.logger.info('killing the fish')

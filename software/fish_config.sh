@@ -27,6 +27,9 @@ case "$1" in
     # Start a pipe to handle text-to-speech, watson and robotics for the fish
     # python3 /home/pi/rubberfish/software/fishControlViaPipe.py & # tells the fish what to say
 
+    # set up the SQLite database used for text to speech
+    sqlite3 textToSpeech.db 'create table TTS (UID integer primary key, Timestamp DATETIME DEFAULT CURRENT_TIMESTAMP, priority integer, stringToSay text, audioStream BLOB)'
+
     # set up for visual processing
     # checking for existence of rubberfish/visuals
     [ ! -d /home/pi/rubberfish/visuals  ] && mkdir /home/pi/rubberfish/visuals

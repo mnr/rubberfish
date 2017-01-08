@@ -29,7 +29,7 @@ class BmBB:
     fishMotorEnable = 18
 
     # Bing TTS variables
-    apiKey = "" # This won't work unless you get the api key from https://www.microsoft.com/cognitive-services/en-us/subscriptions?productId=/products/Bing.Speech.Preview
+    apiKey = "fc72371f51a744fe9534aadee99e2b86" # This won't work unless you get the api key from https://www.microsoft.com/cognitive-services/en-us/subscriptions?productId=/products/Bing.Speech.Preview
     getAccessParams = ""
     getAccessHeaders = {"Ocp-Apim-Subscription-Key": apiKey}
 
@@ -105,16 +105,7 @@ class BmBB:
         GPIO.cleanup() #resets the GPIO state to neutral
 
     def mouth(self,fishDuration=.5,enthusiasm=50):
-        # opens the mouth, pauses for fishDuration, then closes the mouth
-        # mouth is controlled via software - mnr: 12/26/2016
-        self.logger.info('mouth:called, but replaced with hardware')
-        """
-        self.logger.info('mouth: duration={durate}, enthusiasm={enth}.'.format(durate=fishDuration, enth=enthusiasm))
-        self.adjustPWM(enthusiasm)
-        GPIO.output(self.fishMOUTH,GPIO.HIGH)
-        sleep(fishDuration)
-        GPIO.output(self.fishMOUTH,GPIO.LOW)
-        """
+        pass # mouth is controlled by hardware. This function deprecated
 
     def head(self,fishDuration=.4,enthusiasm=60):
         self.logger.info('head: duration={durate}, enthusiasm={enth}.'.format(durate=fishDuration, enth=enthusiasm))
@@ -122,10 +113,6 @@ class BmBB:
         fishDuration = fishDuration if fishDuration < 1 else 1
         t = threading.Timer(fishDuration,self.headBack)
         t.start() # after 'fishDuration' seconds, the head will return
-        """
-        sleep(fishDuration)
-        self.headBack()
-        """
 
     def headOut(self,enthusiasm=60):
         self.logger.info('headOut: enthusiasm={enth}.'.format(enth=enthusiasm))
@@ -144,10 +131,6 @@ class BmBB:
         fishDuration = fishDuration if fishDuration < 1 else 1
         t = threading.Timer(fishDuration,self.tailBack)
         t.start() # after 'fishDuration' seconds, the tail will return
-        """
-        sleep(fishDuration)
-        GPIO.output(self.fishTAIL,GPIO.LOW)
-        """
 
     def tailOut(self,enthusiasm=75):
         self.logger.info('tailOut: enthusiasm={enth}.'.format(enth=enthusiasm))
@@ -180,5 +163,7 @@ class BmBB:
         print("playing sound")
         asound = pygame.mixer.Sound(synthWaveData)
         channel = asound.play()
+        """
         while channel.get_busy() == True:
             continue
+        """

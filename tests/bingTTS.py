@@ -13,6 +13,7 @@ import http.client, urllib.parse, json
 #Note: The way to get api key:
 #Free: https://www.microsoft.com/cognitive-services/en-us/subscriptions?productId=/products/Bing.Speech.Preview
 #Paid: https://portal.azure.com/#create/Microsoft.CognitiveServices/apitype/Bing.Speech/pricingtier/S0
+print("YOU NEED AN API KEY")
 apiKey = "fill this in later"
 
 params = ""

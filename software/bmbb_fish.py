@@ -166,3 +166,6 @@ class BmBB:
         while channel.get_busy() == True:
             continue
         """
+    def fishShutUp(self):
+        # stops the fish from talking
+        pass 

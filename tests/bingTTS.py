@@ -17,7 +17,7 @@ print("YOU NEED AN API KEY")
 apiKey = "fill this in later"
 
 params = ""
-headers = {"Ocp-Apim-Subscription-Key": apiKey}
+getAccessHeaders = {"Ocp-Apim-Subscription-Key": apiKey}
 
 #AccessTokenUri = "https://api.cognitive.microsoft.com/sts/v1.0/issueToken";
 AccessTokenHost = "api.cognitive.microsoft.com"
@@ -26,7 +26,7 @@ path = "/sts/v1.0/issueToken"
 # Connect to server to get the Access Token
 print ("Connect to server to get the Access Token")
 conn = http.client.HTTPSConnection(AccessTokenHost)
-conn.request("POST", path, params, headers)
+conn.request("POST", path, params, getAccessHeaders)
 response = conn.getresponse()
 print(response.status, response.reason)
 
@@ -40,9 +40,9 @@ openSpeak = "<speak version='1.0' xml:lang='en-us'><voice xml:lang='en-us' xml:g
 closeSpeak = "</voice></speak>"
 sayThis = "Hi Janell. I'm glad you had a good sleep!"
 
-body = openSpeak + sayThis + closeSpeak
+synthWaveBody = openSpeak + sayThis + closeSpeak
 
-headers = {"Content-type": "application/ssml+xml",
+synthWaveHeaders = {"Content-type": "application/ssml+xml",
 			"X-Microsoft-OutputFormat": "riff-16khz-16bit-mono-pcm",
 			"Authorization": "Bearer " + accesstoken,
 			"X-Search-AppId": "07D3234E49CE426DAA29772419F436CA",
@@ -52,27 +52,27 @@ headers = {"Content-type": "application/ssml+xml",
 #Connect to server to synthesize the wave
 print ("\nConnect to server to synthesize the wave")
 conn = http.client.HTTPSConnection("speech.platform.bing.com")
-conn.request("POST", "/synthesize", body, headers)
+conn.request("POST", "/synthesize", synthWaveBody, synthWaveHeaders)
 response = conn.getresponse()
 print(response.status, response.reason)
 
-data = response.read()
+synthWaveData = response.read()
 conn.close()
-print("The synthesized wave length: %d" %(len(data)))
+print("The synthesized wave length: %d" %(len(synthWaveData)))
 
 outfile = open('spokenFile.wav','wb')
-outfile.write(data)
+outfile.write(synthWaveData)
 outfile.close()
 
 import pygame
 pygame.mixer.pre_init(4000,-16,2,2048)
 pygame.mixer.init()
 """
-pygame.mixer.music.load(data)
+pygame.mixer.music.load(synthWaveData)
 pygame.mixer.music.play()
 """
 print("playing sound")
-asound = pygame.mixer.Sound(data)
+asound = pygame.mixer.Sound(synthWaveData)
 # pygame.mixer.Sound.play(asound)
 channel = asound.play()
 print(pygame.mixer.Sound.get_length(asound))

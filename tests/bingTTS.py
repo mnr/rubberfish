@@ -13,7 +13,7 @@ import http.client, urllib.parse, json
 #Note: The way to get api key:
 #Free: https://www.microsoft.com/cognitive-services/en-us/subscriptions?productId=/products/Bing.Speech.Preview
 #Paid: https://portal.azure.com/#create/Microsoft.CognitiveServices/apitype/Bing.Speech/pricingtier/S0
-apiKey = "something here"
+apiKey = "fill this in later"
 
 params = ""
 headers = {"Ocp-Apim-Subscription-Key": apiKey}
@@ -37,7 +37,7 @@ print ("Access Token: " + accesstoken)
 
 openSpeak = "<speak version='1.0' xml:lang='en-us'><voice xml:lang='en-us' xml:gender='Female' name='Microsoft Server Speech Text to Speech Voice (en-US, ZiraRUS)'>"
 closeSpeak = "</voice></speak>"
-sayThis = "Bing speech for python."
+sayThis = "Hi Janell. I'm glad you had a good sleep!"
 
 body = openSpeak + sayThis + closeSpeak
 
@@ -64,8 +64,17 @@ outfile.write(data)
 outfile.close()
 
 import pygame
+pygame.mixer.pre_init(4000,-16,2,2048)
 pygame.mixer.init()
-pygame.mixer.music.load("spokenFile.wav")
+"""
+pygame.mixer.music.load(data)
 pygame.mixer.music.play()
-while pygame.mixer.music.get_busy() == True:
+"""
+print("playing sound")
+asound = pygame.mixer.Sound(data)
+# pygame.mixer.Sound.play(asound)
+channel = asound.play()
+print(pygame.mixer.Sound.get_length(asound))
+
+while channel.get_busy() == True:
     continue

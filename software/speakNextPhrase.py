@@ -7,31 +7,34 @@ If there are no phrases to speak, then wait until there are.
 runs in background. Started in fish_config.sh
 """
 import pygame # used to play back the speech file
-
 import sqlite3
 
-# pygame stuff
-        # set up pygame
-        pygame.mixer.pre_init(4000,-16,2,2048)
-        pygame.mixer.init()
+# set up pygame
+pygame.mixer.pre_init(4000,-16,2,2048)
+pygame.mixer.init()
 
-asound = pygame.mixer.Sound(synthWaveData)
-channel = asound.play()
-
-"""
-# print("The synthesized wave length: %d" %(len(synthWaveData)))
-# print("playing sound")
-asound = pygame.mixer.Sound(synthWaveData)
-channel = asound.play()
-
-
-while channel.get_busy() == True:
-    continue
-"""
-
-
-
-# sqlite stuff
-dbconnect = sqlite3.connect("textToSpeech.db")
-dbconnect.row_factory = sqlite3.Row
+# Open up an SQLite connection
+dbconnect = sqlite3.connect("/home/pi/rubberfish/textToSpeech.db")
+dbconnect.row_factory = sqlite3.Row #so to access columns by name
 cursor = dbconnect.cursor()
+
+##########################
+# loop:
+#    get audio blob from sqlite3. sort for top priority
+#    play the audio
+#    delete the record from sqlite3
+
+while true:
+    cursor.execute("select count(*) from TTS")
+    cursorCount = cursor.fetchone()
+    if cursorCount[0] > 0:
+        cursor.execute("select UID, audioStream from TTS order by priority, Timestamp limit 1");
+        theUID,audioBlobToPlay = cursor.fetchone()
+
+        asound = pygame.mixer.Sound(audioBlobToPlay)
+        channel = asound.play()
+        while channel.get_busy() == True:
+            continue
+        # sound has played. Now delete the record
+        cursor.execute('delete from TTS where UID=?',[theUID])
+        dbconnect.commit()

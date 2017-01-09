@@ -1,7 +1,5 @@
 #!/usr/bin/python3
 
-
-
 # rpi.gpio documentation at https://sourceforge.net/p/raspberry-gpio-python/wiki/
 import RPi.GPIO as GPIO
 from time import sleep as sleep
@@ -101,8 +99,9 @@ class BmBB:
         dbconnect = sqlite3.connect("/home/pi/rubberfish/textToSpeech.db")
         # dbconnect.row_factory = sqlite3.Row
         cursor = dbconnect.cursor()
-        sqlDoThis = 'insert into TTS (priority,stringToSay) values ({}, {})'.format(priorityToSay,phraseToSay)
-        cursor.execute(sqlDoThis);
+        # sqlDoThis = 'insert into TTS (priority,stringToSay) values ({}, {})'.format(priorityToSay,phraseToSay)
+        sqlDoThis = 'insert into TTS (priority,stringToSay) values (?, ?)'
+        cursor.execute(sqlDoThis,[priorityToSay,phraseToSay]);
         dbconnect.commit()
 
     def fishShutUp(self):

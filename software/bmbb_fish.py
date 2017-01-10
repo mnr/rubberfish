@@ -16,6 +16,10 @@ class BmBB:
     fishHEAD = 7
     # fishHEAD_reverse = 15
     fishMotorEnable = 18
+    
+    # variables for SQlite
+    dbconnect = None
+    cursor = None
 
     # other variables
     PWMstatus = None #declaring PWMstatus here for later assignment
@@ -44,6 +48,10 @@ class BmBB:
         hdlr.setFormatter(formatter)
         self.logger.addHandler(hdlr)
         self.logger.setLevel(logging.DEBUG)
+
+        # set up SQLite
+        self.dbconnect = sqlite3.connect("/home/pi/rubberfish/textToSpeech.db")
+        self.cursor = dbconnect.cursor()
 
         # do something to indicate life
         self.fishSays("Hello. I had a good rest, but it's nice to be back at work.")
@@ -96,13 +104,10 @@ class BmBB:
         self.PWMstatus.ChangeDutyCycle(PWMDutyCycle)
 
     def fishSays(self,phraseToSay="Hello World",priorityToSay=5):
-        dbconnect = sqlite3.connect("/home/pi/rubberfish/textToSpeech.db")
-        # dbconnect.row_factory = sqlite3.Row
-        cursor = dbconnect.cursor()
         # sqlDoThis = 'insert into TTS (priority,stringToSay) values ({}, {})'.format(priorityToSay,phraseToSay)
         sqlDoThis = 'insert into TTS (priority,stringToSay) values (?, ?)'
-        cursor.execute(sqlDoThis,[priorityToSay,phraseToSay]);
-        dbconnect.commit()
+        self.cursor.execute(sqlDoThis,[priorityToSay,phraseToSay]);
+        self.dbconnect.commit()
 
     def fishShutUp(self):
         # stops the fish from talking

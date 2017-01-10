@@ -8,7 +8,7 @@ import smbus
 class boxControls:
     """ provides access to controls mounted on the pedestal """
 
-    print("boxControls variables")
+    # boxControls variables
     # GPIO pins assigned to the two front-panel switches
     boxVENT = 12
     boxLIGHT = 16

@@ -67,23 +67,28 @@ cursor = dbconnect.cursor()
 #    save to sqlite3
 
 while True:
-    cursor.execute("select count(*) from TTS")
-    cursorCount = cursor.fetchone()
-    if cursorCount[0] > 0:
-        cursor.execute("select UID, stringToSay from TTS order by priority, Timestamp where audioStream='' limit 1");
-        theUID,phraseToSay = cursor.fetchone()
+    # cursor.execute("select count(*) from TTS")
+    # cursorCount = cursor.fetchone()
+    # if cursorCount[0] > 0:
+    # cursor.execute("select UID, stringToSay from TTS order by priority, Timestamp where audioStream='' limit 1");
+   cursor.execute("select UID, stringToSay from TTS order by priority, Timestamp where audioStream='' ");
+   rows = cursor.fetchall()
 
-        synthWaveBody = openSpeak + phraseToSay + closeSpeak
+   for row in rows:
+      theUID = row[0]
+      phraseToSay = row[1]
 
-        #Connect to server to synthesize the wave
-        conn = http.client.HTTPSConnection("speech.platform.bing.com")
-        conn.request("POST", "/synthesize", synthWaveBody, synthWaveHeaders)
-        response = conn.getresponse()
+      synthWaveBody = openSpeak + phraseToSay + closeSpeak
 
-        synthWaveData = response.read()
-        conn.close()
+      #Connect to server to synthesize the wave
+      conn = http.client.HTTPSConnection("speech.platform.bing.com")
+      conn.request("POST", "/synthesize", synthWaveBody, synthWaveHeaders)
+      response = conn.getresponse()
 
-        # write the audio file back into the database
-        sqlDoThis = 'UPDATE TTS SET audioStream = ? WHERE UID = ?;'
-        cursor.execute(sqlDoThis,[sqlite3.Binary(synthWaveData),theUID]);
-        dbconnect.commit()
+      synthWaveData = response.read()
+      conn.close()
+
+      # write the audio file back into the database
+      sqlDoThis = 'UPDATE TTS SET audioStream = ? WHERE UID = ?;'
+      cursor.execute(sqlDoThis,[sqlite3.Binary(synthWaveData),theUID]);
+      dbconnect.commit()

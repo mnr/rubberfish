@@ -32,14 +32,12 @@ getAccessPath = "/sts/v1.0/issueToken"
 openSpeak = "<speak version='1.0' xml:lang='en-us'><voice xml:lang='en-us' xml:gender='Female' name='Microsoft Server Speech Text to Speech Voice (en-US, ZiraRUS)'>"
 closeSpeak = "</voice></speak>"
 
-# synthWaveHeaders = None
-
 ##########################
 # set up Bing Text-to-speech
 # Connect to server to get the Access Token
 # print ("Connect to server to get the Access Token")
-conn = http.client.HTTPSConnection(self.AccessTokenHost)
-conn.request("POST", self.getAccessPath, self.getAccessParams, self.getAccessHeaders)
+conn = http.client.HTTPSConnection(AccessTokenHost)
+conn.request("POST", getAccessPath, getAccessParams, getAccessHeaders)
 response = conn.getresponse()
 # print(response.status, response.reason)
 
@@ -48,7 +46,7 @@ conn.close()
 accesstoken = apiKeyData.decode("UTF-8")
 # print ("Access Token: " + accesstoken)
 
-self.synthWaveHeaders = {"Content-type": "application/ssml+xml",
+synthWaveHeaders = {"Content-type": "application/ssml+xml",
 			"X-Microsoft-OutputFormat": "riff-16khz-16bit-mono-pcm",
 			"Authorization": "Bearer " + accesstoken,
 			"X-Search-AppId": "07D3234E49CE426DAA29772419F436CA",
@@ -75,11 +73,11 @@ while True:
         cursor.execute("select UID, stringToSay from TTS order by priority, Timestamp limit 1");
         theUID,phraseToSay = cursor.fetchone()
 
-        synthWaveBody = self.openSpeak + phraseToSay + self.closeSpeak
+        synthWaveBody = openSpeak + phraseToSay + closeSpeak
 
         #Connect to server to synthesize the wave
         conn = http.client.HTTPSConnection("speech.platform.bing.com")
-        conn.request("POST", "/synthesize", synthWaveBody, self.synthWaveHeaders)
+        conn.request("POST", "/synthesize", synthWaveBody, synthWaveHeaders)
         response = conn.getresponse()
 
         synthWaveData = response.read()

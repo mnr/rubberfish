@@ -24,7 +24,7 @@ cursor = dbconnect.cursor()
 #    play the audio
 #    delete the record from sqlite3
 
-while true:
+while True:
     cursor.execute("select count(*) from TTS")
     cursorCount = cursor.fetchone()
     if cursorCount[0] > 0:

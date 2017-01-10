@@ -11,8 +11,8 @@ my_box = boxControls()
 
 # Speech
 print('speaking')
-my_fish.fishSays("Hello World. It's nice to be here")
-sayTheTime = "The time is" + time.strftime("%A, %B %d, %H %M",time.localtime())
+my_fish.fishSays("Hello World. It is nice to be here")
+sayTheTime = "The time is " + time.strftime("%A, %B %d, %H %M",time.localtime())
 my_fish.fishSays(sayTheTime)
 
 # head

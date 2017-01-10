@@ -51,7 +51,7 @@ class BmBB:
 
         # set up SQLite
         self.dbconnect = sqlite3.connect("/home/pi/rubberfish/textToSpeech.db")
-        self.cursor = dbconnect.cursor()
+        self.cursor = self.dbconnect.cursor()
 
         # do something to indicate life
         self.fishSays("Hello. I had a good rest, but it is nice to be back at work.")

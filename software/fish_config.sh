@@ -28,6 +28,7 @@ case "$1" in
     # python3 /home/pi/rubberfish/software/fishControlViaPipe.py & # tells the fish what to say
 
     # set up the SQLite database used for text to speech
+    rm /home/pi/rubberfish/textToSpeech.db # delete any old database
     sqlite3 /home/pi/rubberfish/textToSpeech.db 'create table TTS (UID integer primary key, Timestamp DATETIME DEFAULT (DATETIME(CURRENT_TIMESTAMP, 'LOCALTIME')), priority integer, stringToSay text, audioStream BLOB)'
     sqlite3 /home/pi/rubberfish/textToSpeech.db 'CREATE UNIQUE INDEX UID on TTS (UID)'
     # set up converters and handlers

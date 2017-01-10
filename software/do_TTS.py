@@ -70,7 +70,7 @@ while True:
     cursor.execute("select count(*) from TTS")
     cursorCount = cursor.fetchone()
     if cursorCount[0] > 0:
-        cursor.execute("select UID, stringToSay from TTS order by priority, Timestamp limit 1");
+        cursor.execute("select UID, stringToSay from TTS order by priority, Timestamp where audioStream='' limit 1");
         theUID,phraseToSay = cursor.fetchone()
 
         synthWaveBody = openSpeak + phraseToSay + closeSpeak

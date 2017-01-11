@@ -71,7 +71,7 @@ while True:
     # cursorCount = cursor.fetchone()
     # if cursorCount[0] > 0:
     # cursor.execute("select UID, stringToSay from TTS order by priority, Timestamp where audioStream='' limit 1");
-   cursor.execute("select UID, stringToSay from TTS order by priority, Timestamp where audioStream is NULL ");
+   cursor.execute("select UID, stringToSay from TTS where audioStream is NULL order by priority, Timestamp  ;")
    rows = cursor.fetchall()
 
    for row in rows:

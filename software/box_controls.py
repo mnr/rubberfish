@@ -16,7 +16,6 @@ class boxControls:
     fishIsSpeaking = 13
 
     def __init__(self):
-        print("__init__")
         GPIO.setmode(GPIO.BOARD)
         GPIO.setup(self.boxVENT, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
         GPIO.setup(self.boxLIGHT, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)

@@ -14,7 +14,11 @@ pygame.mixer.pre_init(4000,-16,2,2048)
 pygame.mixer.init()
 
 # Open up an SQLite connection
-dbconnect = sqlite3.connect("/home/pi/rubberfish/textToSpeech.db")
+try:
+    dbconnect = sqlite3.connect("/home/pi/rubberfish/textToSpeech.db")
+except sqlite3.Error as er:
+    print 'fish line 20 speakNextPhrase:', er.message
+
 dbconnect.row_factory = sqlite3.Row #so to access columns by name
 cursor = dbconnect.cursor()
 
@@ -25,11 +29,20 @@ cursor = dbconnect.cursor()
 #    delete the record from sqlite3
 
 while True:
-    cursor.execute("select count(*) from TTS")
-    cursorCount = cursor.fetchone()
-    if cursorCount[0] > 0:
-        cursor.execute("select UID, audioStream from TTS order by priority, Timestamp limit 1");
-        theUID,audioBlobToPlay = cursor.fetchone()
+    #cursor.execute("select count(*) from TTS")
+    #cursorCount = cursor.fetchone()
+    #if cursorCount[0] > 0:
+    #     cursor.execute("select UID, audioStream from TTS order by priority, Timestamp limit 1");
+
+    try:
+        cursor.execute("select UID, audioStream from TTS order by priority, Timestamp");
+    except sqlite3.Error as er:
+        print 'fish line 40 speakNextPhrase:', er.message
+
+    rows = cursor.fetchall()
+    for row in rows:
+        theUID = row[0]
+        audioBlobToPlay = row[1]
 
         asound = pygame.mixer.Sound(audioBlobToPlay)
         channel = asound.play()

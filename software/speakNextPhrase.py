@@ -17,7 +17,7 @@ pygame.mixer.init()
 try:
     dbconnect = sqlite3.connect("/home/pi/rubberfish/textToSpeech.db")
 except sqlite3.Error as er:
-    print 'fish line 20 of speakNextPhrase:', er.message
+    print ('fish line 20 of speakNextPhrase:', er.message)
 
 dbconnect.row_factory = sqlite3.Row #so to access columns by name
 cursor = dbconnect.cursor()
@@ -37,7 +37,7 @@ while True:
     try:
         cursor.execute("select UID, audioStream from TTS order by priority, Timestamp");
     except sqlite3.Error as er:
-        print 'fish line 40 of speakNextPhrase:', er.message
+        print ('fish line 40 of speakNextPhrase:', er.message)
 
     rows = cursor.fetchall()
     for row in rows:

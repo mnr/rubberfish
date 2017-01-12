@@ -47,11 +47,11 @@ accesstoken = apiKeyData.decode("UTF-8")
 # print ("Access Token: " + accesstoken)
 
 synthWaveHeaders = {"Content-type": "application/ssml+xml",
-			"X-Microsoft-OutputFormat": "riff-16khz-16bit-mono-pcm",
-			"Authorization": "Bearer " + accesstoken,
-			"X-Search-AppId": "07D3234E49CE426DAA29772419F436CA",
-			"X-Search-ClientID": "1ECFAE91408841A480F00935DC390960",
-			"User-Agent": "TTSForPython"}
+    "X-Microsoft-OutputFormat": "riff-16khz-16bit-mono-pcm",
+    "Authorization": "Bearer " + accesstoken,
+    "X-Search-AppId": "07D3234E49CE426DAA29772419F436CA",
+    "X-Search-ClientID": "1ECFAE91408841A480F00935DC390960",
+    "User-Agent": "TTSForPython"}
 
 ##########################
 # at this point, we have all the Bing TTS static parts needed to make a connection.
@@ -71,27 +71,26 @@ while True:
     # cursorCount = cursor.fetchone()
     # if cursorCount[0] > 0:
     # cursor.execute("select UID, stringToSay from TTS order by priority, Timestamp where audioStream='' limit 1");
-   cursor.execute("select UID, stringToSay from TTS where audioStream is NULL order by priority, Timestamp  ;")
-   rows = cursor.fetchall()
+    cursor.execute("select UID, stringToSay from TTS where audioStream is NULL order by priority, Timestamp  ;")
+    rows = cursor.fetchall()
 
-   for row in rows:
-      theUID = row[0]
-      phraseToSay = row[1]
+    for row in rows:
+        theUID = row[0]
+        phraseToSay = row[1]
 
-      synthWaveBody = openSpeak + phraseToSay + closeSpeak
+        synthWaveBody = openSpeak + phraseToSay + closeSpeak
 
-      #Connect to server to synthesize the wave
-      conn = http.client.HTTPSConnection("speech.platform.bing.com")
-      conn.request("POST", "/synthesize", synthWaveBody, synthWaveHeaders)
-      response = conn.getresponse()
-	  # print(response.status, response.reason)
+        #Connect to server to synthesize the wave
+        conn = http.client.HTTPSConnection("speech.platform.bing.com")
+        conn.request("POST", "/synthesize", synthWaveBody, synthWaveHeaders)
+        response = conn.getresponse()
+        # print(response.status, response.reason)
+        if response.status == 200:
+            # if not 200, then something went wrong. Try it again next time
+            synthWaveData = response.read()
+            conn.close()
 
-	  if response.status == 200:
-		  # if not 200, then something went wrong. Try it again next time
-	      synthWaveData = response.read()
-	      conn.close()
-
-	      # write the audio file back into the database
-	      sqlDoThis = 'UPDATE TTS SET audioStream = ? WHERE UID = ?;'
-	      cursor.execute(sqlDoThis,[sqlite3.Binary(synthWaveData),theUID]);
-	      dbconnect.commit()
+            # write the audio file back into the database
+            sqlDoThis = 'UPDATE TTS SET audioStream = ? WHERE UID = ?;'
+            cursor.execute(sqlDoThis,[sqlite3.Binary(synthWaveData),theUID]);
+            dbconnect.commit()

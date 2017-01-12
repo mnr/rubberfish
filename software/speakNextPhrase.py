@@ -12,12 +12,12 @@ import logging
 
 #############################
 # set up logging
-self.logger = logging.getLogger('FishControl')
+logger = logging.getLogger('FishControl')
 hdlr = logging.FileHandler('/var/tmp/fish.log')
 formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
 hdlr.setFormatter(formatter)
-self.logger.addHandler(hdlr)
-self.logger.setLevel(logging.DEBUG)
+logger.addHandler(hdlr)
+logger.setLevel(logging.DEBUG)
 
 
 # set up pygame
@@ -29,7 +29,7 @@ try:
     dbconnect = sqlite3.connect("/home/pi/rubberfish/textToSpeech.db")
 except sqlite3.Error as er:
     print ('fish line 20 of speakNextPhrase:', er.message)
-    self.logger.info('fish line 20 of speakNextPhrase: {errormsg}'.format(errormsg=er.message))
+    logger.info('fish line 20 of speakNextPhrase: {errormsg}'.format(errormsg=er.message))
 
 
 
@@ -52,7 +52,7 @@ while True:
         cursor.execute("select UID, audioStream from TTS order by priority, Timestamp");
     except sqlite3.Error as er:
         print ('fish line 40 of speakNextPhrase:', er.message)
-        self.logger.info('fish line 40 of speakNextPhrase: {errormsg}'.format(errormsg=er.message))
+        logger.info('fish line 40 of speakNextPhrase: {errormsg}'.format(errormsg=er.message))
 
 
     rows = cursor.fetchall()

@@ -19,7 +19,7 @@ dbconnect = sqlite3.connect(pathToDB)
 dbconnect.row_factory = sqlite3.Row #so to access columns by name
 cursor = dbconnect.cursor()
 
-cursor.execute("create table TTS (UID integer primary key, Timestamp DATETIME DEFAULT (DATETIME(CURRENT_TIMESTAMP, 'LOCALTIME')), priority integer, stringToSay text, audioStream BLOB)")
+cursor.execute("create table TTS (UID integer primary key, Timestamp DATETIME DEFAULT (DATETIME(CURRENT_TIMESTAMP, 'LOCALTIME')), priority integer, stringToSay text, audioStream BLOB, TTSRequestStatus integer)")
 cursor.execute('CREATE UNIQUE INDEX UID on TTS (UID)')
 dbconnect.commit()
 dbconnect.close()

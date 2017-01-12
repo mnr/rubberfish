@@ -84,11 +84,13 @@ while True:
       conn = http.client.HTTPSConnection("speech.platform.bing.com")
       conn.request("POST", "/synthesize", synthWaveBody, synthWaveHeaders)
       response = conn.getresponse()
+	  # print(response.status, response.reason)
 
-      synthWaveData = response.read()
-      conn.close()
+	  if response.status == 200: # if not 200, then something went wrong. Try it again next time
+	      synthWaveData = response.read()
+	      conn.close()
 
-      # write the audio file back into the database
-      sqlDoThis = 'UPDATE TTS SET audioStream = ? WHERE UID = ?;'
-      cursor.execute(sqlDoThis,[sqlite3.Binary(synthWaveData),theUID]);
-      dbconnect.commit()
+	      # write the audio file back into the database
+	      sqlDoThis = 'UPDATE TTS SET audioStream = ? WHERE UID = ?;'
+	      cursor.execute(sqlDoThis,[sqlite3.Binary(synthWaveData),theUID]);
+	      dbconnect.commit()

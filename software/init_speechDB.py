@@ -7,8 +7,8 @@ Started in fish_config.sh
 import sqlite3
 import os
 
-# pathToDB = "/home/pi/rubberfish/textToSpeech.db"
-pathToDB = "textToSpeech.db"
+pathToDB = "/home/pi/rubberfish/textToSpeech.db"
+# pathToDB = "textToSpeech.db"
 
 ##########################
 # Open up an SQLite connection

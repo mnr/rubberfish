@@ -86,7 +86,8 @@ while True:
       response = conn.getresponse()
 	  # print(response.status, response.reason)
 
-	  if response.status == 200: # if not 200, then something went wrong. Try it again next time
+	  if response.status == 200:
+		  # if not 200, then something went wrong. Try it again next time
 	      synthWaveData = response.read()
 	      conn.close()
 

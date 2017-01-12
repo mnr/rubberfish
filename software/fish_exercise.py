@@ -34,11 +34,11 @@ time.sleep(2)
 print('swing voltage needle')
 for setVoltage in range(255):
     my_box.set_voltage(setVoltage)
-    print(setVoltage)
+    # print(setVoltage)
     time.sleep(.01)
 for setVoltage in range(255,-1,-1):
     my_box.set_voltage(setVoltage)
-    print(setVoltage)
+    # print(setVoltage)
     time.sleep(.01)
 
 print("end of exercise")

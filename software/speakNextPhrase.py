@@ -49,11 +49,11 @@ while True:
     #     cursor.execute("select UID, audioStream from TTS order by priority, Timestamp limit 1");
 
     try:
-        cursor.execute("select UID, audioStream from TTS order by priority, Timestamp");
+        cursor.execute("select UID, audioStream from TTS where audioStream is not NULL order by priority, Timestamp ;");
+
     except sqlite3.Error as er:
         print ('fish line 40 of speakNextPhrase:', er.message)
         logger.info('fish line 40 of speakNextPhrase: {errormsg}'.format(errormsg=er.message))
-
 
     rows = cursor.fetchall()
     for row in rows:

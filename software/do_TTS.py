@@ -89,9 +89,13 @@ while True:
         if response.status == 200:
             # if not 200, then something went wrong. Try it again next time
             synthWaveData = response.read()
-            conn.close()
 
             # write the audio file back into the database
-            sqlDoThis = 'UPDATE TTS SET audioStream = ? WHERE UID = ?;'
-            cursor.execute(sqlDoThis,[sqlite3.Binary(synthWaveData),theUID]);
-            dbconnect.commit()
+            sqlDoThis = 'UPDATE TTS SET audioStream = ?, TTSRequestStatus=? WHERE UID = ?;'
+            cursor.execute(sqlDoThis,[sqlite3.Binary(synthWaveData),response.status,theUID]);
+        else:
+            sqlDoThis = 'UPDATE TTS SET TTSRequestStatus=? WHERE UID = ?;'
+            cursor.execute(sqlDoThis,[response.status,theUID]);
+
+        conn.close()
+        dbconnect.commit()

@@ -21,7 +21,7 @@ logger.setLevel(logging.DEBUG)
 
 
 # set up pygame
-pygame.mixer.pre_init(4000,-16,2,2048)
+pygame.mixer.pre_init(8000,-16,2,2048)
 pygame.mixer.init()
 
 # Open up an SQLite connection

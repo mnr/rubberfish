@@ -85,6 +85,7 @@ while True:
         conn.request("POST", "/synthesize", synthWaveBody, synthWaveHeaders)
         response = conn.getresponse()
         # print(response.status, response.reason)
+        print("fish do_TTS response.status is ",response.status)
         if response.status == 200:
             # if not 200, then something went wrong. Try it again next time
             synthWaveData = response.read()

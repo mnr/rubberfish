@@ -16,7 +16,7 @@ class BmBB:
     fishHEAD = 7
     # fishHEAD_reverse = 15
     fishMotorEnable = 18
-    
+
     # variables for SQlite
     dbconnect = None
     cursor = None
@@ -54,7 +54,7 @@ class BmBB:
         self.cursor = self.dbconnect.cursor()
 
         # do something to indicate life
-        self.fishSays("Hello. I had a good rest, but it is nice to be back at work.")
+        # self.fishSays("Hello. I had a good rest, but it is nice to be back at work.")
 
     def shut_down_fish(self):
         self.logger.info('killing the fish')

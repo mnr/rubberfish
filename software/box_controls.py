@@ -28,6 +28,7 @@ class boxControls:
     def set_boxVENT_IRQ(self,the_handler):
         # sets an interrupt for this switch
         # expects the_handler to contain a callback function
+        GPIO.setmode(GPIO.BOARD)
         GPIO.add_event_detect(self.boxVENT, GPIO.BOTH, callback=the_handler)
 
     def get_boxLIGHT_STATE(self):
@@ -36,6 +37,7 @@ class boxControls:
     def set_boxLIGHT_IRQ(self,the_handler):
         # sets an interrupt for this switch
         # expects the_handler to contain a callback function
+        GPIO.setmode(GPIO.BOARD)
         GPIO.add_event_detect(self.boxLIGHT, GPIO.BOTH, callback=the_handler)
 
     def get_boxHEAT_STATE(self):
@@ -44,6 +46,7 @@ class boxControls:
     def set_boxHEAT_IRQ(self,the_handler):
         # sets an interrupt for this switch
         # expects the_handler to contain a callback function
+        GPIO.setmode(GPIO.BOARD)
         GPIO.add_event_detect(self.boxVENT, GPIO.BOTH, callback=the_handler)
 
     def get_fishIsSpeaking(self):

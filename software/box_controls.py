@@ -19,11 +19,8 @@ class boxControls:
         GPIO.setmode(GPIO.BOARD)
         GPIO.setup(self.boxVENT, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
         GPIO.setup(self.boxLIGHT, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+        GPIO.setup(self.boxHEAT, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
         GPIO.setup(self.fishIsSpeaking, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-        # set up switch interrupts
-        # GPIO.add_event_detect(self.boxVENT, GPIO.RISING, callback=ventTurnedOn)
-        # GPIO.add_event_detect(self.boxVENT, GPIO.FALLING, callback=ventTurnedOff)
-        # and so on for LIGHT and HEAT. Need to create the callback functions - and determine what they do.
 
     def get_boxVENT_STATE(self):
         return GPIO.input(self.boxVENT)

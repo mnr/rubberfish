@@ -18,19 +18,19 @@ def LIGHT_callback(GPIOpin):
     switch_status = "on" if my_box.get_boxLIGHT_STATE() else "off"
     saySwitch("Light",switch_status)
 
-set_boxLIGHT_IRQ(LIGHT_callback)
+my_box.set_boxLIGHT_IRQ(LIGHT_callback)
 
 def HEAT_callback(GPIOpin):
     switch_status = "on" if my_box.get_boxHEAT_STATE() else "off"
     saySwitch("Heat",switch_status)
 
-set_boxHEAT_IRQ(HEAT_callback)
+my_box.set_boxHEAT_IRQ(HEAT_callback)
 
 def VENT_callback(GPIOpin):
     switch_status = "on" if my_box.get_boxVENT_STATE() else "off"
     saySwitch("Vent",switch_status)
 
-set_boxVENT_IRQ(VENT_callback)
+my_box.set_boxVENT_IRQ(VENT_callback)
 
 
 def say_switch(self,switch_name,switch_status):

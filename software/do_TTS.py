@@ -100,4 +100,4 @@ while True:
 
         conn.close()
         dbconnect.commit()
-        time.sleep(.04) # only allowed 20 requests per minute
+        time.sleep(3) # only allowed 20 requests per minute

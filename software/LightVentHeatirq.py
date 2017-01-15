@@ -30,8 +30,10 @@ def VENT_callback(GPIOpin):
 # Define a threaded callback function to run in another thread when events are detected
 GPIO.setup(self.boxVENT, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 GPIO.add_event_detect(self.boxVENT, GPIO.BOTH, callback=the_handler)
+
 GPIO.setup(self.boxLIGHT, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 GPIO.add_event_detect(self.boxLIGHT, GPIO.BOTH, callback=the_handler)
+
 GPIO.setup(self.boxHEAT, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 GPIO.add_event_detect(self.boxHEAT, GPIO.BOTH, callback=the_handler)
 

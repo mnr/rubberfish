@@ -9,28 +9,31 @@ runs in background. Started in fish_config.sh
 
 from box_controls import boxControls
 from bmbb_fish import BmBB
+import RPI_GPIO
 
 my_box = boxControls()
 my_fish = BmBB()
+GPIO.setmode(GPIO.BOARD)
 
-# Define a threaded callback function to run in another thread when events are detected
 def LIGHT_callback(GPIOpin):
     switch_status = "on" if my_box.get_boxLIGHT_STATE() else "off"
     saySwitch("Light",switch_status)
-
-my_box.set_boxLIGHT_IRQ(LIGHT_callback)
 
 def HEAT_callback(GPIOpin):
     switch_status = "on" if my_box.get_boxHEAT_STATE() else "off"
     saySwitch("Heat",switch_status)
 
-my_box.set_boxHEAT_IRQ(HEAT_callback)
-
 def VENT_callback(GPIOpin):
     switch_status = "on" if my_box.get_boxVENT_STATE() else "off"
     saySwitch("Vent",switch_status)
 
-my_box.set_boxVENT_IRQ(VENT_callback)
+# Define a threaded callback function to run in another thread when events are detected
+GPIO.setup(self.boxVENT, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.add_event_detect(self.boxVENT, GPIO.BOTH, callback=the_handler)
+GPIO.setup(self.boxLIGHT, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.add_event_detect(self.boxLIGHT, GPIO.BOTH, callback=the_handler)
+GPIO.setup(self.boxHEAT, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.add_event_detect(self.boxHEAT, GPIO.BOTH, callback=the_handler)
 
 
 def say_switch(self,switch_name,switch_status):

@@ -9,8 +9,8 @@ import RPI_GPIO
 class boxControls:
     """ provides access to controls mounted on the pedestal """
 
-"""
-now provided by RPI_GPIO ?
+    """
+    now provided by RPI_GPIO ?
     # boxControls variables
     # GPIO pins assigned to the two front-panel switches
     boxVENT = 12

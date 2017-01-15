@@ -4,16 +4,20 @@
 import RPi.GPIO as GPIO
 from datetime import datetime
 import smbus
+import RPI_GPIO
 
 class boxControls:
     """ provides access to controls mounted on the pedestal """
 
+"""
+now provided by RPI_GPIO ?
     # boxControls variables
     # GPIO pins assigned to the two front-panel switches
     boxVENT = 12
     boxLIGHT = 16
     boxHEAT = 10
     fishIsSpeaking = 13
+    """
 
     def __init__(self):
         GPIO.setmode(GPIO.BOARD)
@@ -25,32 +29,11 @@ class boxControls:
     def get_boxVENT_STATE(self):
         return GPIO.input(self.boxVENT)
 
-    def set_boxVENT_IRQ(self,the_handler):
-        # sets an interrupt for this switch
-        # expects the_handler to contain a callback function
-        GPIO.setmode(GPIO.BOARD)
-        GPIO.setup(self.boxVENT, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-        GPIO.add_event_detect(self.boxVENT, GPIO.BOTH, callback=the_handler)
-
     def get_boxLIGHT_STATE(self):
         return GPIO.input(self.boxLIGHT)
 
-    def set_boxLIGHT_IRQ(self,the_handler):
-        # sets an interrupt for this switch
-        # expects the_handler to contain a callback function
-        GPIO.setmode(GPIO.BOARD)
-        GPIO.setup(self.boxLIGHT, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-        GPIO.add_event_detect(self.boxLIGHT, GPIO.BOTH, callback=the_handler)
-
     def get_boxHEAT_STATE(self):
         return GPIO.input(self.boxHEAT)
-
-    def set_boxHEAT_IRQ(self,the_handler):
-        # sets an interrupt for this switch
-        # expects the_handler to contain a callback function
-        GPIO.setmode(GPIO.BOARD)
-        GPIO.setup(self.boxHEAT, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-        GPIO.add_event_detect(self.boxHEAT, GPIO.BOTH, callback=the_handler)
 
     def get_fishIsSpeaking(self):
         return GPIO.input(self.fishIsSpeaking)

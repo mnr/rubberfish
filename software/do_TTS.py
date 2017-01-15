@@ -18,6 +18,7 @@ runs in background. Started in fish_config.sh
 
 import http.client, urllib.parse, json # supports Bing Text-to-speech
 import sqlite3
+import time
 
 ##########################
 # Bing TTS variables
@@ -99,3 +100,4 @@ while True:
 
         conn.close()
         dbconnect.commit()
+        time.sleep(.04) # only allowed 20 requests per minute

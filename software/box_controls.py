@@ -4,20 +4,16 @@
 import RPi.GPIO as GPIO
 from datetime import datetime
 import smbus
-import RPI_GPIO
 
 class boxControls:
     """ provides access to controls mounted on the pedestal """
 
-    """
-    now provided by RPI_GPIO ?
     # boxControls variables
     # GPIO pins assigned to the two front-panel switches
     boxVENT = 12
     boxLIGHT = 16
     boxHEAT = 10
     fishIsSpeaking = 13
-    """
 
     def __init__(self):
         GPIO.setmode(GPIO.BOARD)

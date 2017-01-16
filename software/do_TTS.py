@@ -19,6 +19,7 @@ runs in background. Started in fish_config.sh
 import http.client, urllib.parse, json # supports Bing Text-to-speech
 import sqlite3
 import time
+import datetime
 
 ##########################
 # Bing TTS variables
@@ -67,18 +68,30 @@ cursor = dbconnect.cursor()
 #    convert TTS
 #    save to sqlite3
 
+def createTimers():
+    StartMinuteTimer = datetime.datetime.now()
+    EndMinuteTimer = StartMinuteTimer + datetime.timedelta(minutes=1)
+    return EndMinuteTimer
+
+countBingRequests = 0
+oneMinuteTimer = createTimers()
+
 while True:
-    # cursor.execute("select count(*) from TTS")
-    # cursorCount = cursor.fetchone()
-    # if cursorCount[0] > 0:
-    # cursor.execute("select UID, stringToSay from TTS order by priority, Timestamp where audioStream='' limit 1");
     cursor.execute("select UID, stringToSay from TTS where audioStream is NULL order by priority, Timestamp  ;")
     rows = cursor.fetchall()
 
     for row in rows:
+        # only make 20 calls to Bing per minute
+        if countBingRequests > 19:
+            if datetime.datetime.now() > oneMinuteTimer:
+                countBingRequests = 0
+                oneMinuteTimer = createTimers()
+            else:
+                howLongToWait = oneMinuteTimer - datetime.datetime.now()
+                time.sleep(howLongToWait.seconds)
+
         theUID = row[0]
         phraseToSay = row[1]
-
         synthWaveBody = openSpeak + phraseToSay + closeSpeak
 
         #Connect to server to synthesize the wave
@@ -95,9 +108,10 @@ while True:
             sqlDoThis = 'UPDATE TTS SET audioStream = ?, TTSRequestStatus=? WHERE UID = ?;'
             cursor.execute(sqlDoThis,[sqlite3.Binary(synthWaveData),response.status,theUID]);
         else:
+            # save the error code for debugging
             sqlDoThis = 'UPDATE TTS SET TTSRequestStatus=? WHERE UID = ?;'
             cursor.execute(sqlDoThis,[response.status,theUID]);
 
         conn.close()
         dbconnect.commit()
-        time.sleep(3) # only allowed 20 requests per minute
+        countBingRequests += 1

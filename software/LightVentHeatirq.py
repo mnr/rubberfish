@@ -9,7 +9,6 @@ runs in background. Started in fish_config.sh
 
 from box_controls import boxControls
 from bmbb_fish import BmBB
-import RPI_GPIO
 
 my_box = boxControls()
 my_fish = BmBB()

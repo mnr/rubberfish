@@ -36,6 +36,7 @@ class BmBB:
         # GPIO.setup(self.fishMOUTH, GPIO.OUT, initial=GPIO.LOW)
         GPIO.setup(self.fishTAIL, GPIO.OUT, initial=GPIO.LOW)
         GPIO.setup(self.fishHEAD, GPIO.OUT, initial=GPIO.LOW)
+        GPIO.setup(self.fishIsSpeaking, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
         # set up PWM for the enable pin on the motor driver
         GPIO.setup(self.fishMotorEnable, GPIO.OUT)

@@ -26,7 +26,7 @@ pygame.mixer.init()
 
 # Open up an SQLite connection
 try:
-    dbconnect = sqlite3.connect("/home/pi/rubberfish/textToSpeech.db")
+    dbconnect = sqlite3.connect("/home/pi/rubberfish/textToSpeech.db", check_same_thread=False)
 except sqlite3.Error as er:
     print ('fish line 20 of speakNextPhrase:', er.message)
     logger.info('fish line 20 of speakNextPhrase: {errormsg}'.format(errormsg=er.message))

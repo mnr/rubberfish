@@ -16,6 +16,7 @@ class BmBB:
     fishHEAD = 7
     # fishHEAD_reverse = 15
     fishMotorEnable = 18
+    fishIsSpeaking = 13
 
     # variables for SQlite
     dbconnect = None
@@ -108,6 +109,9 @@ class BmBB:
         sqlDoThis = 'insert into TTS (priority,stringToSay) values (?, ?)'
         self.cursor.execute(sqlDoThis,[priorityToSay,phraseToSay]);
         self.dbconnect.commit()
+
+    def get_fishIsSpeaking(self):
+        return GPIO.input(self.fishIsSpeaking)
 
     def fishShutUp(self):
         # stops the fish from talking

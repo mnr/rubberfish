@@ -8,20 +8,30 @@ import smbus
 class boxControls:
     """ provides access to controls mounted on the pedestal """
 
+    """
     # boxControls variables
     # GPIO pins assigned to the two front-panel switches
+    switches moved to switch_obj
     boxVENT = 12
     boxLIGHT = 16
     boxHEAT = 10
+
+    fish is speaking moved to bmbb_fish
     fishIsSpeaking = 13
+    """
 
     def __init__(self):
         GPIO.setmode(GPIO.BOARD)
+        """
+        switches moved to switch_obj
         GPIO.setup(self.boxVENT, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
         GPIO.setup(self.boxLIGHT, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
         GPIO.setup(self.boxHEAT, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+        """
         GPIO.setup(self.fishIsSpeaking, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
+    """
+    switches moved to switch_obj
     def get_boxVENT_STATE(self):
         return GPIO.input(self.boxVENT)
 
@@ -33,6 +43,7 @@ class boxControls:
 
     def get_fishIsSpeaking(self):
         return GPIO.input(self.fishIsSpeaking)
+    """
 
     def set_voltage(self,setToThis=0):
         # sets the voltage meter to setToThis

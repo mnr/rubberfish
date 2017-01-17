@@ -7,35 +7,19 @@ handles the interrupt
 runs in background. Started in fish_config.sh
 """
 
-from box_controls import boxControls
+from switch_obj import boxSwitch
 from bmbb_fish import BmBB
 
-my_box = boxControls()
 my_fish = BmBB()
-GPIO.setmode(GPIO.BOARD)
 
-def LIGHT_callback(GPIOpin):
-    switch_status = "on" if my_box.get_boxLIGHT_STATE() else "off"
-    saySwitch("Light",switch_status)
-
+boxHEAT = 10
 def HEAT_callback(GPIOpin):
-    switch_status = "on" if my_box.get_boxHEAT_STATE() else "off"
-    saySwitch("Heat",switch_status)
+    switch_status = "on" if switchHeat.get_state() else "off"
+    my_fish.fishSays("The heat switch was turned ",switch_status)
 
-def VENT_callback(GPIOpin):
-    switch_status = "on" if my_box.get_boxVENT_STATE() else "off"
-    saySwitch("Vent",switch_status)
+switchHeat = boxSwitch(boxHEAT)
+switchHeat.set_callback(HEAT_callback)
 
-# Define a threaded callback function to run in another thread when events are detected
-GPIO.setup(self.boxVENT, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-GPIO.add_event_detect(self.boxVENT, GPIO.BOTH, callback=the_handler)
+boxLIGHT = 16
 
-GPIO.setup(self.boxLIGHT, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-GPIO.add_event_detect(self.boxLIGHT, GPIO.BOTH, callback=the_handler)
-
-GPIO.setup(self.boxHEAT, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-GPIO.add_event_detect(self.boxHEAT, GPIO.BOTH, callback=the_handler)
-
-
-def say_switch(self,switch_name,switch_status):
-    my_fish.fishSays("The ",switch_name," switch was turned ",switch_status)
+boxVENT = 12

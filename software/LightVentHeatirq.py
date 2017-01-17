@@ -15,6 +15,7 @@ my_fish = BmBB()
 boxHEAT = 10
 def HEAT_callback(GPIOpin):
     switch_status = "on" if switchHeat.get_state() else "off"
+    print("The heat switch was turned ",switch_status)
     my_fish.fishSays("The heat switch was turned ",switch_status)
 
 switchHeat = boxSwitch(boxHEAT)

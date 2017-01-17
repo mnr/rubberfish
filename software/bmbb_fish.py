@@ -52,7 +52,7 @@ class BmBB:
         self.logger.setLevel(logging.DEBUG)
 
         # set up SQLite
-        self.dbconnect = sqlite3.connect("/home/pi/rubberfish/textToSpeech.db")
+        self.dbconnect = sqlite3.connect("/home/pi/rubberfish/textToSpeech.db", check_same_thread=False)
         self.cursor = self.dbconnect.cursor()
 
         # do something to indicate life
@@ -106,7 +106,6 @@ class BmBB:
         self.PWMstatus.ChangeDutyCycle(PWMDutyCycle)
 
     def fishSays(self,phraseToSay="Hello World",priorityToSay=5):
-        # sqlDoThis = 'insert into TTS (priority,stringToSay) values ({}, {})'.format(priorityToSay,phraseToSay)
         sqlDoThis = 'insert into TTS (priority,stringToSay) values (?, ?)'
         self.cursor.execute(sqlDoThis,[priorityToSay,phraseToSay]);
         self.dbconnect.commit()

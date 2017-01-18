@@ -21,6 +21,7 @@ usage = GPIO.gpio_function(port)
 """
 
 import RPi.GPIO as GPIO
+import logging
 
 logger = None #declaring logger here for later use
 

@@ -10,9 +10,20 @@ boxVENT = 12
 boxLIGHT = 16
 boxHEAT = 10
 
+usage = GPIO.gpio_function(port)
+0 = GPIO.OUT
+1 = GPIO.IN
+40 = GPIO.SERIAL
+41 = GPIO.SPI
+42 = GPIO.I2C
+43 = GPIO.HARD_PWM
+-1 = GPIO.UNKNOWN
 """
 
 import RPi.GPIO as GPIO
+
+logger = None #declaring logger here for later use
+
 
 class boxSwitch:
     """ Class to handle one of the front boxControls (LIGHT, VENT, HEAT) """
@@ -21,6 +32,15 @@ class boxSwitch:
 
     def __init__(self,GPIOpin):
         self.mySwitch = GPIOpin
+
+        # set up error logging
+        self.logger = logging.getLogger('FishControl')
+        hdlr = logging.FileHandler('/var/tmp/fish.log')
+        formatter = logging.Formatter('%(asctime)s %(levelname)s %(funcName)s %(thread)d %(message)s')
+        hdlr.setFormatter(formatter)
+        self.logger.addHandler(hdlr)
+        self.logger.setLevel(logging.DEBUG)
+
         GPIO.setmode(GPIO.BOARD)
         GPIO.setup(self.mySwitch, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 

@@ -23,13 +23,13 @@ usage = GPIO.gpio_function(port)
 import RPi.GPIO as GPIO
 import logging
 
-logger = None #declaring logger here for later use
 
 
 class boxSwitch:
     """ Class to handle one of the front boxControls (LIGHT, VENT, HEAT) """
 
     mySwitch = None # pin assignment for this switch from RPi GPIO
+    logger = None #declaring logger here for later use
 
     def __init__(self,GPIOpin):
         self.mySwitch = GPIOpin

@@ -44,7 +44,7 @@ class boxSwitch:
 
         GPIO.setmode(GPIO.BOARD)
         GPIO.setup(self.mySwitch, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-        self.logger.info('init ' + GPIOpin)
+        self.logger.info('init ' + str(GPIOpin))
 
     def get_state(self):
         self.logger.info('Getting state of pin ' + self.mySwitch)

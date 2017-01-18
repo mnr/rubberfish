@@ -57,4 +57,4 @@ class boxSwitch:
         #   def callback(GPIO_pin_changed):
         #      print("The pin that changed is ",GPIO_pin_changed)
         GPIO.add_event_detect(self.mySwitch, GPIO.BOTH, callback=callbackFunction)
-        self.logger.info('set up add_event_detect')
+        self.logger.info('set up add_event_detect'+callbackFunction.__name__)

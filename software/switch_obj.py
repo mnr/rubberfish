@@ -47,7 +47,7 @@ class boxSwitch:
         self.logger.info('init ' + str(GPIOpin))
 
     def get_state(self):
-        self.logger.info('Getting state of pin ' + self.mySwitch)
+        self.logger.info('Getting state of pin ' + str(self.mySwitch))
         return GPIO.input(self.mySwitch)
 
     def set_callback(self,callbackFunction):

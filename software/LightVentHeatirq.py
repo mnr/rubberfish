@@ -38,3 +38,6 @@ switchHeat.set_callback(HEAT_callback)
 boxLIGHT = 16
 
 boxVENT = 12
+
+while True:
+    pass # loop to keep the python shell open

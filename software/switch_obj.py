@@ -24,12 +24,12 @@ import RPi.GPIO as GPIO
 import logging
 
 
-
 class boxSwitch:
     """ Class to handle one of the front boxControls (LIGHT, VENT, HEAT) """
 
     mySwitch = None # pin assignment for this switch from RPi GPIO
     logger = None #declaring logger here for later use
+    myState = 0 # boolean to remember the state of this switch
 
     def __init__(self,GPIOpin):
         self.mySwitch = GPIOpin
@@ -48,7 +48,13 @@ class boxSwitch:
 
     def get_state(self):
         self.logger.info('Getting state of pin ' + str(self.mySwitch))
-        return GPIO.input(self.mySwitch)
+        testState = GPIO.input(self.mySwitch);
+        if self.myState == testState:
+            didIChange = False
+        else:
+            didIChange = True
+            self.myState = testState
+        return self.myState,didIChange
 
     def set_callback(self,callbackFunction):
         # Define a threaded callback function to run in another thread when events are detected

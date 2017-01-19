@@ -55,9 +55,6 @@ class BmBB:
         self.dbconnect = sqlite3.connect("/home/pi/rubberfish/textToSpeech.db", check_same_thread=False)
         self.cursor = self.dbconnect.cursor()
 
-        # do something to indicate life
-        # self.fishSays("Hello. I had a good rest, but it is nice to be back at work.")
-
     def shut_down_fish(self):
         self.logger.info('killing the fish')
         self.PWMstatus.stop() # turn off PWM

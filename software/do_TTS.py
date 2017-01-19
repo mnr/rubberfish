@@ -82,13 +82,12 @@ while True:
 
     for row in rows:
         # only make 20 calls to Bing per minute
-        if countBingRequests > 19:
-            if datetime.datetime.now() > oneMinuteTimer:
-                countBingRequests = 0
-                oneMinuteTimer = createTimers()
-            else:
+        if countBingRequests == 19:
+            countBingRequests = 0
+            if datetime.datetime.now() < oneMinuteTimer:
                 howLongToWait = oneMinuteTimer - datetime.datetime.now()
                 time.sleep(howLongToWait.seconds)
+                oneMinuteTimer = createTimers()
 
         theUID = row[0]
         phraseToSay = row[1]

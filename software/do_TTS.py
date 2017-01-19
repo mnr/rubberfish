@@ -58,7 +58,7 @@ synthWaveHeaders = {"Content-type": "application/ssml+xml",
 ##########################
 # at this point, we have all the Bing TTS static parts needed to make a connection.
 # Now, open up an SQLite connection
-dbconnect = sqlite3.connect("/home/pi/rubberfish/textToSpeech.db", check_same_thread=False)
+dbconnect = sqlite3.connect("/home/pi/rubberfish/textToSpeech.db")
 dbconnect.row_factory = sqlite3.Row #so to access columns by name
 cursor = dbconnect.cursor()
 

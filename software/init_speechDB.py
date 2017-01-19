@@ -14,7 +14,7 @@ os.remove(pathToDB) # delete any old database
 
 ##########################
 # Open up an SQLite connection
-dbconnect = sqlite3.connect(pathToDB, check_same_thread=False)
+dbconnect = sqlite3.connect(pathToDB)
 dbconnect.row_factory = sqlite3.Row #so to access columns by name
 cursor = dbconnect.cursor()
 

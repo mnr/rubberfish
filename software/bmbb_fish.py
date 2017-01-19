@@ -52,7 +52,7 @@ class BmBB:
         self.logger.setLevel(logging.DEBUG)
 
         # set up SQLite
-        self.dbconnect = sqlite3.connect("/home/pi/rubberfish/textToSpeech.db")
+        self.dbconnect = sqlite3.connect("/home/pi/rubberfish/textToSpeech.db", check_same_thread=False)
         self.cursor = self.dbconnect.cursor()
 
         # do something to indicate life

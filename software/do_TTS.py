@@ -16,7 +16,8 @@ runs in background. Started in fish_config.sh
 #THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ###
 
-import http.client, urllib.parse, json # supports Bing Text-to-speech
+import http.client # supports Bing Text-to-speech
+import urllib.parse, json # may not need these - supports Bing Text-to-speech
 import sqlite3
 import time
 import datetime
@@ -34,66 +35,67 @@ getAccessPath = "/sts/v1.0/issueToken"
 openSpeak = "<speak version='1.0' xml:lang='en-us'><voice xml:lang='en-us' xml:gender='Female' name='Microsoft Server Speech Text to Speech Voice (en-US, ZiraRUS)'>"
 closeSpeak = "</voice></speak>"
 
-##########################
-# set up Bing Text-to-speech
-# Connect to server to get the Access Token
-# print ("Connect to server to get the Access Token")
-conn = http.client.HTTPSConnection(AccessTokenHost)
-conn.request("POST", getAccessPath, getAccessParams, getAccessHeaders)
-response = conn.getresponse()
-# print(response.status, response.reason)
-
-apiKeyData = response.read()
-conn.close()
-accesstoken = apiKeyData.decode("UTF-8")
-# print ("Access Token: " + accesstoken)
-
-synthWaveHeaders = {"Content-type": "application/ssml+xml",
-    "X-Microsoft-OutputFormat": "riff-16khz-16bit-mono-pcm",
-    "Authorization": "Bearer " + accesstoken,
-    "X-Search-AppId": "07D3234E49CE426DAA29772419F436CA",
-    "X-Search-ClientID": "1ECFAE91408841A480F00935DC390960",
-    "User-Agent": "TTSForPython"}
 
 ##########################
-# at this point, we have all the Bing TTS static parts needed to make a connection.
-# Now, open up an SQLite connection
+# Open up an SQLite connection
 dbconnect = sqlite3.connect("/home/pi/rubberfish/textToSpeech.db")
 dbconnect.row_factory = sqlite3.Row #so to access columns by name
 cursor = dbconnect.cursor()
 
-##########################
-# loop:
-#    get string from sqlite3. sort for top priority
-#    convert TTS
-#    save to sqlite3
 
-def createTimers():
+def createTimers(numberOfminutes):
+    # returns a time object = now + numberOfminutes
     StartMinuteTimer = datetime.datetime.now()
-    EndMinuteTimer = StartMinuteTimer + datetime.timedelta(minutes=1)
+    EndMinuteTimer = StartMinuteTimer + datetime.timedelta(minutes=numberOfminutes)
     return EndMinuteTimer
 
 countBingRequests = 0
-oneMinuteTimer = createTimers()
+bingOneMinute = createTimers(1) # cap activity to 20 bing calls per second
+accessTokenTimeout = datetime.datetime.now() # always get a token first time through loop
 
 while True:
+    ##########################
+    # this loop:
+    #    get string from sqlite3. sort for top priority
+    #    convert TTS
+    #    save to sqlite3
+
     cursor.execute("select UID, stringToSay from TTS where audioStream is NULL order by priority, Timestamp  ;")
     rows = cursor.fetchall()
 
     for row in rows:
-        # only make 20 calls to Bing per minute
+        # only make 20 calls to Bing per minute. This is a throttle
         if countBingRequests == 19:
             countBingRequests = 0
-            if datetime.datetime.now() < oneMinuteTimer:
-                howLongToWait = oneMinuteTimer - datetime.datetime.now()
+            if datetime.datetime.now() < bingOneMinute:
+                howLongToWait = bingOneMinute - datetime.datetime.now()
                 time.sleep(howLongToWait.seconds)
-                oneMinuteTimer = createTimers()
+                bingOneMinute = createTimers(1)
 
-        theUID = row[0]
-        phraseToSay = row[1]
+        # bing Authorization Tokens time out in 10 minutes. Do I need a new one?
+        if datetime.datetime.now() > accessTokenTimeout: # the Bing TTS authorization token times out after ten minutes
+            accessTokenTimeout = createTimers(6) #actually times out in 10 minutes, but being safe
+            # Connect to server to get the Access Token
+            conn = http.client.HTTPSConnection(AccessTokenHost)
+            conn.request("POST", getAccessPath, getAccessParams, getAccessHeaders)
+            response = conn.getresponse()
+            # print(response.status, response.reason)
+            apiKeyData = response.read()
+            conn.close()
+            accesstoken = apiKeyData.decode("UTF-8")
+
+        synthWaveHeaders = {"Content-type": "application/ssml+xml",
+        "X-Microsoft-OutputFormat": "riff-16khz-16bit-mono-pcm",
+        "Authorization": "Bearer " + accesstoken,
+        "X-Search-AppId": "07D3234E49CE426DAA29772419F436CA",
+        "X-Search-ClientID": "1ECFAE91408841A480F00935DC390960",
+        "User-Agent": "TTSForPython"}
+
+        theUID = row[0] # get the UID to access the database
+        phraseToSay = row[1] # get the string we are going to convert
         synthWaveBody = openSpeak + phraseToSay + closeSpeak
 
-        #Connect to server to synthesize the wave
+        # Connect to server to synthesize the .wav
         conn = http.client.HTTPSConnection("speech.platform.bing.com")
         conn.request("POST", "/synthesize", synthWaveBody, synthWaveHeaders)
         response = conn.getresponse()

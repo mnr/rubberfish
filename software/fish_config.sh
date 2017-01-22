@@ -31,6 +31,7 @@ case "$1" in
     python3 /home/pi/rubberfish/software/do_TTS.py &
     python3 /home/pi/rubberfish/software/speakNextPhrase.py &
     python3 /home/pi/rubberfish/software/LightVentHeatirq.py &
+    python3 /home/pi/rubberfish/software/fish_head_tail.py &
 
     # Finished with Initial Fish"
 

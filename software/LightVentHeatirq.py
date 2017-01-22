@@ -10,7 +10,7 @@ runs in background. Started in fish_config.sh
 from switch_obj import boxSwitch
 from bmbb_fish import BmBB
 import logging
-import datetime
+import time
 
 
 # set up error logging
@@ -34,8 +34,8 @@ def HEAT_callback(GPIOpin):
         if switchState:
             my_fish.fishSays("A soft summer night sky above. Heat still radiates. From the pavement beneath your car")
         else:
-            timestring = time.strftime("%I %p",time.localtime()
-            sayThis = "It's around {}. My feet kiss the cold, hard floor. I should have worn socks".format(timestring)
+            timestring = time.strftime("%I %p",time.localtime())
+            sayThis = 'It\'s around {}. My feet kiss the cold, hard floor. I should have worn socks'.format(timestring)
             my_fish.fishSays(sayThis)
 
 switchHeat = boxSwitch(boxHEAT)

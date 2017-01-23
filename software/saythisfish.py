@@ -8,4 +8,5 @@ import sys
 my_fish = BmBB()
 
 # Speech
-my_fish.fishSays(sys.argv)
+my_fish.fishSays(sys.argv[1])
+# print(sys.argv[1])

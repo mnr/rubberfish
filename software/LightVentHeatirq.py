@@ -11,7 +11,7 @@ from switch_obj import boxSwitch
 from bmbb_fish import BmBB
 import logging
 import time
-
+from personality import FishPersonality
 
 # set up error logging
 logger = None #declaring logger here for later use
@@ -24,6 +24,7 @@ logger.addHandler(hdlr)
 logger.setLevel(logging.DEBUG)
 
 my_fish = BmBB()
+myFishPersonality = FishPersonality()
 
 #######################
 # Setting up the Heat Switch
@@ -61,6 +62,11 @@ boxVENT = 12
 def VENT_callback(GPIOpin):
     switchState,switchChanged = switchVent.get_state()
     if switchChanged:
+        if switchState:
+            myFishPersonality.setGender("Female")
+        else:
+            myFishPersonality.setGender("Male")
+            
         switch_status = "on" if switchState else "off"
         my_fish.fishSays("The Vent switch was turned " + switch_status)
         logger.info("The Vent switch was turned " + switch_status)

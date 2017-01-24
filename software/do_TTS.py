@@ -21,6 +21,9 @@ import urllib.parse, json # may not need these - supports Bing Text-to-speech
 import sqlite3
 import time
 import datetime
+from personality import FishPersonality
+
+myFishPersonality = FishPersonality()
 
 ##########################
 # Bing TTS variables
@@ -32,7 +35,14 @@ getAccessHeaders = {"Ocp-Apim-Subscription-Key": apiKey}
 AccessTokenHost = "api.cognitive.microsoft.com"
 getAccessPath = "/sts/v1.0/issueToken"
 
-openSpeak = "<speak version='1.0' xml:lang='en-us'><voice xml:lang='en-us' xml:gender='Female' name='Microsoft Server Speech Text to Speech Voice (en-US, ZiraRUS)'>"
+openSpeak = "<speak version='1.0' xml:lang='en-us'><voice xml:lang='en-us' "
+openSpeak += "xml:gender='Female' "
+openSpeak += "name='Microsoft Server Speech Text to Speech Voice "
+if myFishPersonality.getGender() == "Male":
+    openSpeak += "(en-US, BenjaminRUS)"
+else:
+    openSpeak += "(en-US, ZiraRUS)"
+openSpeak += "'>"
 closeSpeak = "</voice></speak>"
 
 

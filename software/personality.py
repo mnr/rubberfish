@@ -29,7 +29,10 @@ class FishPersonality:
 
         with open(self.personalityFile, mode='w', encoding='utf-8') as filePath:
             json.dump(basic_entry, filePath, indent=2)
-        os.chmod(self.personalityFile, 0o666)
+        try:
+            os.chmod(self.personalityFile, 0o666)
+        except:
+            pass
 
     def getGender(self):
         return self.gender

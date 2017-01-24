@@ -38,13 +38,9 @@ getAccessPath = "/sts/v1.0/issueToken"
 openSpeak = "<speak version='1.0' xml:lang='en-us'><voice xml:lang='en-us' "
 openSpeak += "xml:gender='Female' "
 openSpeak += "name='Microsoft Server Speech Text to Speech Voice "
-if myFishPersonality.getGender() == "Male":
-    openSpeak += "(en-US, BenjaminRUS)"
-else:
-    openSpeak += "(en-US, ZiraRUS)"
-openSpeak += "'>"
-closeSpeak = "</voice></speak>"
+# note that genderSpeak is defined below and contains the voice name and closing bracket
 
+closeSpeak = "</voice></speak>"
 
 ##########################
 # Open up an SQLite connection
@@ -100,9 +96,14 @@ while True:
         "X-Search-ClientID": "1ECFAE91408841A480F00935DC390960",
         "User-Agent": "TTSForPython"}
 
+        if myFishPersonality.getGender() == "Male":
+            genderSpeak += "(en-US, BenjaminRUS)'>"
+        else:
+            genderSpeak += "(en-US, ZiraRUS)'>"
+
         theUID = row[0] # get the UID to access the database
         phraseToSay = row[1] # get the string we are going to convert
-        synthWaveBody = openSpeak + phraseToSay + closeSpeak
+        synthWaveBody = openSpeak + genderSpeak +  phraseToSay + closeSpeak
 
         # Connect to server to synthesize the .wav
         conn = http.client.HTTPSConnection("speech.platform.bing.com")

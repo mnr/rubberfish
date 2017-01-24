@@ -9,7 +9,7 @@ class FishPersonality:
 
     gender = "Female" # random initialization. Note that this isn't binary
     myers_briggs = "ISTP" # random initialization
-    personalityFile = "fish_personality.json"
+    personalityFile = "/home/pi/rubberfish/fish_personality.json"
 
     def __init__(self):
         # check for existence of personalityFile

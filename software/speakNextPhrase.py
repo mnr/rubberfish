@@ -9,6 +9,10 @@ runs in background. Started in fish_config.sh
 import pygame # used to play back the speech file
 import sqlite3
 import logging
+import time
+from bmbb_fish import BmBB
+
+my_fish = BmBB()
 
 #############################
 # set up logging
@@ -18,7 +22,6 @@ formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
 hdlr.setFormatter(formatter)
 logger.addHandler(hdlr)
 logger.setLevel(logging.DEBUG)
-
 
 # set up pygame
 pygame.mixer.pre_init(8000,-16,2,2048)
@@ -30,8 +33,6 @@ try:
 except sqlite3.Error as er:
     print ('fish line 20 of speakNextPhrase:', er.message)
     logger.info('fish line 20 of speakNextPhrase: {errormsg}'.format(errormsg=er.message))
-
-
 
 dbconnect.row_factory = sqlite3.Row #so to access columns by name
 cursor = dbconnect.cursor()
@@ -49,21 +50,50 @@ while True:
     #     cursor.execute("select UID, audioStream from TTS order by priority, Timestamp limit 1");
 
     try:
-        cursor.execute("select UID, audioStream from TTS where audioStream is not NULL order by priority, Timestamp ;");
+        cursor.execute("select UID, audioStream, stringToSay from TTS where audioStream is not NULL order by priority, Timestamp ;");
 
     except sqlite3.Error as er:
-        print ('fish line 40 of speakNextPhrase:', er.message)
-        logger.info('fish line 40 of speakNextPhrase: {errormsg}'.format(errormsg=er.message))
+        print ('speakNextPhrase:', er.message)
+        logger.info('speakNextPhrase: {errormsg}'.format(errormsg=er.message))
 
     rows = cursor.fetchall()
     for row in rows:
         theUID = row[0]
         audioBlobToPlay = row[1]
+        stringToSay = row[2]
 
         asound = pygame.mixer.Sound(audioBlobToPlay)
+        # determine length/characters
+        soundLength =  asound.get_length() #in seconds
+        stringLength = len(stringToSay)
+        charsPerSecond = stringLength / soundLength
+
+        stopwatch_start = time.time()
+        stopwatch_stop = time.time() + soundLength
         channel = asound.play()
+
+        while time.time() < stopwatch_stop:
+            phrasePlayedSoFar = time.time() - stopwatch_start
+            stringToSayIndex = round(phrasePlayedSoFar * charsPerSecond)
+            stringToSayIndex -= 1 # fix the string index
+            achar = stringToSay[stringToSayIndex]
+
+            if achar == '!':
+                # do something for !
+                my_fish.head()
+            elif achar == '.':
+                my_fish.tail()
+            elif achar == '-':
+                my_fish.head()
+                my_fish.tail()
+            else:
+                # every other character (alpha numeric)
+                pass
+
         while channel.get_busy() == True:
+            # confirm that the audio track has finished playing
             continue
-        # sound has played. Now delete the record
+
+        # sound has played. Now delete the record from the db
         cursor.execute('delete from TTS where UID=?',[theUID])
         dbconnect.commit()

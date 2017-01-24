@@ -87,6 +87,7 @@ while True:
                 my_fish.tail()
             else:
                 # every other character (alpha numeric)
+                pass
 
         while channel.get_busy() == True:
             # confirm that the audio track has finished playing

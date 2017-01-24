@@ -4,6 +4,7 @@ Personality of the fish
 """
 
 import json
+import os
 
 class FishPersonality:
 
@@ -28,6 +29,7 @@ class FishPersonality:
 
         with open(self.personalityFile, mode='w', encoding='utf-8') as filePath:
             json.dump(basic_entry, filePath, indent=2)
+        os.chmod(self.personalityFile, 0o666)
 
     def getGender(self):
         return self.gender

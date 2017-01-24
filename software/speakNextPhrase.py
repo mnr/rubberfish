@@ -75,7 +75,8 @@ while True:
         while time.time() < stopwatch_stop:
             phrasePlayedSoFar = time.time() - stopwatch_start
             stringToSayIndex = round(phrasePlayedSoFar * charsPerSecond)
-            stringToSayIndex -= 1 # fix the string index
+            stringToSayIndex = 0 if stringToSayIndex < 0 else stringToSayIndex
+            stringToSayIndex = (stringLength -1) if stringToSayIndex >= stringLength else stringToSayIndex
             achar = stringToSay[stringToSayIndex]
 
             if achar == '!':

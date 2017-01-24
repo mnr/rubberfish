@@ -97,9 +97,9 @@ while True:
         "User-Agent": "TTSForPython"}
 
         if myFishPersonality.getGender() == "Male":
-            genderSpeak += "(en-US, BenjaminRUS)'>"
+            genderSpeak = "(en-US, BenjaminRUS)'>"
         else:
-            genderSpeak += "(en-US, ZiraRUS)'>"
+            genderSpeak = "(en-US, ZiraRUS)'>"
 
         theUID = row[0] # get the UID to access the database
         phraseToSay = row[1] # get the string we are going to convert

@@ -36,7 +36,7 @@ def HEAT_callback(GPIOpin):
             my_fish.fishSays("A soft summer night sky above. Heat still radiates. From the pavement beneath your car")
         else:
             timestring = time.strftime("%I %p",time.localtime())
-            sayThis = 'It\'s around {}. My feet kiss the cold, hard floor. I should have worn socks'.format(timestring)
+            sayThis = 'It\'s around {} in London. My feet kiss the cold, hard floor. I should have worn socks'.format(timestring)
             my_fish.fishSays(sayThis)
 
 switchHeat = boxSwitch(boxHEAT)
@@ -68,7 +68,6 @@ def VENT_callback(GPIOpin):
         else:
             myFishPersonality.setGender("Male")
             my_fish.fishSays("Hello. My name is Ben.")
-
 
 switchVent = boxSwitch(boxVENT)
 switchVent.set_callback(VENT_callback)

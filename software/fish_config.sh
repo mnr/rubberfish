@@ -39,7 +39,9 @@ case "$1" in
 
     if [[ ! -f $file ]]; then
       touch $file
+      echo '{"myers_briggs": "ISTP", "gender": "Male"}' > $file
     fi
+
 
     # make sure everyone has permissions
     chmod a+rw /home/pi/rubberfish/fish_personality.json

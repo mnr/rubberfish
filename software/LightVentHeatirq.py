@@ -64,12 +64,11 @@ def VENT_callback(GPIOpin):
     if switchChanged:
         if switchState:
             myFishPersonality.setGender("Female")
+            my_fish.fishSays("Hello. My name is Zira.")
         else:
             myFishPersonality.setGender("Male")
-            
-        switch_status = "on" if switchState else "off"
-        my_fish.fishSays("The Vent switch was turned " + switch_status)
-        logger.info("The Vent switch was turned " + switch_status)
+            my_fish.fishSays("Hello. My name is Ben.")
+
 
 switchVent = boxSwitch(boxVENT)
 switchVent.set_callback(VENT_callback)

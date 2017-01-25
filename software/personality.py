@@ -21,7 +21,7 @@ class FishPersonality:
 
     def getGender(self):
         self.readPersonalityFile()
-        return basic_entry['gender']
+        return self.basic_entry['gender']
 
     def setGender(self,newGender):
         self.readPersonalityFile()

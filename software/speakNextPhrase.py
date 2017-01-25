@@ -10,6 +10,7 @@ import pygame # used to play back the speech file
 import sqlite3
 import logging
 import time
+import random
 from bmbb_fish import BmBB
 
 my_fish = BmBB()
@@ -72,6 +73,11 @@ while True:
         stopwatch_stop = time.time() + soundLength
         channel = asound.play()
 
+        # randomly bring the head out at the beginning of a phrase
+        if random.randrange(0,2):
+            my_fish.head()
+
+        """
         while time.time() < stopwatch_stop:
             phrasePlayedSoFar = time.time() - stopwatch_start
             stringToSayIndex = round(phrasePlayedSoFar * charsPerSecond)
@@ -86,10 +92,10 @@ while True:
                 my_fish.tail()
             elif achar == '-':
                 my_fish.head()
-                my_fish.tail()
             else:
                 # every other character (alpha numeric)
                 pass
+        """
 
         while channel.get_busy() == True:
             # confirm that the audio track has finished playing

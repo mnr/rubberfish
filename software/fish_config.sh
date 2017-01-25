@@ -33,6 +33,17 @@ case "$1" in
     python3 /home/pi/rubberfish/software/LightVentHeatirq.py &
     python3 /home/pi/rubberfish/software/fish_head_tail.py &
 
+    # set up personality file
+    # if file doesn't exist, create it
+    file="/home/pi/rubberfish/fish_personality.json"
+
+    if [[ ! -f $file ]]; then
+      touch $file
+    fi
+
+    # make sure everyone has permissions
+    chmod a+rw /home/pi/rubberfish/fish_personality.json
+
     # Finished with Initial Fish"
 
     ;;

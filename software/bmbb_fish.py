@@ -107,7 +107,6 @@ class BmBB:
         sqlDoThis = 'insert into TTS (priority,stringToSay) values (?, ?)'
         # break the phrase into sentences
         for aline in sent_tokenize(phraseToSay):
-            saystring = ""
             if aline[-1:] == "?":
                 # if this sentence is a question
                 awords = aline.split(" ")
@@ -115,6 +114,8 @@ class BmBB:
                 saystring += '<prosody pitch="high">'
                 saystring += " ".join(awords[-1:])
                 saystring += '</prosody>'
+            else:
+                saystring = aline
             self.cursor.execute(sqlDoThis,[priorityToSay,saystring]);
             self.dbconnect.commit()
 

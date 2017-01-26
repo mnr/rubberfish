@@ -6,6 +6,7 @@ from time import sleep as sleep
 import logging
 import threading
 import sqlite3 # used to write to the tts database
+from nltk.tokenize import sent_tokenize # used by saythis() to break into sentences
 
 class BmBB:
     """ interface with the controls and motors of the big mouth billy bass """
@@ -104,8 +105,18 @@ class BmBB:
 
     def fishSays(self,phraseToSay="Hello World",priorityToSay=5):
         sqlDoThis = 'insert into TTS (priority,stringToSay) values (?, ?)'
-        self.cursor.execute(sqlDoThis,[priorityToSay,phraseToSay]);
-        self.dbconnect.commit()
+        # break the phrase into sentences
+        for aline in sent_tokenize(phraseToSay):
+            saystring = ""
+            if aline[-1:] == "?":
+                # if this sentence is a question
+                awords = aline.split(" ")
+                saystring = " ".join(awords[:-1])
+                saystring += '<prosody pitch="high">'
+                saystring += " ".join(awords[-1:])
+                saystring += '</prosody>'
+            self.cursor.execute(sqlDoThis,[priorityToSay,saystring]);
+            self.dbconnect.commit()
 
     def get_fishIsSpeaking(self):
         return GPIO.input(self.fishIsSpeaking)

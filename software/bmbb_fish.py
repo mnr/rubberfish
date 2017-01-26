@@ -7,6 +7,7 @@ import logging
 import threading
 import sqlite3 # used to write to the tts database
 from nltk.tokenize import sent_tokenize # used by saythis() to break into sentences
+import nltk
 
 class BmBB:
     """ interface with the controls and motors of the big mouth billy bass """
@@ -55,6 +56,10 @@ class BmBB:
         # set up SQLite
         self.dbconnect = sqlite3.connect("/home/pi/rubberfish/textToSpeech.db", check_same_thread=False)
         self.cursor = self.dbconnect.cursor()
+
+        # set up nltk
+        nltk.download('punkt')
+
 
     def shut_down_fish(self):
         self.logger.info('killing the fish')

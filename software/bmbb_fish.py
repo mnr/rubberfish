@@ -58,8 +58,10 @@ class BmBB:
         self.cursor = self.dbconnect.cursor()
 
         # set up nltk
-        nltk.download('punkt')
-
+        try:
+            nltk.data.find('punkt.zip')
+        except LookupError:
+            nltk.download('punkt')
 
     def shut_down_fish(self):
         self.logger.info('killing the fish')

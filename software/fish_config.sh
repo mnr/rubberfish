@@ -47,6 +47,7 @@ case "$1" in
     chmod a+rw /home/pi/rubberfish/fish_personality.json
 
     # Finished with Initial Fish"
+    /home/pi/rubberfish/software/saythisfish.py "Ok - I am ready to be a fish "
 
     ;;
   stop)

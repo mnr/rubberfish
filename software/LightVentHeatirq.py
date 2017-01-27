@@ -27,17 +27,48 @@ my_fish = BmBB()
 myFishPersonality = FishPersonality()
 
 #######################
+# poems by Brian Garrison - haikooligan@gmail.com
+phraseToSay_one = """What kind of clothes would they wear,
+the little fishes of the lake?
+Would they collect tiny pebbles in their pockets
+or carry extra scales for when their own float off?
+Would the big ones strap on large, artificial fins
+to play shark games along the shore?
+Would they wear mittens to ward off winter’s chill,
+and ball caps to block the summer sun?
+Would they be modest? Would they be vain?
+Would they admire the fishery tags and hope
+to one day score a piercing of their own?
+Would they worry that their tails are looking fat?"""
+
+phraseToSay_two = """Do fish tell
+abduction stories, huddled
+around in conference rooms
+of run-down hotels
+or in the calm eddies of
+lesser-known riverbanks
+recounting the horrific tales
+of laying on dry rocks, being
+probed in the gills,
+and passing out?
+And having nothing more
+than their hazy dusk
+memories,
+do they wonder if maybe
+five-fingered mammals
+don't really exist?"""
+#######################
 # Setting up the Heat Switch
 boxHEAT = 10
 def HEAT_callback(GPIOpin):
     switchState,switchChanged = switchHeat.get_state()
     if switchChanged:
         if switchState:
-            my_fish.fishSays("A soft summer night sky above. Heat still radiates. From the pavement beneath your car")
+            my_fish.fishSays(phraseToSay_one)
         else:
-            timestring = time.strftime("%I %p",time.localtime())
-            sayThis = 'It\'s around {} in London. My feet kiss the cold, hard floor. I should have worn socks'.format(timestring)
-            my_fish.fishSays(sayThis)
+            #timestring = time.strftime("%I %p",time.localtime())
+            #sayThis = 'It\'s around {} in London. My feet kiss the cold, hard floor. I should have worn socks'.format(timestring)
+            my_fish.fishSays(phraseToSay_two)
 
 switchHeat = boxSwitch(boxHEAT)
 switchHeat.set_callback(HEAT_callback)

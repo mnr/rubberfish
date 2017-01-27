@@ -119,9 +119,9 @@ class BmBB:
                 # if this sentence is a question
                 awords = aline.split(" ")
                 saystring = " ".join(awords[:-1])
-                saystring += '<prosody pitch="high">'
+                saystring += ' <prosody pitch="high"> '
                 saystring += " ".join(awords[-1:])
-                saystring += '</prosody>'
+                saystring += ' </prosody>'
             else:
                 saystring = aline
             self.cursor.execute(sqlDoThis,[priorityToSay,saystring]);

@@ -74,8 +74,8 @@ while True:
         channel = asound.play()
 
         # randomly bring the head out at the beginning of a phrase
-        if random.randrange(0,2):
-            my_fish.head()
+        if random.randrange(1,7) == 5:
+            my_fish.head(fishDuration=2)
 
         """
         while time.time() < stopwatch_stop:

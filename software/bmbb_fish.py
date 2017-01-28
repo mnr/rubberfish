@@ -114,7 +114,7 @@ class BmBB:
     def fishSays(self,phraseToSay="Hello World",priorityToSay=5):
         sqlDoThis = 'insert into TTS (priority,stringToSay) values (?, ?)'
         # break the phrase into sentences
-        phraseToSay = str(phraseToSay) # remove unicode
+        phraseToSay = phraseToSay.encode('ascii','ignore') # remove unicode
         for aline in sent_tokenize(phraseToSay):
             if aline[-1:] == "?":
                 # if this sentence is a question

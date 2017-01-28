@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+# -*- coding: utf-8 -*-
 
 # rpi.gpio documentation at https://sourceforge.net/p/raspberry-gpio-python/wiki/
 import RPi.GPIO as GPIO
@@ -114,7 +115,6 @@ class BmBB:
     def fishSays(self,phraseToSay="Hello World",priorityToSay=5):
         sqlDoThis = 'insert into TTS (priority,stringToSay) values (?, ?)'
         # break the phrase into sentences
-        phraseToSay = phraseToSay.decode('utf-8','ignore') # remove unicode
         for aline in sent_tokenize(phraseToSay):
             if aline[-1:] == "?":
                 # if this sentence is a question

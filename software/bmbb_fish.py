@@ -7,8 +7,6 @@ from time import sleep as sleep
 import logging
 import threading
 import sqlite3 # used to write to the tts database
-from nltk.tokenize import sent_tokenize # used by saythis() to break into sentences
-import nltk
 
 class BmBB:
     """ interface with the controls and motors of the big mouth billy bass """
@@ -57,13 +55,6 @@ class BmBB:
         # set up SQLite
         self.dbconnect = sqlite3.connect("/home/pi/rubberfish/textToSpeech.db", check_same_thread=False)
         self.cursor = self.dbconnect.cursor()
-
-        # set up nltk
-        # it may be ok to assume these files are available
-        # try:
-        #    nltk.data.find('punkt.zip')
-        #except LookupError:
-        #    nltk.download('punkt')
 
     def shut_down_fish(self):
         self.logger.info('killing the fish')
@@ -114,19 +105,8 @@ class BmBB:
 
     def fishSays(self,phraseToSay="Hello World",priorityToSay=5):
         sqlDoThis = 'insert into TTS (priority,stringToSay) values (?, ?)'
-        # break the phrase into sentences
-        for aline in sent_tokenize(phraseToSay):
-            if aline[-1:] == "?":
-                # if this sentence is a question
-                awords = aline.split(" ")
-                saystring = " ".join(awords[:-1])
-                saystring += ' <prosody pitch="high"> '
-                saystring += " ".join(awords[-1:])
-                saystring += ' </prosody>'
-            else:
-                saystring = aline
-            self.cursor.execute(sqlDoThis,[priorityToSay,saystring]);
-            self.dbconnect.commit()
+        self.cursor.execute(sqlDoThis,[priorityToSay,phraseToSay]);
+        self.dbconnect.commit()
 
     def get_fishIsSpeaking(self):
         return GPIO.input(self.fishIsSpeaking)

@@ -7,6 +7,7 @@ from time import sleep as sleep
 import logging
 import threading
 import sqlite3 # used to write to the tts database
+import re
 
 class BmBB:
     """ interface with the controls and motors of the big mouth billy bass """
@@ -105,6 +106,7 @@ class BmBB:
 
     def fishSays(self,phraseToSay="Hello World",priorityToSay=5):
         sqlDoThis = 'insert into TTS (priority,stringToSay) values (?, ?)'
+        phraseToSay = re.sub(r'[^\x00-\x7f]',r'',phraseToSay)
         self.cursor.execute(sqlDoThis,[priorityToSay,phraseToSay]);
         self.dbconnect.commit()
 

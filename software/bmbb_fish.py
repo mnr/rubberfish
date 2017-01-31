@@ -107,8 +107,10 @@ class BmBB:
     def fishSays(self,phraseToSay="Hello World",priorityToSay=5):
         sqlDoThis = 'insert into TTS (priority,stringToSay) values (?, ?)'
         phraseToSay = re.sub(r'[^\x00-\x7f]',r'',phraseToSay)
-        self.cursor.execute(sqlDoThis,[priorityToSay,phraseToSay]);
-        self.dbconnect.commit()
+        for aline in phraseToSay.splitlines():
+            aline.strip()
+            self.cursor.execute(sqlDoThis,[priorityToSay,aline]);
+            self.dbconnect.commit()
 
     def get_fishIsSpeaking(self):
         return GPIO.input(self.fishIsSpeaking)

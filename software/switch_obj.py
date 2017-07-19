@@ -45,6 +45,7 @@ class boxSwitch:
         GPIO.setmode(GPIO.BOARD)
         GPIO.setup(self.mySwitch, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
         self.logger.info('init ' + str(GPIOpin))
+        self.myState = not self.get_state() # force an initial trigger when read
 
     def get_state(self):
         self.logger.info('Getting state of pin ' + str(self.mySwitch))
